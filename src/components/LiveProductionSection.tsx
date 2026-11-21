@@ -106,8 +106,8 @@ export function LiveProductionSection({
                 </h3>
                 <p className="mt-3 text-base leading-relaxed text-slate-300">
                   A full-stack serverless Social Media Marketing platform engineered for
-                  high-speed order automation, Anti-Replay UPI/UTR Verification &amp; Admin
-                  Audit, and real-time user wallet balances.
+                  high-speed order automation, Automated ZapUPI Gateway Integration with
+                  Anti-Replay Verification, and real-time user wallet balances.
                 </p>
               </div>
 

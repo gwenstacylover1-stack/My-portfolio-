@@ -153,7 +153,7 @@ export const LIVE_PLATFORM_ARCHITECTURE: ArchitectureNode[] = [
     layer: 'API Keys Hidden',
     protocol: 'Serverless Edge Runtime',
     summary:
-      'Isolated edge proxy layer handling request signing, rate validation, Anti-Replay UPI/UTR Verification & Admin Audit, and secret injection via Cloudflare Environment Secrets.',
+      'Isolated edge proxy layer handling request signing, rate validation, Automated ZapUPI order creation, IP-locked webhooks, server-side payment verification, and secret injection via Cloudflare Environment Secrets.',
     securityNote: 'Strict CORS enforcement and server-side token verification before upstream routing.',
     accent: 'blue',
   },
@@ -164,7 +164,7 @@ export const LIVE_PLATFORM_ARCHITECTURE: ArchitectureNode[] = [
     layer: 'Real-Time Database',
     protocol: 'OAuth / Atomic Transactions',
     summary:
-      'Handles user authentication, atomic credit ledger updates, real-time order state synchronization, and verified UTR transaction deduplication.',
+      'Handles user authentication, atomic credit ledger updates, real-time order state synchronization, and idempotent ZapUPI transaction deduplication for instant wallet crediting.',
     securityNote: 'Granular Firestore Security Rules lock wallet mutations to verified server flows.',
     accent: 'cyan',
   },
@@ -187,7 +187,7 @@ export const LIVE_PLATFORM_TECH = [
   'Cloudflare Workers',
   'Firebase Auth',
   'Cloud Firestore',
-  'Anti-Replay UPI/UTR Verification & Admin Audit',
+  'Automated ZapUPI Gateway',
   'REST APIs',
 ];
 
@@ -286,14 +286,14 @@ export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
     fallbackImage: '/src/assets/images/lab_dark_stark_smm_panel_1795187929480.jpg',
     liveUrl: CONTACT_INFO.livePlatformUrl,
     summary:
-      'Full-stack serverless Social Media Marketing platform running 2,809+ live API services with bulk order operations, real-time Firestore wallet telemetry, UPI/UTR deposits, and 24/7 support.',
+      'Full-stack serverless Social Media Marketing platform running 2,809+ live API services with bulk order operations, real-time Firestore wallet telemetry, Automated ZapUPI Gateway Integration with Anti-Replay Verification, and 24/7 support.',
     tags: [
       'React',
       'Cloudflare Pages',
       'Cloudflare Workers',
       'Firebase Auth',
       'Cloud Firestore',
-      'Anti-Replay UPI/UTR Verification & Admin Audit',
+      'Automated ZapUPI Gateway',
     ],
     chapters: [
       {
@@ -334,23 +334,23 @@ export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
     ],
     architecturePipeline: [
       'React Frontend on Cloudflare Pages with zero-refresh live order state',
-      'Cloudflare Workers Edge Proxy hiding upstream SMM provider keys',
-      'Firebase Auth & Cloud Firestore atomic wallet + 12-digit UTR ledger',
+      'Cloudflare Workers Edge Proxy handling Automated ZapUPI order creation, IP-locked webhooks & server-side payment verification',
+      'Firebase Auth & Cloud Firestore atomic wallet with instant ZapUPI crediting & anti-replay deduplication',
       'Upstream Multi-Platform Fulfillment & Support Ticket REST APIs',
     ],
     engineeringFocus:
-      'High-throughput serverless order automation with tamper-proof wallet transactions and Anti-Replay UPI/UTR Verification & Admin Audit.',
+      'High-throughput serverless order automation with tamper-proof wallet transactions and Automated ZapUPI Gateway Integration with Anti-Replay Verification.',
     caseStudy: {
       coreGoal:
-        'Deliver a production-ready, zero-server-overhead e-commerce and digital fulfillment platform capable of handling 2,809+ live catalog services, instant UPI/UTR wallet deposits, and real-time order updates.',
+        'Deliver a production-ready, zero-server-overhead e-commerce and digital fulfillment platform capable of handling 2,809+ live catalog services, automated ZapUPI dynamic QR checkout with instant wallet crediting, and real-time order updates.',
       securityHighlights: [
         'Cloudflare Workers Edge Proxy completely isolates upstream SMM provider keys and fulfillment credentials from client JavaScript.',
-        'Anti-Replay UPI/UTR Verification & Admin Audit prevents duplicate 12-digit UTR credit claims through Cloud Firestore transaction deduplication.',
+        'Automated ZapUPI dynamic QR checkout with IP-locked webhooks, server-side payment verification, and anti-replay Firestore transaction deduplication for instant wallet crediting.',
         'Firestore Security Rules enforce strict per-user read/write isolation for wallet balances, order histories, and support tickets.',
       ],
       engineeringHighlights: [
         'Deployed globally on Cloudflare Pages for near-instant load speed with zero recurring static hosting bills.',
-        'Real-time Firestore listeners push wallet updates, bulk refills, and partial auto-refunds with zero manual page refreshes.',
+        'Real-time Firestore listeners push instant ZapUPI wallet credits, bulk refills, and partial auto-refunds with zero manual page refreshes.',
         '24/7 ticket desk and verification portal linked directly to Order & Transaction IDs for priority resolution.',
       ],
     },
