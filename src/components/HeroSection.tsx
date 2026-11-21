@@ -62,7 +62,7 @@ export function HeroSection() {
 
             {/* Main Headline */}
             <h1 className="mt-6 font-display text-4xl font-bold tracking-[-0.03em] text-white sm:text-5xl lg:text-[3.85rem] lg:leading-[1.04]">
-              Sagabali Tarakeswar
+              S.Tarak
             </h1>
 
             {/* Electric Cyan-to-Blue Gradient Subtitle */}

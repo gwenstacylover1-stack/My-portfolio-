@@ -171,11 +171,11 @@ export const LIVE_PLATFORM_ARCHITECTURE: ArchitectureNode[] = [
   {
     id: 'upstream',
     step: '04',
-    title: 'Upstream SMM & AI REST APIs',
-    layer: 'Fulfillment & AI Support',
+    title: 'Upstream SMM REST APIs',
+    layer: 'Automated Order Fulfillment',
     protocol: 'Encrypted JSON REST',
     summary:
-      'Dispatches automated order execution requests to upstream fulfillment providers and powers the integrated AI customer support assistant with contextual order status.',
+      'Dispatches automated order execution requests, bulk refills, and real-time order status synchronization directly with upstream fulfillment providers.',
     securityNote: 'Outbound calls occur strictly from the Cloudflare Worker boundary.',
     accent: 'pink',
   },
@@ -189,7 +189,6 @@ export const LIVE_PLATFORM_TECH = [
   'Cloud Firestore',
   'Anti-Replay UPI/UTR Verification & Admin Audit',
   'REST APIs',
-  'AI Support Bot',
 ];
 
 export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
@@ -335,7 +334,7 @@ export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
     ],
     architecturePipeline: [
       'React Frontend on Cloudflare Pages with zero-refresh live order state',
-      'Cloudflare Workers Edge Proxy hiding upstream SMM & AI provider keys',
+      'Cloudflare Workers Edge Proxy hiding upstream SMM provider keys',
       'Firebase Auth & Cloud Firestore atomic wallet + 12-digit UTR ledger',
       'Upstream Multi-Platform Fulfillment & Support Ticket REST APIs',
     ],
@@ -345,14 +344,14 @@ export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
       coreGoal:
         'Deliver a production-ready, zero-server-overhead e-commerce and digital fulfillment platform capable of handling 2,809+ live catalog services, instant UPI/UTR wallet deposits, and real-time order updates.',
       securityHighlights: [
-        'Cloudflare Workers Edge Proxy completely isolates upstream SMM provider keys and AI support credentials from client JavaScript.',
+        'Cloudflare Workers Edge Proxy completely isolates upstream SMM provider keys and fulfillment credentials from client JavaScript.',
         'Anti-Replay UPI/UTR Verification & Admin Audit prevents duplicate 12-digit UTR credit claims through Cloud Firestore transaction deduplication.',
         'Firestore Security Rules enforce strict per-user read/write isolation for wallet balances, order histories, and support tickets.',
       ],
       engineeringHighlights: [
         'Deployed globally on Cloudflare Pages for near-instant load speed with zero recurring static hosting bills.',
         'Real-time Firestore listeners push wallet updates, bulk refills, and partial auto-refunds with zero manual page refreshes.',
-        'Integrated AI customer support assistant and ticket desk linked directly to Order & Transaction IDs.',
+        '24/7 ticket desk and verification portal linked directly to Order & Transaction IDs for priority resolution.',
       ],
     },
   },
