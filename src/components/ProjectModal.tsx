@@ -114,10 +114,12 @@ export function ProjectModal({
 
   const handleInquiryJump = () => {
     onClose();
-    const contactEl = document.getElementById('contact');
-    if (contactEl) {
-      contactEl.scrollIntoView({ behavior: 'smooth' });
-    }
+    window.setTimeout(() => {
+      const target =
+        document.getElementById('estimator') ??
+        document.getElementById('contact');
+      target?.scrollIntoView({ behavior: 'smooth' });
+    }, 60);
   };
 
   return (
@@ -162,7 +164,7 @@ export function ProjectModal({
             type="button"
             onClick={onClose}
             aria-label="Close demo modal"
-            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] text-slate-200 transition-colors hover:border-[#00F0FF]/50 hover:text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] text-slate-200 transition-colors hover:border-[#00F0FF]/50 hover:text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
           >
             <X className="h-5 w-5" />
           </button>

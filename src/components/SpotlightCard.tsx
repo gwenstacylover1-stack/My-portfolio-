@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export type SpotlightAccent = 'cyan' | 'blue' | 'pink' | 'emerald';
 
@@ -11,18 +11,25 @@ interface SpotlightCardProps {
   ariaLabel?: string;
 }
 
-const ACCENT_RGBA: Record<SpotlightAccent, string> = {
-  cyan: 'rgba(0, 240, 255, 0.14)',
-  blue: 'rgba(59, 130, 246, 0.16)',
-  pink: 'rgba(236, 72, 153, 0.15)',
-  emerald: 'rgba(16, 185, 129, 0.15)',
+const ACCENT_SURFACE_RGBA: Record<SpotlightAccent, string> = {
+  cyan: 'rgba(0, 240, 255, 0.13)',
+  blue: 'rgba(59, 130, 246, 0.15)',
+  pink: 'rgba(236, 72, 153, 0.14)',
+  emerald: 'rgba(16, 185, 129, 0.14)',
+};
+
+const ACCENT_BORDER_RGBA: Record<SpotlightAccent, string> = {
+  cyan: 'rgba(0, 240, 255, 0.45)',
+  blue: 'rgba(59, 130, 246, 0.48)',
+  pink: 'rgba(236, 72, 153, 0.45)',
+  emerald: 'rgba(16, 185, 129, 0.45)',
 };
 
 const BORDER_HOVER: Record<SpotlightAccent, string> = {
-  cyan: 'hover:border-[#00F0FF]/40',
-  blue: 'hover:border-[#3B82F6]/45',
-  pink: 'hover:border-[#EC4899]/40',
-  emerald: 'hover:border-emerald-400/40',
+  cyan: 'hover:border-[#00F0FF]/35',
+  blue: 'hover:border-[#3B82F6]/40',
+  pink: 'hover:border-[#EC4899]/35',
+  emerald: 'hover:border-emerald-400/35',
 };
 
 export function SpotlightCard({
@@ -34,10 +41,20 @@ export function SpotlightCard({
   ariaLabel,
 }: SpotlightCardProps) {
   const containerRef = useRef<HTMLElement | null>(null);
+  const [finePointer, setFinePointer] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = useState(0);
 
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const sync = () => setFinePointer(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (!finePointer) return;
     const el = containerRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -47,16 +64,39 @@ export function SpotlightCard({
     });
   };
 
-  const baseClasses = `group relative overflow-hidden rounded-2xl bg-[rgba(13,18,30,0.72)] backdrop-blur-xl border border-white/[0.08] transition-colors duration-200 ${BORDER_HOVER[accent]} ${className}`;
+  const baseClasses = `group relative overflow-hidden rounded-[22px] liquid-glass transition-colors duration-200 ${BORDER_HOVER[accent]} ${className}`;
 
-  const spotlightOverlay = (
+  const specularOverlay = finePointer ? (
+    <>
+      {/* Pointer-reactive radial surface glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -inset-px rounded-[22px] transition-opacity duration-200"
+        style={{
+          opacity,
+          background: `radial-gradient(420px circle at ${position.x}px ${position.y}px, ${ACCENT_SURFACE_RGBA[accent]}, transparent 64%)`,
+        }}
+      />
+      {/* Crisp 1px pointer-reactive specular edge highlight */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 rounded-[22px] p-px transition-opacity duration-200"
+        style={{
+          opacity,
+          background: `radial-gradient(280px circle at ${position.x}px ${position.y}px, ${ACCENT_BORDER_RGBA[accent]}, transparent 68%)`,
+          WebkitMask:
+            'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+          WebkitMaskComposite: 'xor',
+          maskComposite: 'exclude',
+        }}
+      />
+    </>
+  ) : null;
+
+  const topSpecularEdge = (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute -inset-px rounded-2xl transition-opacity duration-200"
-      style={{
-        opacity,
-        background: `radial-gradient(420px circle at ${position.x}px ${position.y}px, ${ACCENT_RGBA[accent]}, transparent 65%)`,
-      }}
+      className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
     />
   );
 
@@ -70,11 +110,12 @@ export function SpotlightCard({
         onClick={onClick}
         aria-label={ariaLabel}
         onMouseMove={handleMouseMove}
-        onMouseEnter={() => setOpacity(1)}
-        onMouseLeave={() => setOpacity(0)}
+        onMouseEnter={() => finePointer && setOpacity(1)}
+        onMouseLeave={() => finePointer && setOpacity(0)}
         className={`${baseClasses} text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70`}
       >
-        {spotlightOverlay}
+        {topSpecularEdge}
+        {specularOverlay}
         <div className="relative z-10 h-full">{children}</div>
       </button>
     );
@@ -88,11 +129,12 @@ export function SpotlightCard({
         }}
         onClick={onClick}
         onMouseMove={handleMouseMove}
-        onMouseEnter={() => setOpacity(1)}
-        onMouseLeave={() => setOpacity(0)}
+        onMouseEnter={() => finePointer && setOpacity(1)}
+        onMouseLeave={() => finePointer && setOpacity(0)}
         className={baseClasses}
       >
-        {spotlightOverlay}
+        {topSpecularEdge}
+        {specularOverlay}
         <div className="relative z-10 h-full">{children}</div>
       </article>
     );
@@ -105,11 +147,12 @@ export function SpotlightCard({
       }}
       onClick={onClick}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setOpacity(1)}
-      onMouseLeave={() => setOpacity(0)}
+      onMouseEnter={() => finePointer && setOpacity(1)}
+      onMouseLeave={() => finePointer && setOpacity(0)}
       className={baseClasses}
     >
-      {spotlightOverlay}
+      {topSpecularEdge}
+      {specularOverlay}
       <div className="relative z-10 h-full">{children}</div>
     </div>
   );

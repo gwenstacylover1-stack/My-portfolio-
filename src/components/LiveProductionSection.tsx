@@ -33,10 +33,12 @@ interface LiveProductionSectionProps {
     chapterIndex?: number,
     autoPlay?: boolean,
   ) => void;
+  onOpenCaseStudy: (project: FlagshipProject) => void;
 }
 
 export function LiveProductionSection({
   onOpenProjectDemo,
+  onOpenCaseStudy,
 }: LiveProductionSectionProps) {
   const [activeNodeId, setActiveNodeId] = useState<string>(
     LIVE_PLATFORM_ARCHITECTURE[1].id,
@@ -56,7 +58,7 @@ export function LiveProductionSection({
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.12 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="mb-8 flex flex-col gap-2 sm:mb-10">
@@ -98,34 +100,46 @@ export function LiveProductionSection({
 
             {/* Platform Title & Description */}
             <div className="mt-7 grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
-              <div className="lg:col-span-7">
+              <div className="lg:col-span-6">
                 <h3 className="font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
                   Dark Stark SMM
                 </h3>
                 <p className="mt-3 text-base leading-relaxed text-slate-300">
                   A full-stack serverless Social Media Marketing platform engineered for
-                  high-speed order automation, automated UTR payment verification, real-time
-                  user wallet balances, and an integrated AI customer support assistant.
+                  high-speed order automation, Anti-Replay UPI/UTR Verification &amp; Admin
+                  Audit, real-time user wallet balances, and an integrated AI customer
+                  support assistant.
                 </p>
               </div>
 
-              <div className="flex flex-col gap-3 sm:flex-row lg:col-span-5 lg:justify-end">
+              <div className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap lg:col-span-6 lg:justify-end">
                 {darkStarkProject && (
-                  <button
-                    type="button"
-                    onClick={() => onOpenProjectDemo(darkStarkProject, 0, true)}
-                    className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-[#00F0FF]/35 bg-[#00F0FF]/[0.08] px-5 py-3 text-sm font-semibold text-[#00F0FF] transition-all duration-200 hover:border-[#00F0FF]/70 hover:bg-[#00F0FF]/15 cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
-                  >
-                    <Play className="h-4 w-4 fill-current" aria-hidden="true" />
-                    <span>Watch Demo</span>
-                  </button>
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => onOpenCaseStudy(darkStarkProject)}
+                      className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2.5 text-xs font-semibold text-slate-100 transition-colors hover:border-white/35 hover:bg-white/[0.08] hover:text-white cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
+                    >
+                      <Layers className="h-4 w-4 text-[#00F0FF]" aria-hidden="true" />
+                      <span>Case Study</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => onOpenProjectDemo(darkStarkProject, 0, true)}
+                      className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full border border-[#00F0FF]/35 bg-[#00F0FF]/[0.08] px-5 py-2.5 text-xs font-semibold text-[#00F0FF] transition-all duration-200 hover:border-[#00F0FF]/70 hover:bg-[#00F0FF]/15 cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
+                    >
+                      <Play className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
+                      <span>Watch Demo</span>
+                    </button>
+                  </>
                 )}
 
                 <a
                   href={CONTACT_INFO.livePlatformUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#00F0FF] px-6 py-3 text-sm font-semibold text-[#05070D] shadow-[0_0_26px_rgba(0,240,255,0.38)] transition-all duration-200 hover:bg-[#5CF6FF] hover:shadow-[0_0_36px_rgba(0,240,255,0.6)] whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D121E]"
+                  className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full bg-[#00F0FF] px-5 py-2.5 text-xs font-semibold text-[#04060C] shadow-[0_0_26px_rgba(0,240,255,0.38)] transition-all duration-200 hover:bg-[#5CF6FF] hover:shadow-[0_0_36px_rgba(0,240,255,0.6)] whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D121E]"
                 >
                   <span>Launch Live Website</span>
                   <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -134,7 +148,7 @@ export function LiveProductionSection({
             </div>
 
             {/* Interactive Architecture Flow Diagram */}
-            <div className="mt-9 rounded-2xl border border-white/[0.08] bg-[#060912]/80 p-5 sm:p-6">
+            <div className="mt-9 rounded-2xl border border-white/[0.08] bg-[#050812]/85 p-5 sm:p-6">
               <div className="mb-5 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                 <span className="font-mono text-xs font-semibold tracking-[0.14em] text-slate-300 uppercase">
                   Interactive System Architecture Pipeline
@@ -156,7 +170,7 @@ export function LiveProductionSection({
                         type="button"
                         onClick={() => setActiveNodeId(node.id)}
                         aria-pressed={isActive}
-                        className={`group relative flex flex-col justify-between rounded-xl border p-4 text-left transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/80 ${
+                        className={`group relative flex min-h-[44px] flex-col justify-between rounded-xl border p-4 text-left transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/80 ${
                           isActive
                             ? 'border-[#00F0FF]/60 bg-[#00F0FF]/[0.09] shadow-[0_0_24px_rgba(0,240,255,0.14)]'
                             : 'border-white/[0.08] bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04]'
@@ -196,14 +210,12 @@ export function LiveProductionSection({
                           aria-hidden="true"
                           className="flex items-center justify-center py-0.5 lg:py-0"
                         >
-                          {/* Desktop horizontal beam */}
                           <div className="hidden lg:flex items-center gap-0.5">
                             <div className="relative h-px w-6 overflow-hidden bg-white/15">
                               <div className="animate-flow-beam absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent" />
                             </div>
                             <ArrowRight className="h-3.5 w-3.5 text-[#00F0FF]/70" />
                           </div>
-                          {/* Mobile vertical arrow */}
                           <div className="flex lg:hidden items-center justify-center text-[#00F0FF]/65">
                             <ArrowRight className="h-4 w-4 rotate-90" />
                           </div>

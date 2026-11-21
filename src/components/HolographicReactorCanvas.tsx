@@ -55,13 +55,21 @@ export function HolographicReactorCanvas() {
 
     let width = 0;
     let height = 0;
-    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let dpr = 1;
+
+    const getCappedDpr = () => {
+      const isMobileViewport =
+        window.innerWidth < 768 ||
+        window.matchMedia('(pointer: coarse)').matches;
+      const cap = isMobileViewport ? 1.5 : 2;
+      return Math.min(window.devicePixelRatio || 1, cap);
+    };
 
     const resize = () => {
       const rect = container.getBoundingClientRect();
       width = Math.max(260, rect.width);
       height = Math.max(260, rect.height);
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = getCappedDpr();
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       canvas.style.width = `${width}px`;
@@ -171,10 +179,12 @@ export function HolographicReactorCanvas() {
     };
 
     let rafId = 0;
-    let startTime = performance.now();
+    let isInViewport = true;
+    let isPageVisible = !document.hidden;
+    let accumulatedSeconds = 0;
+    let lastTimestamp = performance.now();
 
-    const renderFrame = (now: number) => {
-      const elapsed = prefersReducedMotion ? 4.2 : (now - startTime) * 0.001;
+    const drawScene = (elapsed: number) => {
       const ptr = pointerRef.current;
       ptr.currentX += (ptr.targetX - ptr.currentX) * 0.06;
       ptr.currentY += (ptr.targetY - ptr.currentY) * 0.06;
@@ -188,12 +198,19 @@ export function HolographicReactorCanvas() {
       const mouseTiltY = ptr.currentX * 0.34;
       const mouseTiltX = ptr.currentY * 0.28;
 
-      // 1. Subtle deep volumetric ambient bloom behind core
-      const ambient = ctx.createRadialGradient(cx, cy, baseScale * 0.05, cx, cy, baseScale * 1.15);
+      // 1. Controlled volumetric ambient bloom behind core
+      const ambient = ctx.createRadialGradient(
+        cx,
+        cy,
+        baseScale * 0.05,
+        cx,
+        cy,
+        baseScale * 1.15,
+      );
       ambient.addColorStop(0, 'rgba(0, 240, 255, 0.20)');
       ambient.addColorStop(0.35, 'rgba(59, 130, 246, 0.11)');
       ambient.addColorStop(0.7, 'rgba(13, 18, 30, 0.02)');
-      ambient.addColorStop(1, 'rgba(5, 7, 13, 0)');
+      ambient.addColorStop(1, 'rgba(4, 6, 12, 0)');
       ctx.fillStyle = ambient;
       ctx.fillRect(0, 0, width, height);
 
@@ -320,7 +337,6 @@ export function HolographicReactorCanvas() {
         return project(p, cx, cy, baseScale);
       });
 
-      // Subtle wireframe filaments between nearest 3D core nodes
       ctx.save();
       ctx.lineWidth = 0.75;
       for (let i = 0; i < projectedNodes.length; i++) {
@@ -343,13 +359,13 @@ export function HolographicReactorCanvas() {
         }
       }
 
-      // Render sorted core nodes
       for (const n of projectedNodes) {
         const alpha = Math.max(0.18, Math.min(0.95, (n.z + 0.55) * 0.85));
         const r = Math.max(1.1, n.depth * 1.55);
-        ctx.fillStyle = n.z > 0.1
-          ? `rgba(0, 240, 255, ${alpha.toFixed(3)})`
-          : `rgba(59, 130, 246, ${(alpha * 0.75).toFixed(3)})`;
+        ctx.fillStyle =
+          n.z > 0.1
+            ? `rgba(0, 240, 255, ${alpha.toFixed(3)})`
+            : `rgba(59, 130, 246, ${(alpha * 0.75).toFixed(3)})`;
         ctx.beginPath();
         ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
         ctx.fill();
@@ -369,13 +385,12 @@ export function HolographicReactorCanvas() {
       coreGlow.addColorStop(0, 'rgba(224, 252, 255, 0.95)');
       coreGlow.addColorStop(0.22, 'rgba(0, 240, 255, 0.65)');
       coreGlow.addColorStop(0.55, 'rgba(59, 130, 246, 0.22)');
-      coreGlow.addColorStop(1, 'rgba(5, 7, 13, 0)');
+      coreGlow.addColorStop(1, 'rgba(4, 6, 12, 0)');
       ctx.fillStyle = coreGlow;
       ctx.beginPath();
       ctx.arc(cx, cy, baseScale * 0.28 * pulse, 0, Math.PI * 2);
       ctx.fill();
 
-      // Sharp inner core ring
       ctx.save();
       ctx.strokeStyle = 'rgba(224, 252, 255, 0.85)';
       ctx.lineWidth = 1.6;
@@ -393,7 +408,10 @@ export function HolographicReactorCanvas() {
           z: 0,
         };
         p = rotateX(p, sat.tiltX + mouseTiltX * 0.9);
-        p = rotateY(p, mouseTiltY + (sat.speed > 0 ? elapsed * 0.12 : -elapsed * 0.18));
+        p = rotateY(
+          p,
+          mouseTiltY + (sat.speed > 0 ? elapsed * 0.12 : -elapsed * 0.18),
+        );
         p = rotateZ(p, sat.tiltZ);
         const pr = project(p, cx, cy, baseScale);
 
@@ -412,21 +430,75 @@ export function HolographicReactorCanvas() {
         ctx.fill();
         ctx.restore();
       }
+    };
 
-      if (!prefersReducedMotion) {
-        rafId = requestAnimationFrame(renderFrame);
+    const tick = (now: number) => {
+      if (!isInViewport || !isPageVisible) {
+        rafId = 0;
+        return;
+      }
+      const delta = Math.min(0.05, (now - lastTimestamp) * 0.001);
+      lastTimestamp = now;
+      accumulatedSeconds += delta;
+
+      drawScene(accumulatedSeconds);
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const startLoop = () => {
+      if (prefersReducedMotion) {
+        drawScene(4.2);
+        return;
+      }
+      if (!rafId && isInViewport && isPageVisible) {
+        lastTimestamp = performance.now();
+        rafId = requestAnimationFrame(tick);
       }
     };
 
-    rafId = requestAnimationFrame(renderFrame);
+    const stopLoop = () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+    };
+
+    const intersectionObserver = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        isInViewport = Boolean(entry?.isIntersecting);
+        if (isInViewport) {
+          startLoop();
+        } else {
+          stopLoop();
+        }
+      },
+      { threshold: 0.05 },
+    );
+    intersectionObserver.observe(container);
+
+    const handleVisibilityChange = () => {
+      isPageVisible = !document.hidden;
+      if (isPageVisible) {
+        startLoop();
+      } else {
+        stopLoop();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    startLoop();
 
     return () => {
-      cancelAnimationFrame(rafId);
+      stopLoop();
       resizeObserver.disconnect();
+      intersectionObserver.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== 'mouse') return;
     const rect = e.currentTarget.getBoundingClientRect();
     const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
@@ -458,3 +530,5 @@ export function HolographicReactorCanvas() {
     </div>
   );
 }
+
+export default HolographicReactorCanvas;

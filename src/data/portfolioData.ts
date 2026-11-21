@@ -18,6 +18,12 @@ export interface VideoChapter {
 
 export type ProjectAccentTheme = 'pink' | 'cyan' | 'holo' | 'emerald';
 
+export interface ProjectCaseStudy {
+  coreGoal: string;
+  securityHighlights: string[];
+  engineeringHighlights: string[];
+}
+
 export interface FlagshipProject {
   id: 'tarakverse-ai' | 'dark-stark-smm' | 'jarvis-ai' | 'jhon-ai';
   orderNumber: string;
@@ -34,6 +40,7 @@ export interface FlagshipProject {
   chapters: VideoChapter[];
   architecturePipeline: string[];
   engineeringFocus: string;
+  caseStudy: ProjectCaseStudy;
 }
 
 export interface SkillCategory {
@@ -59,6 +66,30 @@ export interface ServiceOffering {
   description: string;
   deliverables: string[];
   icon: 'globe' | 'sparkles' | 'server';
+}
+
+export interface EstimatorProjectType {
+  id: string;
+  label: string;
+  subtitle: string;
+  minInr: number;
+  maxInr: number;
+}
+
+export interface EstimatorFeature {
+  id: string;
+  label: string;
+  detail: string;
+  minInr: number;
+  maxInr: number;
+}
+
+export interface EstimatorTimeline {
+  id: 'standard' | 'priority';
+  label: string;
+  eta: string;
+  multiplier: number;
+  detail: string;
 }
 
 /**
@@ -122,7 +153,7 @@ export const LIVE_PLATFORM_ARCHITECTURE: ArchitectureNode[] = [
     layer: 'API Keys Hidden',
     protocol: 'Serverless Edge Runtime',
     summary:
-      'Isolated edge proxy layer handling request signing, rate validation, automated UTR verification webhooks, and secret injection via Cloudflare Environment Secrets.',
+      'Isolated edge proxy layer handling request signing, rate validation, Anti-Replay UPI/UTR Verification & Admin Audit, and secret injection via Cloudflare Environment Secrets.',
     securityNote: 'Strict CORS enforcement and server-side token verification before upstream routing.',
     accent: 'blue',
   },
@@ -156,7 +187,7 @@ export const LIVE_PLATFORM_TECH = [
   'Cloudflare Workers',
   'Firebase Auth',
   'Cloud Firestore',
-  'Automated UTR Verification',
+  'Anti-Replay UPI/UTR Verification & Admin Audit',
   'REST APIs',
   'AI Support Bot',
 ];
@@ -228,6 +259,20 @@ export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
     ],
     engineeringFocus:
       'Zero-key edge routing, atomic credit deduction, and low-latency cinema mastering workflows.',
+    caseStudy: {
+      coreGoal:
+        'Unify multi-engine AI image/video generation (Veo 2 Cine, Kling v1.0, 4K Imagen 3, FLUX), neural upscaling, and bilingual Telugu/English voice sync inside a single serverless studio without exposing vendor API keys in client code.',
+      securityHighlights: [
+        'All upstream generative image/video API tokens live strictly inside Cloudflare Worker Environment Secrets with zero client-side bundle exposure.',
+        'UPI QR credit top-up workflow pairs Firebase Auth identity with atomic Cloud Firestore balance ledgers.',
+        'Private Production Vault scopes media metadata and export telemetry per authenticated user session.',
+      ],
+      engineeringHighlights: [
+        'Unified multi-engine creator bento workspace with curated 70mm IMAX and 35mm Anamorphic 1-click remix presets.',
+        'Integrated Pro v2.8 neural post-production pipeline for 4K/8K tensor upscaling and bilingual Telugu/English audio sync.',
+        'Serverless edge orchestration designed for smooth mobile and desktop studio responsiveness.',
+      ],
+    },
   },
   {
     id: 'dark-stark-smm',
@@ -249,7 +294,7 @@ export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
       'Cloudflare Workers',
       'Firebase Auth',
       'Cloud Firestore',
-      'Automated UTR Verification',
+      'Anti-Replay UPI/UTR Verification & Admin Audit',
     ],
     chapters: [
       {
@@ -295,7 +340,21 @@ export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
       'Upstream Multi-Platform Fulfillment & Support Ticket REST APIs',
     ],
     engineeringFocus:
-      'High-throughput serverless order automation with tamper-proof wallet transactions and automated UTR verification.',
+      'High-throughput serverless order automation with tamper-proof wallet transactions and Anti-Replay UPI/UTR Verification & Admin Audit.',
+    caseStudy: {
+      coreGoal:
+        'Deliver a production-ready, zero-server-overhead e-commerce and digital fulfillment platform capable of handling 2,809+ live catalog services, instant UPI/UTR wallet deposits, and real-time order updates.',
+      securityHighlights: [
+        'Cloudflare Workers Edge Proxy completely isolates upstream SMM provider keys and AI support credentials from client JavaScript.',
+        'Anti-Replay UPI/UTR Verification & Admin Audit prevents duplicate 12-digit UTR credit claims through Cloud Firestore transaction deduplication.',
+        'Firestore Security Rules enforce strict per-user read/write isolation for wallet balances, order histories, and support tickets.',
+      ],
+      engineeringHighlights: [
+        'Deployed globally on Cloudflare Pages for near-instant load speed with zero recurring static hosting bills.',
+        'Real-time Firestore listeners push wallet updates, bulk refills, and partial auto-refunds with zero manual page refreshes.',
+        'Integrated AI customer support assistant and ticket desk linked directly to Order & Transaction IDs.',
+      ],
+    },
   },
   {
     id: 'jarvis-ai',
@@ -363,6 +422,20 @@ export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
     ],
     engineeringFocus:
       'Sub-150ms multimodal command turn-around paired with real-time 3D WebGL shaders and IoT hardware control.',
+    caseStudy: {
+      coreGoal:
+        'Combine a responsive 3D holographic WebGL avatar interface with real-time optical vision, bilingual English/Telugu neural speech, and smart-home BLE/Wi-Fi controls in a single web workspace.',
+      securityHighlights: [
+        'Protected Firebase Authentication guards user command logs, vision sessions, and IoT bridge configurations.',
+        'Multimodal AI and Neural TTS API calls route through edge-proxied endpoints to prevent client-side key leakage.',
+        'Explicit browser permission scoping for camera, microphone, and Web Bluetooth device scanning.',
+      ],
+      engineeringHighlights: [
+        'Three.js 3D Avatar Engine supporting Natural/Hologram shader toggles and custom .glb model uploads.',
+        'HOLO-CORE 16kHz optical vision & radar workspace with Snap Cam Frame and one-tap Telugu & English scene analysis.',
+        'Omnilingual console paired with live Google Search grounding, Fenrir Voice AI, and an integrated AI utilities suite.',
+      ],
+    },
   },
   {
     id: 'jhon-ai',
@@ -429,6 +502,20 @@ export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
     ],
     engineeringFocus:
       'Resilient full-duplex media streams, privacy-masked call automation, and human-in-the-loop safety boundaries.',
+    caseStudy: {
+      coreGoal:
+        'Build a hands-free, full-duplex voice and live-vision AI companion that supports natural bilingual English/Telugu interaction, camera/screen inspection, and strictly gated device actions.',
+      securityHighlights: [
+        'Human-in-the-loop Safety Action Boundary requires explicit user authorization before executing any call or SMS intent.',
+        'Privacy-masked caller ID handling inside the Bilingual Auto-Lift Call Attendant workflow.',
+        'Cloudflare Worker edge routing and Firebase Authentication isolate user sessions and protect all AI stream credentials.',
+      ],
+      engineeringHighlights: [
+        'Live 30-second Web Audio RMS waveform diagnostics with automated 70% peak threshold alerts.',
+        'Full-duplex voice command center with live barge-in interruption while sharing front/rear camera or desktop screen feeds.',
+        'Seamless bilingual English & Telugu speech synthesis tuned for natural real-time conversation.',
+      ],
+    },
   },
 ];
 
@@ -461,7 +548,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       'REST API Integration',
       'Edge Routing',
       'Environment Secrets Management',
-      'Automated Payment / UTR Verification',
+      'Anti-Replay UPI/UTR Verification & Admin Audit',
     ],
   },
   {
@@ -546,8 +633,87 @@ export const SERVICE_OFFERINGS: ServiceOffering[] = [
     title: 'Serverless API & Wallet Systems',
     description:
       'Secure Firebase authentication, real-time user credit/wallet systems, and protected Cloudflare Worker backends.',
-    deliverables: ['Zero-Key Edge Proxies', 'Firestore Credit Ledgers', 'Automated UTR / UPI Flows'],
+    deliverables: ['Zero-Key Edge Proxies', 'Firestore Credit Ledgers', 'Anti-Replay UPI/UTR Verification & Admin Audit'],
     icon: 'server',
+  },
+];
+
+export const ESTIMATOR_PROJECT_TYPES: EstimatorProjectType[] = [
+  {
+    id: 'custom-3d-portfolio',
+    label: 'Custom 3D Portfolio',
+    subtitle: 'Interactive canvas / 3D centerpiece, Liquid Glass UI & mobile-tuned motion',
+    minInr: 12000,
+    maxInr: 22000,
+  },
+  {
+    id: 'business-website',
+    label: 'Business Website',
+    subtitle: 'High-conversion product or agency storefront deployed on Cloudflare Edge',
+    minInr: 10000,
+    maxInr: 18000,
+  },
+  {
+    id: 'ai-api-web-app',
+    label: 'AI / API Web App',
+    subtitle: 'Multimodal voice/vision assistant, edge proxy backend & Firebase Auth',
+    minInr: 25000,
+    maxInr: 45000,
+  },
+  {
+    id: 'ui-ux-redesign',
+    label: 'UI/UX Redesign',
+    subtitle: 'Dark-luxury architecture overhaul, responsive polish & 60fps performance pass',
+    minInr: 8000,
+    maxInr: 15000,
+  },
+];
+
+export const ESTIMATOR_FEATURES: EstimatorFeature[] = [
+  {
+    id: 'interactive-3d-motion',
+    label: 'Interactive 3D & Motion',
+    detail: 'Custom GPU-tuned 3D canvas or Three.js scene with scroll choreography',
+    minInr: 5000,
+    maxInr: 10000,
+  },
+  {
+    id: 'custom-domain-seo',
+    label: 'Custom Domain & SEO Setup',
+    detail: 'DNS routing, SSL, Open Graph previews, sitemap & Lighthouse optimization',
+    minInr: 2500,
+    maxInr: 4500,
+  },
+  {
+    id: 'ai-chatbot-worker',
+    label: 'AI Chatbot / Worker API',
+    detail: 'Zero-exposure Cloudflare Worker proxy + custom multimodal AI integration',
+    minInr: 7500,
+    maxInr: 15000,
+  },
+  {
+    id: 'admin-dashboard',
+    label: 'Admin Dashboard',
+    detail: 'Firebase Auth, real-time Firestore ledger, analytics & wallet/order controls',
+    minInr: 9000,
+    maxInr: 18000,
+  },
+];
+
+export const ESTIMATOR_TIMELINES: EstimatorTimeline[] = [
+  {
+    id: 'standard',
+    label: 'Standard',
+    eta: '2 – 4 Weeks',
+    multiplier: 1,
+    detail: 'Balanced milestone delivery with architecture review & QA polish',
+  },
+  {
+    id: 'priority',
+    label: 'Priority',
+    eta: '7 – 12 Days',
+    multiplier: 1.25,
+    detail: 'Accelerated dedicated sprint for urgent launches & rapid shipping',
   },
 ];
 

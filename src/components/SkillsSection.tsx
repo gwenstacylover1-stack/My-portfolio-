@@ -16,6 +16,13 @@ const ICON_COLORS = {
   pink: 'text-[#EC4899] bg-[#EC4899]/10 border-[#EC4899]/25',
 };
 
+const BENTO_SPANS = [
+  'md:col-span-7',
+  'md:col-span-5',
+  'md:col-span-5',
+  'md:col-span-7',
+];
+
 export function SkillsSection() {
   return (
     <section id="tech-stack" className="relative scroll-mt-24 py-16 sm:py-20 lg:py-24">
@@ -23,7 +30,7 @@ export function SkillsSection() {
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.12 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="mb-8 sm:mb-10">
@@ -35,14 +42,16 @@ export function SkillsSection() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {SKILL_CATEGORIES.map((category) => {
+          {/* Balanced Asymmetric Bento Grid (7/5 + 5/7 rhythm) */}
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-12">
+            {SKILL_CATEGORIES.map((category, idx) => {
               const Icon = CATEGORY_ICONS[category.icon];
+              const spanClass = BENTO_SPANS[idx] ?? 'md:col-span-6';
               return (
                 <SpotlightCard
                   key={category.id}
                   accent={category.accent}
-                  className="p-6 sm:p-7"
+                  className={`p-6 sm:p-7 ${spanClass}`}
                 >
                   <div className="flex items-center gap-3.5">
                     <div

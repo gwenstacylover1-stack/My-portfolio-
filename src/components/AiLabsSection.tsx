@@ -1,4 +1,4 @@
-import { ArrowUpRight, Play } from 'lucide-react';
+import { ArrowUpRight, Layers, Play } from 'lucide-react';
 import { motion } from 'motion/react';
 import {
   FLAGSHIP_PROJECTS,
@@ -15,6 +15,7 @@ interface AiLabsSectionProps {
     chapterIndex?: number,
     autoPlay?: boolean,
   ) => void;
+  onOpenCaseStudy: (project: FlagshipProject) => void;
 }
 
 const CARD_THEME: Record<
@@ -41,7 +42,7 @@ const CARD_THEME: Record<
     stepHover: 'hover:border-[#00F0FF]/45 hover:bg-[#00F0FF]/[0.09]',
     stepTime: 'text-[#00F0FF]',
     primaryCta:
-      'bg-[#00F0FF] text-[#05070D] shadow-[0_0_24px_rgba(0,240,255,0.32)] hover:bg-[#5CF6FF]',
+      'bg-[#00F0FF] text-[#04060C] shadow-[0_0_24px_rgba(0,240,255,0.32)] hover:bg-[#5CF6FF]',
   },
   holo: {
     statusBadge: 'border-sky-400/35 bg-sky-500/12 text-sky-200',
@@ -49,7 +50,7 @@ const CARD_THEME: Record<
     stepHover: 'hover:border-sky-400/45 hover:bg-sky-500/[0.1]',
     stepTime: 'text-sky-300',
     primaryCta:
-      'bg-gradient-to-r from-[#00F0FF] to-[#3B82F6] text-[#05070D] shadow-[0_0_24px_rgba(59,130,246,0.32)] hover:brightness-110',
+      'bg-gradient-to-r from-[#00F0FF] to-[#3B82F6] text-[#04060C] shadow-[0_0_24px_rgba(59,130,246,0.32)] hover:brightness-110',
   },
   emerald: {
     statusBadge: 'border-emerald-400/35 bg-emerald-500/12 text-emerald-200',
@@ -57,18 +58,21 @@ const CARD_THEME: Record<
     stepHover: 'hover:border-emerald-400/45 hover:bg-emerald-500/[0.1]',
     stepTime: 'text-emerald-300',
     primaryCta:
-      'bg-gradient-to-r from-emerald-400 to-[#3B82F6] text-[#05070D] shadow-[0_0_24px_rgba(16,185,129,0.32)] hover:brightness-110',
+      'bg-gradient-to-r from-emerald-400 to-[#3B82F6] text-[#04060C] shadow-[0_0_24px_rgba(16,185,129,0.32)] hover:brightness-110',
   },
 };
 
-export function AiLabsSection({ onOpenProjectDemo }: AiLabsSectionProps) {
+export function AiLabsSection({
+  onOpenProjectDemo,
+  onOpenCaseStudy,
+}: AiLabsSectionProps) {
   return (
     <section id="ai-labs" className="relative scroll-mt-24 py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.08 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="mb-8 flex flex-col justify-between gap-4 sm:mb-10 md:flex-row md:items-end">
@@ -81,8 +85,8 @@ export function AiLabsSection({ onOpenProjectDemo }: AiLabsSectionProps) {
               </h2>
             </div>
             <p className="max-w-md text-sm text-slate-400">
-              Tap any obsidian 9:16 mobile frame or jump straight to a Step 1–5 chapter to
-              watch each system in action with zero page-load overhead.
+              Tap any obsidian 9:16 mobile frame, jump straight to a Step 1–5 chapter, or
+              open the slide-over Architecture &amp; Case Study drawer.
             </p>
           </div>
 
@@ -121,7 +125,7 @@ export function AiLabsSection({ onOpenProjectDemo }: AiLabsSectionProps) {
                       </div>
                     </div>
 
-                    {/* Right: Project Overview, Interactive Chapter Jump Pills & Inspect CTA */}
+                    {/* Right: Project Overview, Interactive Chapter Jump Pills, Case Study & Demo CTAs */}
                     <div className="flex h-full min-w-0 flex-col">
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="font-mono text-xs font-semibold text-slate-500 tabular-nums">
@@ -158,7 +162,7 @@ export function AiLabsSection({ onOpenProjectDemo }: AiLabsSectionProps) {
                               onClick={() =>
                                 onOpenProjectDemo(project, chapterIdx, true)
                               }
-                              className={`flex items-center justify-between gap-2 rounded-xl border border-white/[0.07] bg-white/[0.025] px-3 py-2 text-left transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] ${theme.stepHover}`}
+                              className={`flex min-h-[38px] items-center justify-between gap-2 rounded-xl border border-white/[0.07] bg-white/[0.025] px-3 py-2 text-left transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] ${theme.stepHover}`}
                             >
                               <span className="min-w-0 truncate text-xs font-medium text-slate-200">
                                 <span className="font-mono text-[11px] text-slate-400">
@@ -188,30 +192,41 @@ export function AiLabsSection({ onOpenProjectDemo }: AiLabsSectionProps) {
                         ))}
                       </div>
 
-                      {/* Action Buttons (Zero GitHub/GitLab Buttons) */}
+                      {/* Action Buttons (Demo + Case Study Drawer + Live Site; Zero GitHub/GitLab Buttons) */}
                       <div className="mt-auto pt-5">
-                        <div className="flex flex-wrap items-center gap-2.5 border-t border-white/[0.07] pt-4">
+                        <div className="flex flex-col gap-2.5 border-t border-white/[0.07] pt-4">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => onOpenProjectDemo(project, 0, false)}
+                              className={`inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] ${theme.primaryCta}`}
+                            >
+                              <Play className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
+                              <span>Inspect &amp; Watch Demo</span>
+                            </button>
+
+                            {project.liveUrl && (
+                              <a
+                                href={project.liveUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`Launch ${project.name} live website`}
+                                className="inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-2 text-xs font-semibold text-slate-100 transition-colors hover:border-[#00F0FF]/50 hover:text-[#00F0FF] whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
+                              >
+                                <span>Live Site</span>
+                                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                              </a>
+                            )}
+                          </div>
+
                           <button
                             type="button"
-                            onClick={() => onOpenProjectDemo(project, 0, false)}
-                            className={`inline-flex min-h-[42px] flex-1 items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] ${theme.primaryCta}`}
+                            onClick={() => onOpenCaseStudy(project)}
+                            className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-slate-200 transition-colors duration-150 hover:border-white/30 hover:bg-white/[0.07] hover:text-white cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
                           >
-                            <Play className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
-                            <span>Inspect &amp; Watch Demo</span>
+                            <Layers className="h-3.5 w-3.5 text-[#00F0FF]" aria-hidden="true" />
+                            <span>View Architecture / Case Study</span>
                           </button>
-
-                          {project.liveUrl && (
-                            <a
-                              href={project.liveUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label={`Launch ${project.name} live website`}
-                              className="inline-flex min-h-[42px] items-center justify-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-2 text-xs font-semibold text-slate-100 transition-colors hover:border-[#00F0FF]/50 hover:text-[#00F0FF] whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
-                            >
-                              <span>Live Site</span>
-                              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-                            </a>
-                          )}
                         </div>
                       </div>
                     </div>
