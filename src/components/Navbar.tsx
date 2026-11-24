@@ -79,13 +79,13 @@ export function Navbar() {
               : 'border-white/[0.08] bg-[#070B16]/58 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-lg'
           }`}
         >
-          {/* Zone 1: Minimalist glowing monogram ST. with TARAK */}
+          {/* Zone 1: Minimalist glowing monogram S.TARAK */}
           <a
             href="#top"
-            className="group inline-flex min-h-[44px] items-center gap-2.5 whitespace-nowrap shrink-0 rounded-lg px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70"
+            className="group inline-flex min-h-[44px] items-center gap-0.5 whitespace-nowrap shrink-0 rounded-lg px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70"
           >
             <span className="font-display text-lg font-bold tracking-tight text-[#00F0FF] drop-shadow-[0_0_12px_rgba(0,240,255,0.65)] transition-all duration-200 group-hover:drop-shadow-[0_0_18px_rgba(0,240,255,0.9)]">
-              ST.
+              S.
             </span>
             <span className="font-mono text-xs font-semibold tracking-[0.22em] text-slate-200 transition-colors duration-200 group-hover:text-white">
               TARAK
@@ -159,9 +159,9 @@ export function Navbar() {
             <a
               href="#top"
               onClick={() => setDrawerOpen(false)}
-              className="inline-flex min-h-[44px] items-center gap-2 whitespace-nowrap"
+              className="inline-flex min-h-[44px] items-center gap-0.5 whitespace-nowrap"
             >
-              <span className="font-display text-lg font-bold text-[#00F0FF]">ST.</span>
+              <span className="font-display text-lg font-bold text-[#00F0FF]">S.</span>
               <span className="font-mono text-xs font-semibold tracking-[0.22em] text-slate-200">
                 TARAK
               </span>

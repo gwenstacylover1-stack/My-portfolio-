@@ -15,6 +15,7 @@ import { Navbar } from './components/Navbar';
 import { ProjectEstimator } from './components/ProjectEstimator';
 import { ProjectModal } from './components/ProjectModal';
 import { SkillsSection } from './components/SkillsSection';
+import { Tarak3DStudioSection } from './components/Tarak3DStudioSection';
 import { FlagshipProject } from './data/portfolioData';
 
 interface DemoModalState {
@@ -66,6 +67,7 @@ export default function App() {
             onOpenProjectDemo={handleOpenProjectDemo}
             onOpenCaseStudy={handleOpenCaseStudy}
           />
+          <Tarak3DStudioSection />
           <AiLabsSection
             onOpenProjectDemo={handleOpenProjectDemo}
             onOpenCaseStudy={handleOpenCaseStudy}
