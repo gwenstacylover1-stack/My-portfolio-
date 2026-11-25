@@ -76,6 +76,22 @@
   animation: flowBeam 2.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
+/* Gentle SaaS brand emblem levitation (GPU transform only) */
+@keyframes emblemFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-emblem-float {
+  animation: emblemFloat 4.5s ease-in-out infinite;
+  will-change: transform;
+}
+
 /* Custom minimal dark scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -110,6 +126,7 @@
     scroll-behavior: auto;
   }
   .animate-flow-beam,
+  .animate-emblem-float,
   .animate-pulse,
   .animate-ping {
     animation: none !important;

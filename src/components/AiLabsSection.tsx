@@ -6,6 +6,7 @@ import {
   ProjectAccentTheme,
 } from '../data/portfolioData';
 import { formatTimestamp } from '../utils/youtube';
+import { DarkStarkShowcaseCard } from './DarkStarkShowcaseCard';
 import { ObsidianPhoneFrame } from './ObsidianPhoneFrame';
 import { SpotlightCard } from './SpotlightCard';
 
@@ -66,6 +67,13 @@ export function AiLabsSection({
   onOpenProjectDemo,
   onOpenCaseStudy,
 }: AiLabsSectionProps) {
+  const darkStarkProject = FLAGSHIP_PROJECTS.find(
+    (p) => p.id === 'dark-stark-smm',
+  );
+  const videoDemoProjects = FLAGSHIP_PROJECTS.filter(
+    (p) => p.id !== 'dark-stark-smm',
+  );
+
   return (
     <section id="ai-labs" className="relative scroll-mt-24 py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
@@ -85,24 +93,27 @@ export function AiLabsSection({
               </h2>
             </div>
             <p className="max-w-md text-sm text-slate-400">
-              Tap any obsidian 9:16 mobile frame, jump straight to a Step 1–5 chapter, or
-              open the slide-over Architecture &amp; Case Study drawer.
+              Explore live production architecture, tap any obsidian 9:16 mobile frame,
+              or open the slide-over Architecture &amp; Case Study drawer.
             </p>
           </div>
 
-          {/* 4 Flagship Project Cards Grid (Strict 1-to-1 Video Mapping) */}
+          {/* Flagship Live Production Showcase Card (Dark Stark SMM — No Demo Video) */}
+          {darkStarkProject && (
+            <DarkStarkShowcaseCard
+              project={darkStarkProject}
+              onOpenCaseStudy={onOpenCaseStudy}
+            />
+          )}
+
+          {/* AI Video Demo Project Cards Grid (Strict 1-to-1 Video Mapping) */}
           <div className="grid grid-cols-1 gap-7 lg:grid-cols-2">
-            {FLAGSHIP_PROJECTS.map((project) => {
+            {videoDemoProjects.map((project) => {
               const theme = CARD_THEME[project.accentTheme];
 
               return (
                 <SpotlightCard
                   key={project.id}
-                  id={
-                    project.id === 'dark-stark-smm'
-                      ? 'dark-stark-platform'
-                      : undefined
-                  }
                   as="article"
                   accent={project.spotlightAccent}
                   className="scroll-mt-28 p-5 sm:p-7"
@@ -112,7 +123,7 @@ export function AiLabsSection({
                     <div className="flex flex-col items-center">
                       <ObsidianPhoneFrame
                         projectName={project.name}
-                        youtubeUrl={project.youtubeUrl}
+                        youtubeUrl={project.youtubeUrl ?? ''}
                         fallbackImage={project.fallbackImage}
                         accentTheme={project.accentTheme}
                         isPlaying={false}

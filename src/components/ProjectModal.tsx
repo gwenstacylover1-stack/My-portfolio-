@@ -177,7 +177,7 @@ export function ProjectModal({
             <div className="flex flex-col items-center">
               <ObsidianPhoneFrame
                 projectName={project.name}
-                youtubeUrl={project.youtubeUrl}
+                youtubeUrl={project.youtubeUrl ?? ''}
                 fallbackImage={project.fallbackImage}
                 accentTheme={project.accentTheme}
                 isPlaying={isPlaying}

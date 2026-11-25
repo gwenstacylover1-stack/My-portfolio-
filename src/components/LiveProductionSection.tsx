@@ -109,14 +109,16 @@ export function LiveProductionSection({
                       <span>Case Study</span>
                     </button>
 
-                    <button
-                      type="button"
-                      onClick={() => onOpenProjectDemo(darkStarkProject, 0, true)}
-                      className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full border border-[#00F0FF]/35 bg-[#00F0FF]/[0.08] px-5 py-2.5 text-xs font-semibold text-[#00F0FF] transition-all duration-200 hover:border-[#00F0FF]/70 hover:bg-[#00F0FF]/15 cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
-                    >
-                      <Play className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
-                      <span>Watch Demo</span>
-                    </button>
+                    {darkStarkProject.youtubeUrl && (
+                      <button
+                        type="button"
+                        onClick={() => onOpenProjectDemo(darkStarkProject, 0, true)}
+                        className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full border border-[#00F0FF]/35 bg-[#00F0FF]/[0.08] px-5 py-2.5 text-xs font-semibold text-[#00F0FF] transition-all duration-200 hover:border-[#00F0FF]/70 hover:bg-[#00F0FF]/15 cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
+                      >
+                        <Play className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
+                        <span>Watch Demo</span>
+                      </button>
+                    )}
                   </>
                 )}
               </div>

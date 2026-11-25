@@ -32,7 +32,7 @@ export interface FlagshipProject {
   status: 'LIVE DEPLOYED' | 'IN DEVELOPMENT';
   accentTheme: ProjectAccentTheme;
   spotlightAccent: 'cyan' | 'blue' | 'pink' | 'emerald';
-  youtubeUrl: string;
+  youtubeUrl?: string;
   fallbackImage: string;
   liveUrl?: string;
   summary: string;
@@ -97,7 +97,6 @@ export interface EstimatorTimeline {
  */
 export const PROJECT_DEMO_VIDEOS = {
   tarakverseAi: 'https://youtube.com/shorts/PUNv565xN08',
-  darkStarkSmm: 'https://youtube.com/shorts/UZN4OEPgsE4',
   jarvisAi: 'https://youtube.com/shorts/ybXkXPKhDvI',
   jhonAi: 'https://youtube.com/shorts/P-BpngNgnwY',
 } as const;
@@ -196,83 +195,44 @@ export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
   {
     id: 'dark-stark-smm',
     orderNumber: '01',
-    name: 'DARK STARK PLATFORM',
+    name: 'Dark Stark SMM',
     exactMediaLabel:
-      'DARK STARK PLATFORM — Live Production Wallet, Order-Routing & Support Web Platform',
+      'Dark Stark SMM — Live Production Wallet, Order-Routing & Support Web Platform',
     status: 'LIVE DEPLOYED',
     accentTheme: 'cyan',
     spotlightAccent: 'cyan',
-    youtubeUrl: PROJECT_DEMO_VIDEOS.darkStarkSmm,
     fallbackImage: '/src/assets/images/lab_dark_stark_smm_panel_1795187929480.jpg',
     liveUrl: CONTACT_INFO.livePlatformUrl,
     summary:
-      'Live production wallet, order-routing, and customer support web platform managing 2,809+ live catalog services with bulk order operations, real-time Firestore wallet telemetry, automated Zap payment gateway integration with instant wallet top-ups, full admin panel management, and an integrated support desk.',
+      'Live production SMM & digital services web platform featuring 100% automated ZapUPI instant wallet crediting, real-time two-way support tickets synced with a dedicated Admin Terminal, a Cloudflare Workers SMM v2 edge API proxy, and mobile-first checkout UX.',
     tags: [
       'React',
-      'Cloudflare Pages',
-      'Cloudflare Workers',
-      'Firebase Auth',
-      'Cloud Firestore',
-      'Zap Payment Gateway',
-      'Admin Panel',
+      'Cloudflare Pages & Workers',
+      'Firebase Auth & DB',
+      'ZapUPI API',
+      'Tailwind CSS',
     ],
-    chapters: [
-      {
-        step: 1,
-        seconds: 10,
-        title: 'Multi-Platform Service Catalog',
-        description:
-          '2,809+ live API services with category filtering and real-time pricing.',
-      },
-      {
-        step: 2,
-        seconds: 25,
-        title: 'Order Routing & Bulk Operations',
-        description:
-          'Searchable ledger, Copy Order IDs, Bulk Refill & partial status updates.',
-      },
-      {
-        step: 3,
-        seconds: 45,
-        title: 'Real-Time Wallet & Spend Dashboard',
-        description:
-          'Live balance tracking, spend analytics & no-refresh order status push.',
-      },
-      {
-        step: 4,
-        seconds: 50,
-        title: 'Zap Payment Gateway & Instant Wallet Top-Ups',
-        description:
-          'Automated Zap payment gateway webhooks, instant wallet crediting & admin panel controls.',
-      },
-      {
-        step: 5,
-        seconds: 55,
-        title: '24/7 Support Desk & Admin Panel',
-        description:
-          'Ticket system linked to Order/Transaction IDs, priority escalation & full admin panel management.',
-      },
-    ],
+    chapters: [],
     architecturePipeline: [
-      'React Frontend on Cloudflare Pages with zero-refresh live order state',
-      'Cloudflare Workers Edge Proxy isolating upstream order-routing credentials & Zap webhook signing',
-      'Firebase Auth & Cloud Firestore atomic wallet ledger with automated Zap payment gateway top-ups & admin panel controls',
-      'Upstream Multi-Platform Order-Routing & Customer Support Ticket REST APIs',
+      'Mobile-First React & Tailwind CSS SPA deployed globally on Cloudflare Pages',
+      'Cloudflare Workers API Proxy handling automated SMM v2 order placement, live balance syncing & multi-currency conversion',
+      'Automated ZapUPI Gateway for 100% instant UPI wallet crediting with zero manual UTR verification',
+      'Firebase Auth & Real-Time Database powering Two-Way Customer Support Threads & Admin Terminal management',
     ],
     engineeringFocus:
-      'High-volume serverless order routing, real-time Firestore wallet ledgers, automated Zap payment gateway integration, full admin panel management, and ticketed customer support.',
+      'Automated ZapUPI instant wallet crediting, real-time two-way support & admin terminal, Cloudflare Workers SMM v2 proxying, and mobile-first UX.',
     caseStudy: {
       coreGoal:
-        'Deliver a serverless, live production wallet, order-routing, and customer support web platform capable of handling 2,809+ live catalog services, automated Zap payment gateway instant wallet top-ups, full admin panel management, and real-time order status tracking.',
+        'Ship a fast, zero-clutter production SMM platform with 100% instant automated ZapUPI wallet crediting, real-time two-way customer support & Admin Terminal controls, and secure Cloudflare Workers SMM v2 order routing.',
       securityHighlights: [
-        'Cloudflare Workers Edge Proxy completely isolates upstream provider API keys, Zap payment gateway secrets, and order-routing credentials from client JavaScript.',
-        'Automated Zap payment gateway webhooks verify payments server-side for instant wallet crediting, paired with full admin panel management and role-gated controls.',
-        'Firestore Security Rules enforce strict per-user read/write isolation for wallet balances, order histories, and support tickets.',
+        'Cloudflare Workers Edge Proxy completely isolates upstream SMM v2 provider API keys and ZapUPI credentials from client JavaScript.',
+        'Automated ZapUPI Gateway verifies UPI payments server-side for 100% instant wallet crediting with zero manual UTR verification.',
+        'Firebase Auth & real-time database rules strictly separate customer sessions, wallet balances, and dedicated Admin Terminal operations.',
       ],
       engineeringHighlights: [
-        'Deployed globally on Cloudflare Pages for near-instant load speed across mobile and desktop.',
-        'Real-time Firestore listeners update wallet balances, bulk refills, and order statuses with zero manual page refreshes.',
-        'Customer support ticket desk and verification portal linked directly to Order & Transaction IDs for fast resolution.',
+        'Two-Way Support & Admin Terminal syncs interactive customer ticket threads in real time for instant filtering, replying, and status management.',
+        'Custom Cloudflare Workers API proxy handles automated SMM v2 order placement, live balance syncing, and multi-currency conversion.',
+        'Mobile-first responsive UX delivers adaptive mobile/desktop navigation, live order tracking, and fast zero-clutter checkout flows.',
       ],
     },
   },
