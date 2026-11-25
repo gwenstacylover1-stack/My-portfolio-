@@ -83,10 +83,27 @@ export function ObsidianPhoneFrame({
   const [thumbStage, setThumbStage] = useState<'sd' | 'hq' | 'fallback' | 'none'>(
     videoId ? 'sd' : 'fallback',
   );
+  const [isVideoBuffering, setIsVideoBuffering] = useState<boolean>(false);
 
   useEffect(() => {
     setThumbStage(videoId ? 'sd' : 'fallback');
   }, [videoId, fallbackImage]);
+
+  useEffect(() => {
+    if (!isPlaying || !videoId) {
+      setIsVideoBuffering(false);
+      return;
+    }
+
+    setIsVideoBuffering(true);
+    const safetyTimer = window.setTimeout(() => {
+      setIsVideoBuffering(false);
+    }, 6000);
+
+    return () => {
+      window.clearTimeout(safetyTimer);
+    };
+  }, [isPlaying, videoId, startSeconds, playNonce]);
 
   const theme = ACCENT_STYLES[accentTheme];
 
@@ -151,15 +168,36 @@ export function ObsidianPhoneFrame({
 
           {/* ACTIVE YOUTUBE EMBED (Only mounted after user clicks play or a chapter step) */}
           {isPlaying && videoId ? (
-            <iframe
-              key={`${videoId}-${startSeconds}-${playNonce}`}
-              src={buildYouTubeEmbedUrl(videoId, startSeconds)}
-              title={`${projectName} Live Demo Video`}
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="absolute inset-0 h-full w-full border-0 bg-[#04060C]"
-            />
+            <>
+              <iframe
+                key={`${videoId}-${startSeconds}-${playNonce}`}
+                src={buildYouTubeEmbedUrl(videoId, startSeconds)}
+                title={`${projectName} Live Demo Video`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                onLoad={() => {
+                  window.setTimeout(() => setIsVideoBuffering(false), 220);
+                }}
+                className="absolute inset-0 h-full w-full border-0 bg-[#04060C]"
+              />
+
+              {/* Sleek Cyan Buffering Loader Overlay (hides cleanly once playback starts) */}
+              <div
+                aria-live="polite"
+                aria-hidden={!isVideoBuffering}
+                className={`pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 bg-[#04060C]/90 backdrop-blur-sm transition-opacity duration-300 ${
+                  isVideoBuffering ? 'opacity-100' : 'opacity-0'
+                }`}
+              >
+                <div className="relative flex h-11 w-11 items-center justify-center">
+                  <span className="h-11 w-11 animate-spin rounded-full border-2 border-[#00F0FF]/20 border-t-[#00F0FF] shadow-[0_0_20px_rgba(0,240,255,0.45)]" />
+                  <span className="absolute h-2 w-2 animate-pulse rounded-full bg-[#00F0FF] shadow-[0_0_10px_#00F0FF]" />
+                </div>
+                <span className="font-mono text-[11px] font-medium tracking-[0.14em] text-[#00F0FF]/90">
+                  Loading Demo...
+                </span>
+              </div>
+            </>
           ) : (
             /* LAZY THUMBNAIL COVER STATE (Zero iframe loaded on initial page load) */
             <button

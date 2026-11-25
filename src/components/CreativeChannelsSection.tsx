@@ -48,6 +48,9 @@ export function CreativeChannelsSection() {
   const [fallbackThumbs, setFallbackThumbs] = useState<Record<string, boolean>>(
     {},
   );
+  const [needsLetterboxCrop, setNeedsLetterboxCrop] = useState<
+    Record<string, boolean>
+  >({});
 
   const activeShort =
     activeIndex !== null && shorts[activeIndex] ? shorts[activeIndex] : null;
@@ -305,6 +308,8 @@ export function CreativeChannelsSection() {
               <div className="no-scrollbar flex snap-x snap-mandatory gap-3.5 overflow-x-auto pb-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:pb-0 lg:grid-cols-4">
                   {shorts.map((short, idx) => {
                     const useFallbackThumb = Boolean(fallbackThumbs[short.id]);
+                    const cropLetterbox =
+                      useFallbackThumb || Boolean(needsLetterboxCrop[short.id]);
                     const thumbSrc = useFallbackThumb
                       ? `https://i.ytimg.com/vi/${short.id}/hqdefault.jpg`
                       : `https://i.ytimg.com/vi/${short.id}/oar2.jpg`;
@@ -332,20 +337,35 @@ export function CreativeChannelsSection() {
                             }
                           }}
                           onLoad={(e) => {
+                            const { naturalWidth, naturalHeight } =
+                              e.currentTarget;
                             if (
                               !useFallbackThumb &&
-                              e.currentTarget.naturalWidth <= 120 &&
-                              e.currentTarget.naturalHeight <= 90
+                              naturalWidth <= 120 &&
+                              naturalHeight <= 90
                             ) {
                               setFallbackThumbs((prev) => ({
                                 ...prev,
                                 [short.id]: true,
                               }));
+                              return;
+                            }
+                            if (naturalWidth >= naturalHeight) {
+                              setNeedsLetterboxCrop((prev) =>
+                                prev[short.id]
+                                  ? prev
+                                  : { ...prev, [short.id]: true },
+                              );
+                            } else if (needsLetterboxCrop[short.id]) {
+                              setNeedsLetterboxCrop((prev) => ({
+                                ...prev,
+                                [short.id]: false,
+                              }));
                             }
                           }}
                           className={`h-full w-full object-cover transition-transform duration-500 ease-out ${
-                            useFallbackThumb
-                              ? 'scale-[1.35] group-hover:scale-[1.4]'
+                            cropLetterbox
+                              ? 'scale-[1.42] group-hover:scale-[1.48]'
                               : 'group-hover:scale-105'
                           }`}
                         />
