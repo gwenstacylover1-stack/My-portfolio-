@@ -1,5 +1,5 @@
 import { ArrowUp, ArrowUpRight } from 'lucide-react';
-import { CONTACT_INFO } from '../data/portfolioData';
+import { SOCIAL_LINKS } from './SocialIcons';
 
 export function Footer() {
   return (
@@ -9,14 +9,34 @@ export function Footer() {
           &copy; 2026 S.Tarak Full-Stack Web &amp; AI Systems Developer.
         </p>
 
-        <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-medium">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium">
           <a
-            href={CONTACT_INFO.livePlatformUrl}
+            href="https://crunchxdemo.pages.dev"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-slate-300 transition-colors hover:text-[#00F0FF] whitespace-nowrap"
           >
-            <span>{CONTACT_INFO.livePlatformName}</span>
+            <span>CRUNCHX 3D Demo</span>
+            <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </a>
+
+          <a
+            href={SOCIAL_LINKS.instagram.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-slate-300 transition-colors hover:text-fuchsia-300 whitespace-nowrap"
+          >
+            <span>Instagram</span>
+            <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </a>
+
+          <a
+            href={SOCIAL_LINKS.youtube.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-slate-300 transition-colors hover:text-rose-300 whitespace-nowrap"
+          >
+            <span>YouTube</span>
             <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
           </a>
 

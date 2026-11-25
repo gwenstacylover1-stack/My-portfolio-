@@ -108,7 +108,7 @@ export const CONTACT_INFO = {
   whatsappDisplay: '+91 90595 11206',
   location: 'Hyderabad, Telangana, India · Available Worldwide Remote',
   livePlatformUrl: 'https://cheap-dark-stark-smm-panel.pages.dev/',
-  livePlatformName: 'Dark Stark SMM',
+  livePlatformName: 'Dark Stark Platform',
   defaultWhatsappGreeting:
     'Hi Tarak, I viewed your portfolio and would like to discuss a Full-Stack Web / AI project.',
 } as const;
@@ -153,7 +153,7 @@ export const LIVE_PLATFORM_ARCHITECTURE: ArchitectureNode[] = [
     layer: 'API Keys Hidden',
     protocol: 'Serverless Edge Runtime',
     summary:
-      'Isolated edge proxy layer handling request signing, rate validation, Automated ZapUPI order creation, IP-locked webhooks, server-side payment verification, and secret injection via Cloudflare Environment Secrets.',
+      'Isolated edge proxy layer handling request signing, rate validation, order-routing payloads, automated Zap payment gateway webhook verification, instant wallet crediting, admin panel controls, and secret injection via Cloudflare Environment Secrets.',
     securityNote: 'Strict CORS enforcement and server-side token verification before upstream routing.',
     accent: 'blue',
   },
@@ -164,18 +164,18 @@ export const LIVE_PLATFORM_ARCHITECTURE: ArchitectureNode[] = [
     layer: 'Real-Time Database',
     protocol: 'OAuth / Atomic Transactions',
     summary:
-      'Handles user authentication, atomic credit ledger updates, real-time order state synchronization, and idempotent ZapUPI transaction deduplication for instant wallet crediting.',
-    securityNote: 'Granular Firestore Security Rules lock wallet mutations to verified server flows.',
+      'Handles user authentication, atomic credit ledger updates, real-time order state synchronization, automated Zap payment gateway top-up logs, and full admin panel management.',
+    securityNote: 'Granular Firestore Security Rules lock wallet mutations to verified admin & server flows.',
     accent: 'cyan',
   },
   {
     id: 'upstream',
     step: '04',
-    title: 'Upstream SMM REST APIs',
+    title: 'Upstream Order-Routing REST APIs',
     layer: 'Automated Order Fulfillment',
     protocol: 'Encrypted JSON REST',
     summary:
-      'Dispatches automated order execution requests, bulk refills, and real-time order status synchronization directly with upstream fulfillment providers.',
+      'Dispatches high-volume order-routing requests, bulk refills, and real-time order status synchronization with upstream fulfillment providers alongside support ticket tracking.',
     securityNote: 'Outbound calls occur strictly from the Cloudflare Worker boundary.',
     accent: 'pink',
   },
@@ -187,24 +187,108 @@ export const LIVE_PLATFORM_TECH = [
   'Cloudflare Workers',
   'Firebase Auth',
   'Cloud Firestore',
-  'Automated ZapUPI Gateway',
+  'Zap Payment Gateway',
+  'Admin Panel',
   'REST APIs',
 ];
 
 export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
   {
-    id: 'tarakverse-ai',
+    id: 'dark-stark-smm',
     orderNumber: '01',
+    name: 'DARK STARK PLATFORM',
+    exactMediaLabel:
+      'DARK STARK PLATFORM — Live Production Wallet, Order-Routing & Support Web Platform',
+    status: 'LIVE DEPLOYED',
+    accentTheme: 'cyan',
+    spotlightAccent: 'cyan',
+    youtubeUrl: PROJECT_DEMO_VIDEOS.darkStarkSmm,
+    fallbackImage: '/src/assets/images/lab_dark_stark_smm_panel_1795187929480.jpg',
+    liveUrl: CONTACT_INFO.livePlatformUrl,
+    summary:
+      'Live production wallet, order-routing, and customer support web platform managing 2,809+ live catalog services with bulk order operations, real-time Firestore wallet telemetry, automated Zap payment gateway integration with instant wallet top-ups, full admin panel management, and an integrated support desk.',
+    tags: [
+      'React',
+      'Cloudflare Pages',
+      'Cloudflare Workers',
+      'Firebase Auth',
+      'Cloud Firestore',
+      'Zap Payment Gateway',
+      'Admin Panel',
+    ],
+    chapters: [
+      {
+        step: 1,
+        seconds: 10,
+        title: 'Multi-Platform Service Catalog',
+        description:
+          '2,809+ live API services with category filtering and real-time pricing.',
+      },
+      {
+        step: 2,
+        seconds: 25,
+        title: 'Order Routing & Bulk Operations',
+        description:
+          'Searchable ledger, Copy Order IDs, Bulk Refill & partial status updates.',
+      },
+      {
+        step: 3,
+        seconds: 45,
+        title: 'Real-Time Wallet & Spend Dashboard',
+        description:
+          'Live balance tracking, spend analytics & no-refresh order status push.',
+      },
+      {
+        step: 4,
+        seconds: 50,
+        title: 'Zap Payment Gateway & Instant Wallet Top-Ups',
+        description:
+          'Automated Zap payment gateway webhooks, instant wallet crediting & admin panel controls.',
+      },
+      {
+        step: 5,
+        seconds: 55,
+        title: '24/7 Support Desk & Admin Panel',
+        description:
+          'Ticket system linked to Order/Transaction IDs, priority escalation & full admin panel management.',
+      },
+    ],
+    architecturePipeline: [
+      'React Frontend on Cloudflare Pages with zero-refresh live order state',
+      'Cloudflare Workers Edge Proxy isolating upstream order-routing credentials & Zap webhook signing',
+      'Firebase Auth & Cloud Firestore atomic wallet ledger with automated Zap payment gateway top-ups & admin panel controls',
+      'Upstream Multi-Platform Order-Routing & Customer Support Ticket REST APIs',
+    ],
+    engineeringFocus:
+      'High-volume serverless order routing, real-time Firestore wallet ledgers, automated Zap payment gateway integration, full admin panel management, and ticketed customer support.',
+    caseStudy: {
+      coreGoal:
+        'Deliver a serverless, live production wallet, order-routing, and customer support web platform capable of handling 2,809+ live catalog services, automated Zap payment gateway instant wallet top-ups, full admin panel management, and real-time order status tracking.',
+      securityHighlights: [
+        'Cloudflare Workers Edge Proxy completely isolates upstream provider API keys, Zap payment gateway secrets, and order-routing credentials from client JavaScript.',
+        'Automated Zap payment gateway webhooks verify payments server-side for instant wallet crediting, paired with full admin panel management and role-gated controls.',
+        'Firestore Security Rules enforce strict per-user read/write isolation for wallet balances, order histories, and support tickets.',
+      ],
+      engineeringHighlights: [
+        'Deployed globally on Cloudflare Pages for near-instant load speed across mobile and desktop.',
+        'Real-time Firestore listeners update wallet balances, bulk refills, and order statuses with zero manual page refreshes.',
+        'Customer support ticket desk and verification portal linked directly to Order & Transaction IDs for fast resolution.',
+      ],
+    },
+  },
+  {
+    id: 'tarakverse-ai',
+    orderNumber: '02',
     name: 'TARAKVERSE AI',
     exactMediaLabel:
-      'TARAKVERSE AI — Generative Media & Neural Post-Production Studio',
+      'TARAKVERSE AI — AI Creative Production Suite',
     status: 'IN DEVELOPMENT',
     accentTheme: 'pink',
     spotlightAccent: 'pink',
     youtubeUrl: PROJECT_DEMO_VIDEOS.tarakverseAi,
     fallbackImage: '/src/assets/images/lab_tarakverse_studio_1795180258725.jpg',
     summary:
-      'High-speed creator studio for generative cinema, 4K/8K neural upscaling, bilingual Telugu & English voice sync, and Cloudflare Worker edge proxies backed by a private production vault.',
+      'AI creative workflow studio featuring curated visual presets, multi-model prompt pipelines, bilingual voiceover tools, and Cloudflare Worker API routing.',
     tags: [
       'React',
       'Cloudflare Workers',
@@ -219,7 +303,7 @@ export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
         seconds: 0,
         title: 'Home Studio Bento Deck',
         description:
-          'Veo 2 Cine, Kling v1.0, 4K Imagen 3, AI Tools Suite & Private Vault.',
+          'Curated creative modules, visual presets, AI tools suite & private project vault.',
       },
       {
         step: 2,
@@ -231,127 +315,45 @@ export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
       {
         step: 3,
         seconds: 17,
-        title: 'Multi-Engine Studio & Edge Proxy',
+        title: 'Multi-Model Prompt Studio & Edge Proxy',
         description:
-          'Live 4K FLUX edge worker proxy, cinematic styles & aspect controls.',
+          'Multi-model prompt routing via Cloudflare Workers, visual styles & aspect controls.',
       },
       {
         step: 4,
         seconds: 27,
-        title: 'Neural Post-Production Suite (Pro v2.8)',
+        title: 'Audio & Bilingual Voiceover Tools',
         description:
-          '4K/8K Neural Tensor V4 Upscaler & bilingual Telugu/English Voice Sync.',
+          'Creative post-processing controls & bilingual Telugu/English voiceover sync.',
       },
       {
         step: 5,
         seconds: 43,
         title: 'Private Production Vault',
         description:
-          'Cloud storage telemetry & 4K ProRes / H.265 master exports.',
+          'Organized project history, storage telemetry & export presets.',
       },
     ],
     architecturePipeline: [
-      'React Creator Bento Deck with multi-engine prompt & lens presets',
-      'Cloudflare Workers Edge Proxy isolating generative image/video keys',
-      'Neural Post-Production Suite (4K/8K Tensor Upscaler & Telugu/English Voice Sync)',
-      'Private Vault & Firebase Credit Ledger with UPI QR verification',
+      'React Creator Bento Deck with curated visual presets & prompt templates',
+      'Cloudflare Workers Edge Proxy routing multi-model generative API calls securely',
+      'Creative workflow tools & bilingual Telugu/English voiceover sync',
+      'Private Vault & Firebase Credit Ledger with user session isolation',
     ],
     engineeringFocus:
-      'Zero-key edge routing, atomic credit deduction, and low-latency cinema mastering workflows.',
+      'Zero-key Cloudflare Worker API routing, atomic credit ledgers, and responsive creative workflow tooling.',
     caseStudy: {
       coreGoal:
-        'Unify multi-engine AI image/video generation (Veo 2 Cine, Kling v1.0, 4K Imagen 3, FLUX), neural upscaling, and bilingual Telugu/English voice sync inside a single serverless studio without exposing vendor API keys in client code.',
+        'Unify curated visual presets, multi-model prompt pipelines, and bilingual Telugu/English voiceover tools inside a single serverless studio without exposing vendor API keys in client code.',
       securityHighlights: [
-        'All upstream generative image/video API tokens live strictly inside Cloudflare Worker Environment Secrets with zero client-side bundle exposure.',
-        'UPI QR credit top-up workflow pairs Firebase Auth identity with atomic Cloud Firestore balance ledgers.',
-        'Private Production Vault scopes media metadata and export telemetry per authenticated user session.',
+        'All upstream generative AI API tokens live strictly inside Cloudflare Worker Environment Secrets with zero client-side bundle exposure.',
+        'Credit balance workflows pair Firebase Auth identity with atomic Cloud Firestore balance ledgers.',
+        'Private Production Vault scopes project metadata and export history per authenticated user session.',
       ],
       engineeringHighlights: [
-        'Unified multi-engine creator bento workspace with curated 70mm IMAX and 35mm Anamorphic 1-click remix presets.',
-        'Integrated Pro v2.8 neural post-production pipeline for 4K/8K tensor upscaling and bilingual Telugu/English audio sync.',
+        'Unified multi-model creator bento workspace with curated camera and visual remix presets.',
+        'Integrated creative post-processing controls alongside bilingual Telugu/English voiceover tooling.',
         'Serverless edge orchestration designed for smooth mobile and desktop studio responsiveness.',
-      ],
-    },
-  },
-  {
-    id: 'dark-stark-smm',
-    orderNumber: '02',
-    name: 'DARK STARK SMM PANEL',
-    exactMediaLabel:
-      'DARK STARK SMM PANEL — Full-Stack Serverless E-Commerce & Wallet Platform',
-    status: 'LIVE DEPLOYED',
-    accentTheme: 'cyan',
-    spotlightAccent: 'cyan',
-    youtubeUrl: PROJECT_DEMO_VIDEOS.darkStarkSmm,
-    fallbackImage: '/src/assets/images/lab_dark_stark_smm_panel_1795187929480.jpg',
-    liveUrl: CONTACT_INFO.livePlatformUrl,
-    summary:
-      'Full-stack serverless Social Media Marketing platform running 2,809+ live API services with bulk order operations, real-time Firestore wallet telemetry, Automated ZapUPI Gateway Integration with Anti-Replay Verification, and 24/7 support.',
-    tags: [
-      'React',
-      'Cloudflare Pages',
-      'Cloudflare Workers',
-      'Firebase Auth',
-      'Cloud Firestore',
-      'Automated ZapUPI Gateway',
-    ],
-    chapters: [
-      {
-        step: 1,
-        seconds: 10,
-        title: 'Multi-Platform Catalog',
-        description:
-          '2,809+ live API services across Instagram, YouTube, Telegram, X, TikTok & Spotify.',
-      },
-      {
-        step: 2,
-        seconds: 25,
-        title: 'Order Management & Bulk Operations',
-        description:
-          'Searchable ledger, Copy Order IDs, Bulk Refill & partial auto-refunds.',
-      },
-      {
-        step: 3,
-        seconds: 45,
-        title: 'Real-Time Wallet & Spend Dashboard',
-        description:
-          'Live balance tracking, spend analytics & no-refresh order status push.',
-      },
-      {
-        step: 4,
-        seconds: 50,
-        title: 'UPI Direct Deposit & UTR Verification',
-        description:
-          'Quick INR tiers, dynamic merchant QR & 12-digit UTR pipeline.',
-      },
-      {
-        step: 5,
-        seconds: 55,
-        title: '24/7 Support Desk & Verification Portal',
-        description:
-          'Ticket system linked to Order/Transaction IDs & priority escalation.',
-      },
-    ],
-    architecturePipeline: [
-      'React Frontend on Cloudflare Pages with zero-refresh live order state',
-      'Cloudflare Workers Edge Proxy handling Automated ZapUPI order creation, IP-locked webhooks & server-side payment verification',
-      'Firebase Auth & Cloud Firestore atomic wallet with instant ZapUPI crediting & anti-replay deduplication',
-      'Upstream Multi-Platform Fulfillment & Support Ticket REST APIs',
-    ],
-    engineeringFocus:
-      'High-throughput serverless order automation with tamper-proof wallet transactions and Automated ZapUPI Gateway Integration with Anti-Replay Verification.',
-    caseStudy: {
-      coreGoal:
-        'Deliver a production-ready, zero-server-overhead e-commerce and digital fulfillment platform capable of handling 2,809+ live catalog services, automated ZapUPI dynamic QR checkout with instant wallet crediting, and real-time order updates.',
-      securityHighlights: [
-        'Cloudflare Workers Edge Proxy completely isolates upstream SMM provider keys and fulfillment credentials from client JavaScript.',
-        'Automated ZapUPI dynamic QR checkout with IP-locked webhooks, server-side payment verification, and anti-replay Firestore transaction deduplication for instant wallet crediting.',
-        'Firestore Security Rules enforce strict per-user read/write isolation for wallet balances, order histories, and support tickets.',
-      ],
-      engineeringHighlights: [
-        'Deployed globally on Cloudflare Pages for near-instant load speed with zero recurring static hosting bills.',
-        'Real-time Firestore listeners push instant ZapUPI wallet credits, bulk refills, and partial auto-refunds with zero manual page refreshes.',
-        '24/7 ticket desk and verification portal linked directly to Order & Transaction IDs for priority resolution.',
       ],
     },
   },
@@ -360,7 +362,7 @@ export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
     orderNumber: '03',
     name: 'J.A.R.V.I.S. AI',
     exactMediaLabel:
-      'J.A.R.V.I.S. (MARK-X) — 3D Holographic Multimodal Assistant & Smart Home Hub',
+      'J.A.R.V.I.S. AI — Voice & Vision AI Assistant & Smart Home Hub',
     status: 'IN DEVELOPMENT',
     accentTheme: 'holo',
     spotlightAccent: 'blue',
@@ -547,7 +549,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       'REST API Integration',
       'Edge Routing',
       'Environment Secrets Management',
-      'Anti-Replay UPI/UTR Verification & Admin Audit',
+      'Zap Payment Gateway Webhooks & Admin Panel Controls',
     ],
   },
   {
@@ -574,7 +576,6 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       'Generative Image/Video API Pipelines',
       'Git',
       'GitHub',
-      'GitLab',
       'CI/CD Automated Deployments',
     ],
   },
@@ -602,10 +603,10 @@ export const ARCHITECTURE_STANDARDS: ArchitectureStandard[] = [
   {
     id: 'modern-cicd',
     index: '03',
-    title: 'Modern CI/CD & Version Control',
+    title: 'Serverless Edge Deployments',
     description:
-      'Structured multi-file codebases managed through Git, GitHub, and GitLab with automated deployments for rapid, reliable shipping.',
-    metricLabel: 'Automated Pipelines',
+      'Structured production builds shipped directly to Cloudflare Pages and Cloudflare Workers via GitHub CI/CD for global low-latency delivery and zero server maintenance.',
+    metricLabel: 'Cloudflare Pages & Workers',
     icon: 'git',
   },
 ];
@@ -632,7 +633,7 @@ export const SERVICE_OFFERINGS: ServiceOffering[] = [
     title: 'Serverless API & Wallet Systems',
     description:
       'Secure Firebase authentication, real-time user credit/wallet systems, and protected Cloudflare Worker backends.',
-    deliverables: ['Zero-Key Edge Proxies', 'Firestore Credit Ledgers', 'Anti-Replay UPI/UTR Verification & Admin Audit'],
+    deliverables: ['Zero-Key Edge Proxies', 'Firestore Credit Ledgers', 'Zap Payment Gateway & Admin Panel'],
     icon: 'server',
   },
 ];
@@ -717,8 +718,9 @@ export const ESTIMATOR_TIMELINES: EstimatorTimeline[] = [
 ];
 
 export const PROJECT_TYPES = [
-  'Full-Stack Web App',
-  'Custom AI Assistant',
-  'SaaS / Dashboard',
-  'Other',
+  'Business & Brand Website',
+  'Interactive 3D Brand Showcase',
+  'Custom AI Agent & Automation',
+  'Full-Stack Web Application',
+  'Mobile Application',
 ] as const;

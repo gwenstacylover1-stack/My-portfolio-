@@ -8,6 +8,7 @@ import { AiLabsSection } from './components/AiLabsSection';
 import { ArchitectureSection } from './components/ArchitectureSection';
 import { CaseStudyDrawer } from './components/CaseStudyDrawer';
 import { ContactSection } from './components/ContactSection';
+import { CreativeChannelsSection } from './components/CreativeChannelsSection';
 import { Footer } from './components/Footer';
 import { HeroSection } from './components/HeroSection';
 import { LiveProductionSection } from './components/LiveProductionSection';
@@ -63,18 +64,19 @@ export default function App() {
         <Navbar />
         <main className="flex-1">
           <HeroSection />
-          <LiveProductionSection
+          <Tarak3DStudioSection />
+          <AiLabsSection
             onOpenProjectDemo={handleOpenProjectDemo}
             onOpenCaseStudy={handleOpenCaseStudy}
           />
-          <Tarak3DStudioSection />
-          <AiLabsSection
+          <LiveProductionSection
             onOpenProjectDemo={handleOpenProjectDemo}
             onOpenCaseStudy={handleOpenCaseStudy}
           />
           <SkillsSection />
           <ArchitectureSection />
           <ProjectEstimator />
+          <CreativeChannelsSection />
           <ContactSection />
         </main>
         <Footer />

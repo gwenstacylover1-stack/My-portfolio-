@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { ArrowDownRight, ArrowUpRight, Cpu, Globe, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
-import { CONTACT_INFO, HERO_PROOF_ITEMS } from '../data/portfolioData';
+import { HERO_PROOF_ITEMS } from '../data/portfolioData';
 import { SpotlightCard } from './SpotlightCard';
 
 const HolographicReactorCanvas = lazy(
@@ -72,7 +72,7 @@ export function HeroSection() {
 
             {/* Subheadline */}
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-[17px]">
-              I engineer fast, secure serverless web platforms, automated payment-verified
+              I engineer fast, secure serverless web platforms, custom payment &amp; admin
               dashboards, and real-time multimodal AI assistants using React, Cloudflare Edge,
               and Firebase.
             </p>
@@ -80,12 +80,12 @@ export function HeroSection() {
             {/* Primary Action Buttons */}
             <div className="mt-8 flex flex-col gap-3.5 sm:flex-row sm:items-center">
               <a
-                href={CONTACT_INFO.livePlatformUrl}
+                href="https://crunchxdemo.pages.dev"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#00F0FF] to-[#3B82F6] px-6 py-3 text-sm font-semibold text-[#04060C] shadow-[0_0_28px_rgba(0,240,255,0.32)] transition-all duration-200 hover:brightness-110 hover:shadow-[0_0_38px_rgba(0,240,255,0.52)] whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#04060C]"
               >
-                <span>Visit Live Website</span>
+                <span>Explore Live 3D Demo</span>
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </a>
 
@@ -127,22 +127,57 @@ export function HeroSection() {
         >
           {HERO_PROOF_ITEMS.map((item) => {
             const Icon = PROOF_ICONS[item.id as keyof typeof PROOF_ICONS];
+            const isLivePlatform = item.id === 'live-platform';
             const iconColor =
               item.accent === 'cyan'
                 ? 'text-[#00F0FF]'
                 : item.accent === 'blue'
                   ? 'text-[#3B82F6]'
                   : 'text-[#EC4899]';
-            return (
-              <SpotlightCard key={item.id} accent={item.accent} className="p-5 sm:p-6">
+
+            const cardContent = (
+              <SpotlightCard
+                accent={isLivePlatform ? 'emerald' : item.accent}
+                className={`h-full p-5 sm:p-6 ${
+                  isLivePlatform
+                    ? 'border-emerald-400/30 transition-transform duration-200 group-hover:-translate-y-0.5 hover:border-emerald-400/55'
+                    : ''
+                }`}
+              >
                 <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
-                    <Icon className={`h-5 w-5 ${iconColor}`} aria-hidden="true" />
+                  <div
+                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border ${
+                      isLivePlatform
+                        ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300'
+                        : 'border-white/10 bg-white/[0.04]'
+                    }`}
+                  >
+                    <Icon
+                      className={`h-5 w-5 ${isLivePlatform ? 'text-emerald-300' : iconColor}`}
+                      aria-hidden="true"
+                    />
                   </div>
-                  <div className="min-w-0">
-                    <h2 className="font-display text-base font-semibold text-white">
-                      {item.title}
-                    </h2>
+                  <div className="min-w-0 flex-1">
+                    {isLivePlatform && (
+                      <div className="mb-1.5 inline-flex items-center gap-1.5 rounded-full border border-emerald-400/35 bg-emerald-400/12 px-2.5 py-0.5 font-mono text-[9.5px] font-semibold tracking-wider text-emerald-300 uppercase">
+                        <span className="relative flex h-2 w-2 shrink-0">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                          <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34D399]" />
+                        </span>
+                        <span>LIVE DEPLOYED</span>
+                      </div>
+                    )}
+                    <div className="flex items-center justify-between gap-2">
+                      <h2 className="font-display text-base font-semibold text-white">
+                        {item.title}
+                      </h2>
+                      {isLivePlatform && (
+                        <ArrowDownRight
+                          className="h-4 w-4 shrink-0 text-emerald-300 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:translate-y-0.5"
+                          aria-hidden="true"
+                        />
+                      )}
+                    </div>
                     <p className="mt-1 text-sm leading-snug text-slate-400">
                       {item.subtitle}
                     </p>
@@ -150,6 +185,21 @@ export function HeroSection() {
                 </div>
               </SpotlightCard>
             );
+
+            if (isLivePlatform) {
+              return (
+                <a
+                  key={item.id}
+                  href="#dark-stark-platform"
+                  aria-label="Jump to Dark Stark Platform — Live Deployed Full-Stack System"
+                  className="group block rounded-[22px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/80"
+                >
+                  {cardContent}
+                </a>
+              );
+            }
+
+            return <div key={item.id}>{cardContent}</div>;
           })}
         </motion.div>
       </div>

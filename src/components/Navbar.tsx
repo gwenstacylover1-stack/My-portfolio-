@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { InstagramIcon, SOCIAL_LINKS, YouTubeIcon } from './SocialIcons';
 
 const NAV_LINKS = [
   { id: 'live-build', label: 'Live Build', href: '#live-build' },
@@ -7,6 +8,7 @@ const NAV_LINKS = [
   { id: 'tech-stack', label: 'Tech Stack', href: '#tech-stack' },
   { id: 'architecture', label: 'Architecture', href: '#architecture' },
   { id: 'estimator', label: 'Estimator', href: '#estimator' },
+  { id: 'channels', label: 'Channels', href: '#channels' },
   { id: 'contact', label: 'Contact', href: '#contact' },
 ];
 
@@ -95,7 +97,7 @@ export function Navbar() {
           {/* Zone 2: Clean single-line navigation links with active-section highlight pill */}
           <nav
             aria-label="Primary Navigation"
-            className="hidden md:flex items-center gap-1"
+            className="hidden md:flex items-center gap-0.5 lg:gap-1"
           >
             {NAV_LINKS.map((link) => {
               const isActive = activeSection === link.id;
@@ -104,7 +106,7 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`relative rounded-full px-3.5 py-2 text-xs font-medium transition-all duration-200 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70 lg:text-[13px] ${
+                  className={`relative rounded-full px-2 py-2 text-[11px] font-medium transition-all duration-200 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70 lg:px-3 lg:text-xs xl:px-3.5 xl:text-[13px] ${
                     isActive
                       ? 'border border-[#00F0FF]/30 bg-[#00F0FF]/[0.11] text-[#00F0FF] shadow-[0_0_16px_rgba(0,240,255,0.16)]'
                       : 'border border-transparent text-slate-300 hover:bg-white/[0.04] hover:text-white'
@@ -200,6 +202,30 @@ export function Navbar() {
           </nav>
 
           <div className="mt-auto border-t border-white/[0.08] pt-5">
+            <div className="mb-3 grid grid-cols-2 gap-2.5">
+              <a
+                href={SOCIAL_LINKS.instagram.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow @tarakdevp on Instagram"
+                className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/[0.04] px-3 py-2 text-xs font-medium text-slate-200 transition-all duration-150 hover:border-fuchsia-400/45 hover:bg-fuchsia-500/12 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-400"
+              >
+                <InstagramIcon className="h-4 w-4 text-fuchsia-300" />
+                <span>Instagram</span>
+              </a>
+
+              <a
+                href={SOCIAL_LINKS.youtube.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Watch TARAK YT on YouTube"
+                className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/[0.04] px-3 py-2 text-xs font-medium text-slate-200 transition-all duration-150 hover:border-rose-400/45 hover:bg-rose-500/12 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400"
+              >
+                <YouTubeIcon className="h-4 w-4 text-rose-400" />
+                <span>YouTube</span>
+              </a>
+            </div>
+
             <a
               href="#contact"
               onClick={() => setDrawerOpen(false)}

@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import {
   ArrowRight,
-  ArrowUpRight,
   Cloud,
   Database,
-  ExternalLink,
   Layers,
   Play,
   Shield,
@@ -12,7 +10,6 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import {
-  CONTACT_INFO,
   FLAGSHIP_PROJECTS,
   FlagshipProject,
   LIVE_PLATFORM_ARCHITECTURE,
@@ -63,33 +60,21 @@ export function LiveProductionSection({
         >
           <div className="mb-8 flex flex-col gap-2 sm:mb-10">
             <p className="font-mono text-xs font-medium tracking-[0.18em] text-[#00F0FF] uppercase">
-              Flagship Deployment
+              Production Web Platform
             </p>
             <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Live In Production
+              Live System Architecture
             </h2>
           </div>
 
           <SpotlightCard accent="cyan" className="p-6 sm:p-8 lg:p-10">
-            {/* Header Row: LIVE DEPLOYED Badge + Clickable Live Domain */}
+            {/* Header Row: Architecture Status Badge + Infrastructure Label */}
             <div className="flex flex-col gap-4 border-b border-white/[0.08] pb-6 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 font-mono text-xs font-semibold tracking-wider text-emerald-300 shadow-[0_0_18px_rgba(52,211,153,0.18)] whitespace-nowrap">
                   <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34D399]" />
-                  LIVE DEPLOYED
+                  PRODUCTION BLUEPRINT
                 </span>
-
-                <a
-                  href={CONTACT_INFO.livePlatformUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex max-w-full items-center gap-1.5 rounded-full border border-[#00F0FF]/25 bg-[#00F0FF]/[0.06] px-3.5 py-1 font-mono text-xs text-[#00F0FF] transition-colors duration-150 hover:border-[#00F0FF]/60 hover:bg-[#00F0FF]/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70"
-                >
-                  <span className="truncate">
-                    {CONTACT_INFO.livePlatformUrl}
-                  </span>
-                  <ExternalLink className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                </a>
               </div>
 
               <div className="inline-flex items-center gap-2 font-mono text-xs text-slate-400">
@@ -98,20 +83,21 @@ export function LiveProductionSection({
               </div>
             </div>
 
-            {/* Platform Title & Description */}
+            {/* Architecture Title & Description */}
             <div className="mt-7 grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
-              <div className="lg:col-span-6">
+              <div className="lg:col-span-7">
                 <h3 className="font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
-                  Dark Stark SMM
+                  Serverless Edge &amp; Wallet Architecture
                 </h3>
                 <p className="mt-3 text-base leading-relaxed text-slate-300">
-                  A full-stack serverless Social Media Marketing platform engineered for
-                  high-speed order automation, Automated ZapUPI Gateway Integration with
-                  Anti-Replay Verification, and real-time user wallet balances.
+                  A production-tested serverless architecture engineered for high-volume
+                  order routing, real-time Firestore wallet ledgers, automated Zap payment
+                  gateway integration with instant wallet top-ups, full admin panel
+                  management, and zero-key-exposure edge API proxying.
                 </p>
               </div>
 
-              <div className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap lg:col-span-6 lg:justify-end">
+              <div className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap lg:col-span-5 lg:justify-end">
                 {darkStarkProject && (
                   <>
                     <button
@@ -133,16 +119,6 @@ export function LiveProductionSection({
                     </button>
                   </>
                 )}
-
-                <a
-                  href={CONTACT_INFO.livePlatformUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full bg-[#00F0FF] px-5 py-2.5 text-xs font-semibold text-[#04060C] shadow-[0_0_26px_rgba(0,240,255,0.38)] transition-all duration-200 hover:bg-[#5CF6FF] hover:shadow-[0_0_36px_rgba(0,240,255,0.6)] whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D121E]"
-                >
-                  <span>Launch Live Website</span>
-                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                </a>
               </div>
             </div>
 

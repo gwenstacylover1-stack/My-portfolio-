@@ -17,6 +17,7 @@ import {
   PROJECT_TYPES,
   SERVICE_OFFERINGS,
 } from '../data/portfolioData';
+import { InstagramIcon, SOCIAL_LINKS, YouTubeIcon } from './SocialIcons';
 import { SpotlightCard } from './SpotlightCard';
 
 const SERVICE_ICONS = {
@@ -258,6 +259,64 @@ export function ContactSection() {
                   <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                 </a>
               </SpotlightCard>
+
+              {/* Compact 2-Column Connect on Socials Row */}
+              <div>
+                <div className="mb-2 px-1 font-mono text-[10.5px] font-semibold tracking-[0.14em] text-slate-400 uppercase">
+                  Connect on Socials
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <SpotlightCard accent="pink" className="p-4">
+                    <div className="flex items-center gap-2.5">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-fuchsia-400/30 bg-fuchsia-500/12 text-fuchsia-300">
+                        <InstagramIcon className="h-4 w-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="font-mono text-[10px] tracking-wider text-slate-400 uppercase">
+                          Instagram
+                        </div>
+                        <div className="truncate font-mono text-xs font-semibold text-white">
+                          {SOCIAL_LINKS.instagram.handle}
+                        </div>
+                      </div>
+                    </div>
+                    <a
+                      href={SOCIAL_LINKS.instagram.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-flex min-h-[38px] w-full items-center justify-center gap-1.5 rounded-xl border border-fuchsia-400/30 bg-fuchsia-500/10 px-3 py-1.5 text-xs font-semibold text-fuchsia-200 transition-all duration-150 hover:border-fuchsia-400/60 hover:bg-fuchsia-500/20 hover:text-white whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-400"
+                    >
+                      <span>Follow</span>
+                      <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                    </a>
+                  </SpotlightCard>
+
+                  <SpotlightCard accent="cyan" className="p-4">
+                    <div className="flex items-center gap-2.5">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-rose-500/35 bg-rose-500/12 text-rose-400">
+                        <YouTubeIcon className="h-4 w-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="font-mono text-[10px] tracking-wider text-slate-400 uppercase">
+                          YouTube
+                        </div>
+                        <div className="truncate font-mono text-xs font-semibold text-white">
+                          {SOCIAL_LINKS.youtube.handle}
+                        </div>
+                      </div>
+                    </div>
+                    <a
+                      href={SOCIAL_LINKS.youtube.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-flex min-h-[38px] w-full items-center justify-center gap-1.5 rounded-xl border border-rose-400/30 bg-rose-500/10 px-3 py-1.5 text-xs font-semibold text-rose-200 transition-all duration-150 hover:border-rose-400/60 hover:bg-rose-500/20 hover:text-white whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400"
+                    >
+                      <span>Watch</span>
+                      <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                    </a>
+                  </SpotlightCard>
+                </div>
+              </div>
 
               {/* Location Card */}
               <SpotlightCard accent="pink" className="p-5">

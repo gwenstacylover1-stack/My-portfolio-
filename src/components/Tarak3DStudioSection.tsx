@@ -92,7 +92,7 @@ const STUDIO_CAPABILITIES = [
     id: 'fullstack-store-payments',
     title: 'Full-Stack Store & Payment Integration',
     description:
-      'Custom admin dashboards, UPI/Razorpay checkout, order tracking, and mobile-first optimization.',
+      'Custom admin dashboards, UPI/Razorpay & Stripe checkout, order tracking, and mobile-first optimization.',
     accent: 'blue' as const,
     icon: CreditCard,
   },

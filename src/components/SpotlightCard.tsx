@@ -4,6 +4,7 @@ export type SpotlightAccent = 'cyan' | 'blue' | 'pink' | 'emerald';
 
 interface SpotlightCardProps {
   children: React.ReactNode;
+  id?: string;
   className?: string;
   accent?: SpotlightAccent;
   onClick?: () => void;
@@ -34,6 +35,7 @@ const BORDER_HOVER: Record<SpotlightAccent, string> = {
 
 export function SpotlightCard({
   children,
+  id,
   className = '',
   accent = 'cyan',
   onClick,
@@ -103,6 +105,7 @@ export function SpotlightCard({
   if (as === 'button') {
     return (
       <button
+        id={id}
         ref={(node) => {
           containerRef.current = node;
         }}
@@ -124,6 +127,7 @@ export function SpotlightCard({
   if (as === 'article') {
     return (
       <article
+        id={id}
         ref={(node) => {
           containerRef.current = node;
         }}
@@ -142,6 +146,7 @@ export function SpotlightCard({
 
   return (
     <div
+      id={id}
       ref={(node) => {
         containerRef.current = node;
       }}

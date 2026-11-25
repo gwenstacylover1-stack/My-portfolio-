@@ -98,9 +98,14 @@ export function AiLabsSection({
               return (
                 <SpotlightCard
                   key={project.id}
+                  id={
+                    project.id === 'dark-stark-smm'
+                      ? 'dark-stark-platform'
+                      : undefined
+                  }
                   as="article"
                   accent={project.spotlightAccent}
-                  className="p-5 sm:p-7"
+                  className="scroll-mt-28 p-5 sm:p-7"
                 >
                   <div className="flex h-full flex-col gap-6 sm:grid sm:grid-cols-[224px_1fr] sm:items-start">
                     {/* Left: Sleek Obsidian 9:16 Mobile Phone Frame + Exact Label Directly Below */}
