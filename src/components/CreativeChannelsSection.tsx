@@ -14,11 +14,26 @@ import { AnimatePresence, motion } from 'motion/react';
 import { InstagramIcon, SOCIAL_LINKS, YouTubeIcon } from './SocialIcons';
 import { SpotlightCard } from './SpotlightCard';
 
+const SHORTS_API_PATH = '/api/shorts?limit=6';
+const SHORTS_API_FALLBACK_URL =
+  'https://tarak-portfolio.pages.dev/api/shorts?limit=6';
+
 interface ShortVideo {
   id: string;
   title: string;
   url: string;
   thumbnail: string;
+  fallbackThumbnail: string;
+  published?: string;
+  isShort?: boolean;
+}
+
+interface ShortsApiResponse {
+  handle?: string;
+  source?: string;
+  count?: number;
+  updatedAt?: string;
+  shorts?: Array<Partial<ShortVideo>>;
 }
 
 const CURATED_SHORTS: ShortVideo[] = [
@@ -27,23 +42,62 @@ const CURATED_SHORTS: ShortVideo[] = [
     title: 'Brazilian Beat-Drop Velocity Edit',
     url: 'https://www.youtube.com/shorts/QoCyooRtaGY',
     thumbnail: 'https://i.ytimg.com/vi/QoCyooRtaGY/oar2.jpg',
+    fallbackThumbnail: 'https://i.ytimg.com/vi/QoCyooRtaGY/hqdefault.jpg',
+    isShort: true,
   },
   {
     id: 'PiPlJCcJNK0',
     title: 'TV-Mask Visual Hook Edit',
     url: 'https://www.youtube.com/shorts/PiPlJCcJNK0',
     thumbnail: 'https://i.ytimg.com/vi/PiPlJCcJNK0/oar2.jpg',
+    fallbackThumbnail: 'https://i.ytimg.com/vi/PiPlJCcJNK0/hqdefault.jpg',
+    isShort: true,
   },
   {
     id: '4maHZ02uYn4',
     title: 'Neon Text Masking & Flashback Pacing',
     url: 'https://www.youtube.com/shorts/4maHZ02uYn4',
     thumbnail: 'https://i.ytimg.com/vi/4maHZ02uYn4/oar2.jpg',
+    fallbackThumbnail: 'https://i.ytimg.com/vi/4maHZ02uYn4/hqdefault.jpg',
+    isShort: true,
   },
 ];
 
+function formatShortTitle(rawTitle: string): string {
+  const trimmed = (rawTitle || '').trim();
+  if (!trimmed) return 'TARAK YT Short';
+  const stripped = trimmed
+    .replace(/(?:\s*#[^\s#]+)+$/g, '')
+    .replace(/[\s|•–—/-]+$/g, '')
+    .trim();
+  return stripped || trimmed;
+}
+
+function normalizeShortsPayload(data: ShortsApiResponse | null): ShortVideo[] {
+  if (!data || !Array.isArray(data.shorts)) return [];
+  return data.shorts
+    .filter(
+      (item): item is Partial<ShortVideo> & { id: string } =>
+        Boolean(item && typeof item.id === 'string' && item.id.trim().length > 0),
+    )
+    .map((item) => {
+      const id = item.id.trim();
+      return {
+        id,
+        title: (item.title || 'TARAK YT Short').trim(),
+        url: item.url || `https://www.youtube.com/shorts/${id}`,
+        thumbnail: item.thumbnail || `https://i.ytimg.com/vi/${id}/oar2.jpg`,
+        fallbackThumbnail:
+          item.fallbackThumbnail || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+        published: item.published,
+        isShort: item.isShort ?? true,
+      };
+    });
+}
+
 export function CreativeChannelsSection() {
-  const shorts = CURATED_SHORTS;
+  const [shorts, setShorts] = useState<ShortVideo[]>(CURATED_SHORTS);
+  const [isLoadingShorts, setIsLoadingShorts] = useState<boolean>(true);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [fallbackThumbs, setFallbackThumbs] = useState<Record<string, boolean>>(
     {},
@@ -51,6 +105,62 @@ export function CreativeChannelsSection() {
   const [needsLetterboxCrop, setNeedsLetterboxCrop] = useState<
     Record<string, boolean>
   >({});
+
+  // Live auto-updating YouTube Shorts feed via /api/shorts?limit=6 with silent fallback
+  useEffect(() => {
+    const controller = new AbortController();
+    let active = true;
+
+    const fetchJsonShorts = async (url: string): Promise<ShortVideo[]> => {
+      const res = await fetch(url, {
+        signal: controller.signal,
+        headers: { Accept: 'application/json' },
+      });
+      if (!res.ok) return [];
+      const contentType = res.headers.get('content-type') || '';
+      if (!contentType.toLowerCase().includes('application/json')) return [];
+      const data = (await res.json()) as ShortsApiResponse;
+      return normalizeShortsPayload(data);
+    };
+
+    const loadShorts = async () => {
+      try {
+        let loaded: ShortVideo[] = [];
+        try {
+          loaded = await fetchJsonShorts(SHORTS_API_PATH);
+        } catch {
+          loaded = [];
+        }
+
+        if (
+          loaded.length === 0 &&
+          typeof window !== 'undefined' &&
+          window.location.origin !== 'https://tarak-portfolio.pages.dev'
+        ) {
+          loaded = await fetchJsonShorts(SHORTS_API_FALLBACK_URL);
+        }
+
+        if (!active) return;
+        if (loaded.length > 0) {
+          setShorts(loaded);
+        } else {
+          setShorts(CURATED_SHORTS);
+        }
+      } catch {
+        if (!active) return;
+        setShorts(CURATED_SHORTS);
+      } finally {
+        if (active) setIsLoadingShorts(false);
+      }
+    };
+
+    void loadShorts();
+
+    return () => {
+      active = false;
+      controller.abort();
+    };
+  }, []);
 
   const activeShort =
     activeIndex !== null && shorts[activeIndex] ? shorts[activeIndex] : null;
@@ -256,7 +366,7 @@ export function CreativeChannelsSection() {
                   {/* Primary CTA */}
                   <div className="mt-auto pt-6">
                     <a
-                      href={SOCIAL_LINKS.youtube.url}
+                      href="https://www.youtube.com/@TARAKYT-i9z"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#FF2A55] via-[#F43F5E] to-[#00F0FF] px-6 py-3 text-sm font-semibold text-white shadow-[0_0_28px_rgba(244,63,94,0.28)] transition-all duration-200 hover:brightness-110 hover:shadow-[0_0_38px_rgba(0,240,255,0.36)] whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
@@ -304,28 +414,51 @@ export function CreativeChannelsSection() {
                 </span>
               </div>
 
-              {/* Curated Vertical 9:16 Shorts Reel Rail */}
-              <div className="no-scrollbar flex snap-x snap-mandatory gap-3.5 overflow-x-auto pb-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:pb-0 lg:grid-cols-4">
+              {/* Live Auto-Updating 9:16 Shorts Reel Rail with Dark-Glass Skeletons */}
+              {isLoadingShorts ? (
+                <div
+                  aria-label="Loading latest YouTube Shorts"
+                  className="no-scrollbar flex snap-x snap-mandatory gap-3.5 overflow-x-auto pb-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:pb-0 lg:grid-cols-4"
+                >
+                  {[0, 1, 2, 3].map((idx) => (
+                    <div
+                      key={idx}
+                      className="relative aspect-[9/16] w-[44vw] max-w-[210px] shrink-0 snap-start animate-pulse overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.06] via-white/[0.03] to-[#04060C]/85 backdrop-blur-md md:w-full md:max-w-none"
+                    >
+                      <div className="absolute left-2.5 top-2.5 h-4 w-16 rounded-full bg-white/[0.08]" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="h-12 w-12 rounded-full border border-white/10 bg-white/[0.05]" />
+                      </div>
+                      <div className="absolute inset-x-3 bottom-3 space-y-1.5">
+                        <div className="h-3 w-4/5 rounded bg-white/[0.09]" />
+                        <div className="h-3 w-3/5 rounded bg-white/[0.06]" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="no-scrollbar flex snap-x snap-mandatory gap-3.5 overflow-x-auto pb-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:pb-0 lg:grid-cols-4">
                   {shorts.map((short, idx) => {
+                    const displayTitle = formatShortTitle(short.title);
                     const useFallbackThumb = Boolean(fallbackThumbs[short.id]);
                     const cropLetterbox =
                       useFallbackThumb || Boolean(needsLetterboxCrop[short.id]);
                     const thumbSrc = useFallbackThumb
-                      ? `https://i.ytimg.com/vi/${short.id}/hqdefault.jpg`
-                      : `https://i.ytimg.com/vi/${short.id}/oar2.jpg`;
+                      ? short.fallbackThumbnail
+                      : short.thumbnail;
 
                     return (
                       <button
                         key={short.id}
                         type="button"
                         onClick={() => setActiveIndex(idx)}
-                        aria-label={`Play Short: ${short.title}`}
+                        aria-label={`Play Short: ${displayTitle}`}
                         className="group relative aspect-[9/16] w-[44vw] max-w-[210px] shrink-0 snap-start overflow-hidden rounded-2xl border border-white/12 bg-[#050812] text-left transition-all duration-300 ease-out cursor-pointer hover:border-[#00F0FF]/60 hover:shadow-[0_0_28px_rgba(0,240,255,0.2),0_0_22px_rgba(244,63,94,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] md:w-full md:max-w-none md:hover:scale-[1.03]"
                       >
-                        {/* Native 9:16 Vertical Shorts Poster (oar2.jpg) with cropped hqdefault.jpg fallback */}
+                        {/* Native 9:16 Vertical Shorts Poster (oar2.jpg) with auto-crop for wider/fallback frames */}
                         <img
                           src={thumbSrc}
-                          alt={short.title}
+                          alt={displayTitle}
                           loading="lazy"
                           referrerPolicy="no-referrer"
                           onError={() => {
@@ -363,51 +496,52 @@ export function CreativeChannelsSection() {
                               }));
                             }
                           }}
-                          className={`h-full w-full object-cover transition-transform duration-500 ease-out ${
+                          className={`h-full w-full object-cover object-center transition-transform duration-500 ease-out ${
                             cropLetterbox
                               ? 'scale-[1.42] group-hover:scale-[1.48]'
                               : 'group-hover:scale-105'
                           }`}
                         />
 
-                      {/* Measured Top & Bottom Dark Contrast Scrim */}
-                      <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#04060C] via-[#04060C]/35 to-[#04060C]/25"
-                      />
+                        {/* Measured Top & Bottom Dark Contrast Scrim */}
+                        <div
+                          aria-hidden="true"
+                          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#04060C] via-[#04060C]/35 to-[#04060C]/25"
+                        />
 
-                      {/* Subtle Crimson-to-Cyan Top Rim Accent on Hover */}
-                      <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#F43F5E] via-[#00F0FF] to-[#3B82F6] opacity-40 transition-opacity duration-200 group-hover:opacity-100"
-                      />
+                        {/* Subtle Crimson-to-Cyan Top Rim Accent on Hover */}
+                        <div
+                          aria-hidden="true"
+                          className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#F43F5E] via-[#00F0FF] to-[#3B82F6] opacity-40 transition-opacity duration-200 group-hover:opacity-100"
+                        />
 
-                      {/* Top Micro-Badge */}
-                      <div className="absolute left-2.5 top-2.5 inline-flex items-center gap-1 rounded-full border border-white/15 bg-[#04060C]/80 px-2 py-0.5 font-mono text-[9.5px] font-semibold tracking-wider text-slate-200 backdrop-blur-md">
-                        <YouTubeIcon className="h-3 w-3 text-rose-400" />
-                        <span>SHORTS</span>
-                      </div>
+                        {/* Top Micro-Badge */}
+                        <div className="absolute left-2.5 top-2.5 inline-flex items-center gap-1 rounded-full border border-white/15 bg-[#04060C]/80 px-2 py-0.5 font-mono text-[9.5px] font-semibold tracking-wider text-slate-200 backdrop-blur-md">
+                          <YouTubeIcon className="h-3 w-3 text-rose-400" />
+                          <span>SHORTS</span>
+                        </div>
 
-                      {/* Glassmorphic Center Play Button */}
-                      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                        <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-[#070B16]/72 text-white shadow-[0_8px_28px_rgba(0,0,0,0.65)] backdrop-blur-md transition-all duration-200 group-hover:scale-110 group-hover:border-[#00F0FF]/80 group-hover:bg-[#00F0FF] group-hover:text-[#04060C] group-hover:shadow-[0_0_28px_rgba(0,240,255,0.65)] sm:h-13 sm:w-13">
-                          <Play
-                            className="ml-0.5 h-5 w-5 fill-current"
-                            aria-hidden="true"
-                          />
-                        </span>
-                      </div>
+                        {/* Glassmorphic Center Play Button */}
+                        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-[#070B16]/72 text-white shadow-[0_8px_28px_rgba(0,0,0,0.65)] backdrop-blur-md transition-all duration-200 group-hover:scale-110 group-hover:border-[#00F0FF]/80 group-hover:bg-[#00F0FF] group-hover:text-[#04060C] group-hover:shadow-[0_0_28px_rgba(0,240,255,0.65)] sm:h-13 sm:w-13">
+                            <Play
+                              className="ml-0.5 h-5 w-5 fill-current"
+                              aria-hidden="true"
+                            />
+                          </span>
+                        </div>
 
-                      {/* Bottom Clamped 2-Line Title */}
-                      <div className="absolute inset-x-0 bottom-0 p-3 sm:p-3.5">
-                        <p className="line-clamp-2 font-display text-xs font-bold leading-snug text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] sm:text-sm">
-                          {short.title}
-                        </p>
-                      </div>
-                    </button>
+                        {/* Bottom Clamped 2-Line Title */}
+                        <div className="absolute inset-x-0 bottom-0 p-3 sm:p-3.5">
+                          <p className="line-clamp-2 font-display text-xs font-bold leading-snug text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] sm:text-sm">
+                            {displayTitle}
+                          </p>
+                        </div>
+                      </button>
                     );
                   })}
-              </div>
+                </div>
+              )}
             </SpotlightCard>
           </motion.div>
         </div>
@@ -491,7 +625,7 @@ export function CreativeChannelsSection() {
                       TARAK YT · SHORT {activeIndex + 1} / {shorts.length}
                     </div>
                     <h3 className="mt-0.5 truncate font-display text-sm font-bold text-white sm:text-base">
-                      {activeShort.title}
+                      {formatShortTitle(activeShort.title)}
                     </h3>
                   </div>
 

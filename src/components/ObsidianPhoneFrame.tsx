@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Cpu, Play } from 'lucide-react';
 import { ProjectAccentTheme, VideoChapter } from '../data/portfolioData';
 import {
@@ -84,12 +84,18 @@ export function ObsidianPhoneFrame({
     videoId ? 'sd' : 'fallback',
   );
   const [isVideoBuffering, setIsVideoBuffering] = useState<boolean>(false);
+  const loadRevealTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     setThumbStage(videoId ? 'sd' : 'fallback');
   }, [videoId, fallbackImage]);
 
   useEffect(() => {
+    if (loadRevealTimerRef.current !== null) {
+      window.clearTimeout(loadRevealTimerRef.current);
+      loadRevealTimerRef.current = null;
+    }
+
     if (!isPlaying || !videoId) {
       setIsVideoBuffering(false);
       return;
@@ -102,6 +108,10 @@ export function ObsidianPhoneFrame({
 
     return () => {
       window.clearTimeout(safetyTimer);
+      if (loadRevealTimerRef.current !== null) {
+        window.clearTimeout(loadRevealTimerRef.current);
+        loadRevealTimerRef.current = null;
+      }
     };
   }, [isPlaying, videoId, startSeconds, playNonce]);
 
@@ -176,7 +186,13 @@ export function ObsidianPhoneFrame({
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 onLoad={() => {
-                  window.setTimeout(() => setIsVideoBuffering(false), 220);
+                  if (loadRevealTimerRef.current !== null) {
+                    window.clearTimeout(loadRevealTimerRef.current);
+                  }
+                  loadRevealTimerRef.current = window.setTimeout(() => {
+                    setIsVideoBuffering(false);
+                    loadRevealTimerRef.current = null;
+                  }, 220);
                 }}
                 className="absolute inset-0 h-full w-full border-0 bg-[#04060C]"
               />
