@@ -194,10 +194,10 @@ export function Navbar() {
     <>
       <header className="pointer-events-none fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-5 sm:pt-4">
         <div
-          className={`pointer-events-auto mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 rounded-2xl border px-4 transition-all duration-200 sm:h-15 sm:px-5 lg:rounded-full lg:border-cyan-400/20 ${
+          className={`pointer-events-auto mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 rounded-2xl border px-4 transition-all duration-200 sm:h-15 sm:px-5 md:gap-3 md:rounded-full md:border-cyan-400/20 ${
             scrolled
-              ? 'border-white/[0.12] bg-[#070B16]/84 shadow-[0_16px_44px_rgba(0,0,0,0.65),0_0_32px_-16px_rgba(0,240,255,0.2),inset_0_1px_0_rgba(255,255,255,0.08)] lg:shadow-[0_16px_44px_rgba(0,0,0,0.65),0_0_28px_rgba(34,211,238,0.10),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl'
-              : 'border-white/[0.09] bg-[#070B16]/62 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] lg:shadow-[0_0_28px_rgba(34,211,238,0.10),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-lg'
+              ? 'border-white/[0.12] bg-[#070B16]/84 shadow-[0_16px_44px_rgba(0,0,0,0.65),0_0_32px_-16px_rgba(0,240,255,0.2),inset_0_1px_0_rgba(255,255,255,0.08)] md:shadow-[0_16px_44px_rgba(0,0,0,0.65),0_0_28px_rgba(34,211,238,0.10),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl'
+              : 'border-white/[0.09] bg-[#070B16]/62 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] md:shadow-[0_0_28px_rgba(34,211,238,0.10),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-lg'
           }`}
         >
           {/* Zone 1: Minimalist glowing monogram S.TARAK */}
@@ -214,10 +214,10 @@ export function Navbar() {
             </span>
           </a>
 
-          {/* Zone 2: Desktop-only centered single-row navigation links (>= 1024px) */}
+          {/* Zone 2: Desktop & Tablet-landscape centered single-row navigation links (>= 768px) */}
           <nav
             aria-label="Primary Navigation"
-            className="hidden lg:flex items-center gap-1 xl:gap-2"
+            className="hidden md:flex items-center md:gap-0.5 lg:gap-1.5 xl:gap-2"
           >
             {DESKTOP_NAV_LINKS.map((link) => {
               const isActive = activeSection === link.id;
@@ -227,7 +227,7 @@ export function Navbar() {
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.id, false)}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[13px] xl:text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70 ${
+                  className={`inline-flex items-center gap-1.5 rounded-full py-1.5 md:px-2 lg:px-3 md:text-xs lg:text-[13px] xl:text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70 ${
                     isActive
                       ? 'border border-cyan-400/35 bg-cyan-400/10 text-white shadow-[0_0_14px_rgba(34,211,238,0.22)]'
                       : 'border border-transparent text-slate-300/85 hover:bg-white/[0.05] hover:text-white hover:shadow-[0_0_12px_rgba(34,211,238,0.12)]'
@@ -250,7 +250,7 @@ export function Navbar() {
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, 'contact', false)}
-              className="hidden sm:inline-flex min-h-[38px] items-center justify-center rounded-full bg-gradient-to-r from-[#00F0FF] via-[#38BDF8] to-[#818CF8] px-5 py-2 text-xs font-semibold tracking-wide text-[#04060C] shadow-[0_0_22px_rgba(0,240,255,0.34)] transition-all duration-200 hover:brightness-110 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#04060C]"
+              className="hidden sm:inline-flex min-h-[38px] items-center justify-center rounded-full bg-gradient-to-r from-[#00F0FF] via-[#38BDF8] to-[#818CF8] px-4 lg:px-5 py-2 text-xs font-semibold tracking-wide text-[#04060C] shadow-[0_0_22px_rgba(0,240,255,0.34)] transition-all duration-200 hover:brightness-110 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#04060C]"
             >
               Hire Me
             </a>
@@ -262,7 +262,7 @@ export function Navbar() {
               aria-label={
                 drawerOpen ? 'Close navigation menu' : 'Open navigation menu'
               }
-              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-slate-200 transition-colors duration-150 hover:border-[#00F0FF]/40 hover:text-[#00F0FF] cursor-pointer lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-slate-200 transition-colors duration-150 hover:border-[#00F0FF]/40 hover:text-[#00F0FF] cursor-pointer md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70"
             >
               {drawerOpen ? (
                 <X className="h-5 w-5" />
@@ -277,7 +277,7 @@ export function Navbar() {
       {/* Mobile Slide-Over Liquid Glass Drawer */}
       <div
         aria-hidden={!drawerOpen}
-        className={`fixed inset-0 z-50 lg:hidden transition-opacity duration-200 ${
+        className={`fixed inset-0 z-50 md:hidden transition-opacity duration-200 ${
           drawerOpen
             ? 'pointer-events-auto opacity-100'
             : 'pointer-events-none opacity-0'
