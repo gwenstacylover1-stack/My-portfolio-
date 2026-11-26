@@ -121,10 +121,10 @@ export function ContactSection() {
         >
           {/* Section Heading */}
           <div className="mb-8 sm:mb-10">
-            <p className="font-mono text-xs font-medium tracking-[0.18em] text-[#00F0FF] uppercase">
+            <p className="text-xs font-medium tracking-[0.18em] text-[#00F0FF] uppercase">
               Services &amp; Direct Contact
             </p>
-            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Let&apos;s Build Your Next Product
             </h2>
           </div>
@@ -151,14 +151,14 @@ export function ContactSection() {
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
                       <Icon className={`h-5 w-5 ${iconColor}`} aria-hidden="true" />
                     </div>
-                    <h3 className="mt-4 font-display text-lg font-bold tracking-tight text-white">
+                    <h3 className="mt-4 text-lg font-bold tracking-tight text-white">
                       {service.title}
                     </h3>
                     <p className="mt-2 text-sm leading-relaxed text-slate-300">
                       {service.description}
                     </p>
                     <div className="mt-auto pt-4">
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-white/[0.07] pt-3 font-mono text-[11px] text-slate-400">
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-white/[0.07] pt-3 text-[11px] text-slate-400">
                         {service.deliverables.map((item, i) => (
                           <span key={item} className="inline-flex items-center gap-2">
                             <span>{item}</span>
@@ -188,10 +188,10 @@ export function ContactSection() {
                     <Mail className="h-5 w-5" aria-hidden="true" />
                   </div>
                   <div className="min-w-0">
-                    <div className="font-mono text-[11px] tracking-wider text-slate-400 uppercase">
+                    <div className="text-[11px] tracking-wider text-slate-400 uppercase">
                       Direct Email
                     </div>
-                    <div className="truncate font-mono text-sm font-medium text-white">
+                    <div className="truncate text-sm font-medium text-white">
                       {CONTACT_INFO.email}
                     </div>
                   </div>
@@ -234,10 +234,10 @@ export function ContactSection() {
                       <MessageCircle className="h-5 w-5" aria-hidden="true" />
                     </div>
                     <div>
-                      <div className="font-mono text-[11px] tracking-wider text-slate-400 uppercase">
+                      <div className="text-[11px] tracking-wider text-slate-400 uppercase">
                         WhatsApp Direct
                       </div>
-                      <div className="font-mono text-sm font-medium text-white tabular-nums">
+                      <div className="text-sm font-medium text-white tabular-nums">
                         {CONTACT_INFO.whatsappDisplay}
                       </div>
                     </div>
@@ -262,7 +262,7 @@ export function ContactSection() {
 
               {/* Compact 2-Column Connect on Socials Row */}
               <div>
-                <div className="mb-2 px-1 font-mono text-[10.5px] font-semibold tracking-[0.14em] text-slate-400 uppercase">
+                <div className="mb-2 px-1 text-[10.5px] font-semibold tracking-[0.14em] text-slate-400 uppercase">
                   Connect on Socials
                 </div>
                 <div className="grid grid-cols-2 gap-3">
@@ -272,10 +272,10 @@ export function ContactSection() {
                         <InstagramIcon className="h-4 w-4" />
                       </div>
                       <div className="min-w-0">
-                        <div className="font-mono text-[10px] tracking-wider text-slate-400 uppercase">
+                        <div className="text-[10px] tracking-wider text-slate-400 uppercase">
                           Instagram
                         </div>
-                        <div className="truncate font-mono text-xs font-semibold text-white">
+                        <div className="truncate text-xs font-semibold text-white">
                           {SOCIAL_LINKS.instagram.handle}
                         </div>
                       </div>
@@ -297,10 +297,10 @@ export function ContactSection() {
                         <YouTubeIcon className="h-4 w-4" />
                       </div>
                       <div className="min-w-0">
-                        <div className="font-mono text-[10px] tracking-wider text-slate-400 uppercase">
+                        <div className="text-[10px] tracking-wider text-slate-400 uppercase">
                           YouTube
                         </div>
-                        <div className="truncate font-mono text-xs font-semibold text-white">
+                        <div className="truncate text-xs font-semibold text-white">
                           {SOCIAL_LINKS.youtube.handle}
                         </div>
                       </div>
@@ -325,7 +325,7 @@ export function ContactSection() {
                     <MapPin className="h-5 w-5" aria-hidden="true" />
                   </div>
                   <div>
-                    <div className="font-mono text-[11px] tracking-wider text-slate-400 uppercase">
+                    <div className="text-[11px] tracking-wider text-slate-400 uppercase">
                       Base &amp; Availability
                     </div>
                     <p className="mt-0.5 text-sm font-medium text-slate-100">
@@ -340,7 +340,7 @@ export function ContactSection() {
             <div className="lg:col-span-7">
               <SpotlightCard accent="cyan" className="h-full p-6 sm:p-8">
                 <div className="flex flex-col gap-1">
-                  <h3 className="font-display text-xl font-bold tracking-tight text-white">
+                  <h3 className="text-xl font-bold tracking-tight text-white">
                     Quick Project Inquiry
                   </h3>
                   <p className="text-sm text-slate-400">
@@ -357,7 +357,7 @@ export function ContactSection() {
                     <div>
                       <label
                         htmlFor="inquiry-name"
-                        className="mb-1.5 block font-mono text-xs text-slate-300"
+                        className="mb-1.5 block text-xs text-slate-300"
                       >
                         Your Name
                       </label>
@@ -377,7 +377,7 @@ export function ContactSection() {
                     <div>
                       <label
                         htmlFor="inquiry-type"
-                        className="mb-1.5 block font-mono text-xs text-slate-300"
+                        className="mb-1.5 block text-xs text-slate-300"
                       >
                         Project Type
                       </label>
@@ -406,7 +406,7 @@ export function ContactSection() {
                   <div>
                     <label
                       htmlFor="inquiry-brief"
-                      className="mb-1.5 block font-mono text-xs text-slate-300"
+                      className="mb-1.5 block text-xs text-slate-300"
                     >
                       Project Brief
                     </label>
@@ -448,7 +448,7 @@ export function ContactSection() {
                   {formHint && (
                     <p
                       role="status"
-                      className="font-mono text-xs text-[#00F0FF]"
+                      className="text-xs text-[#00F0FF]"
                     >
                       {formHint}
                     </p>
@@ -473,7 +473,7 @@ export function ContactSection() {
         <div className="flex items-center gap-2.5 rounded-full border border-emerald-400/35 bg-[#0A1120]/95 px-4 py-2.5 text-xs font-medium text-emerald-200 shadow-[0_12px_36px_rgba(0,0,0,0.65)] backdrop-blur-xl">
           <Check className="h-4 w-4 text-emerald-400" aria-hidden="true" />
           <span>Copied!</span>
-          <span className="font-mono text-slate-400">{CONTACT_INFO.email}</span>
+          <span className="text-slate-400">{CONTACT_INFO.email}</span>
         </div>
       </div>
     </section>

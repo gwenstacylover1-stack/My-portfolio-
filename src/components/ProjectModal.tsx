@@ -140,17 +140,17 @@ export function ProjectModal({
         {/* Compact Modal Header */}
         <div className="flex items-center justify-between gap-4 border-b border-white/[0.08] px-5 py-4 sm:px-7">
           <div className="flex min-w-0 items-center gap-3">
-            <span className="font-mono text-xs font-semibold text-slate-400 tabular-nums">
+            <span className="text-xs font-semibold text-slate-400 tabular-nums">
               {project.orderNumber}
             </span>
             <h3
               id="modal-project-title"
-              className="truncate font-display text-lg font-bold tracking-tight text-white sm:text-xl"
+              className="truncate text-lg font-bold tracking-tight text-white sm:text-xl"
             >
               {project.name}
             </h3>
             <span
-              className={`hidden sm:inline-flex items-center rounded-full border px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-wider whitespace-nowrap ${
+              className={`hidden sm:inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-semibold tracking-wider whitespace-nowrap ${
                 project.status === 'LIVE DEPLOYED'
                   ? 'border-emerald-400/35 bg-emerald-400/12 text-emerald-300'
                   : theme.badge
@@ -195,7 +195,7 @@ export function ProjectModal({
               <div
                 className={`mt-4 w-full max-w-[310px] rounded-2xl border px-4 py-3 text-center ${theme.labelBorder}`}
               >
-                <p className="font-mono text-[11px] font-semibold leading-relaxed tracking-wide">
+                <p className="text-[11px] font-semibold leading-relaxed tracking-wide">
                   {project.exactMediaLabel}
                 </p>
               </div>
@@ -204,10 +204,10 @@ export function ProjectModal({
             {/* Right Column: Interactive Step 1-5 Chapter Pills + Specs & Client Inquiry CTA */}
             <div className="flex flex-col">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="font-mono text-xs font-semibold tracking-[0.15em] text-slate-300 uppercase">
+                <span className="text-xs font-semibold tracking-[0.15em] text-slate-300 uppercase">
                   Interactive Video Chapters
                 </span>
-                <span className="font-mono text-[11px] text-slate-400">
+                <span className="text-[11px] text-slate-400">
                   Tap any step to jump to timestamp
                 </span>
               </div>
@@ -230,7 +230,7 @@ export function ProjectModal({
                     >
                       <div className="mt-0.5 flex shrink-0 flex-col items-center gap-1">
                         <span
-                          className={`inline-flex items-center gap-1 rounded-full border border-white/10 bg-[#05070D]/80 px-2.5 py-0.5 font-mono text-[11px] font-semibold tabular-nums ${
+                          className={`inline-flex items-center gap-1 rounded-full border border-white/10 bg-[#05070D]/80 px-2.5 py-0.5 text-[11px] font-semibold tabular-nums ${
                             isActive ? theme.stepNumber : 'text-slate-300'
                           }`}
                         >
@@ -245,13 +245,13 @@ export function ProjectModal({
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
                           <span
-                            className={`font-mono text-[11px] font-semibold uppercase tracking-wider ${
+                            className={`text-[11px] font-semibold uppercase tracking-wider ${
                               isActive ? theme.stepNumber : 'text-slate-400'
                             }`}
                           >
                             Step {chapter.step}
                           </span>
-                          <span className="font-display text-sm font-bold text-white sm:text-[15px]">
+                          <span className="text-sm font-bold text-white sm:text-[15px]">
                             {chapter.title}
                           </span>
                         </div>
@@ -266,7 +266,7 @@ export function ProjectModal({
 
               {/* System Architecture Highlights */}
               <div className="mt-6 border-t border-white/[0.08] pt-5">
-                <div className="flex items-center gap-2 font-mono text-[11px] font-semibold tracking-[0.14em] text-slate-300 uppercase">
+                <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.14em] text-slate-300 uppercase">
                   <Layers className="h-3.5 w-3.5 text-[#00F0FF]" aria-hidden="true" />
                   <span>Production Architecture</span>
                 </div>
@@ -276,7 +276,7 @@ export function ProjectModal({
                       key={stage}
                       className="flex items-start gap-2.5 rounded-xl border border-white/[0.07] bg-white/[0.02] px-3.5 py-2.5 text-xs leading-relaxed text-slate-300"
                     >
-                      <span className="font-mono text-[11px] font-semibold text-[#00F0FF] tabular-nums">
+                      <span className="text-[11px] font-semibold text-[#00F0FF] tabular-nums">
                         0{i + 1}
                       </span>
                       <span>{stage}</span>
@@ -290,7 +290,7 @@ export function ProjectModal({
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-lg border border-white/[0.09] bg-white/[0.03] px-2.5 py-1 font-mono text-[11px] text-slate-200"
+                    className="rounded-lg border border-white/[0.09] bg-white/[0.03] px-2.5 py-1 text-[11px] text-slate-200"
                   >
                     {tag}
                   </span>

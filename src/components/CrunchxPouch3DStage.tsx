@@ -121,8 +121,8 @@ function paintFrontFoilCanvases(
   const ctx = albedoCanvas.getContext('2d')!;
   const rctx = roughCanvas.getContext('2d')!;
 
-  // Roughness base: glossy satin metallic foil (darker = glossier, lighter = matte)
-  rctx.fillStyle = '#525252';
+  // Roughness base: satin metallic foil clamped to avoid mirror blowout
+  rctx.fillStyle = '#C8C8C8';
   rctx.fillRect(0, 0, width, height);
 
   // Rich metallic flavor foil gradient
@@ -190,8 +190,8 @@ function paintFrontFoilCanvases(
   ctx.closePath();
   ctx.fill();
 
-  // Mirror glossy foil accents into roughness map
-  rctx.fillStyle = '#262626';
+  // Satin metallic foil accents in roughness map (clamped to prevent harsh white glare)
+  rctx.fillStyle = '#AEAEAE';
   rctx.beginPath();
   rctx.moveTo(0, 260);
   rctx.lineTo(420, 500);
@@ -401,12 +401,12 @@ function paintFrontFoilCanvases(
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
   ctx.strokeText(prefix, startX, titleY);
 
-  // Glossy metallic stamp in roughness map for wordmark
+  // Satin metallic stamp in roughness map for wordmark
   rctx.save();
   rctx.textAlign = 'left';
   rctx.textBaseline = 'middle';
   rctx.font = ctx.font;
-  rctx.fillStyle = '#121212';
+  rctx.fillStyle = '#9E9E9E';
   rctx.fillText(prefix + suffix, startX, titleY);
   rctx.restore();
   ctx.restore();
@@ -438,7 +438,7 @@ function paintFrontFoilCanvases(
   ctx.fillText(flavor.packTitle, cx, pillY + pillH / 2 + 1);
   ctx.restore();
 
-  rctx.fillStyle = '#181818';
+  rctx.fillStyle = '#A4A4A4';
   rctx.beginPath();
   rctx.roundRect(pillX, pillY, pillW, pillH, 44);
   rctx.fill();
@@ -939,11 +939,12 @@ export function CrunchxPouch3DStage({
     const maxDpr = isSoftwareGl ? 1 : Math.min(window.devicePixelRatio || 1, 2);
     renderer.setPixelRatio(maxDpr);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.12;
+    renderer.toneMappingExposure = 0.96;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.domElement.style.display = 'block';
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
+    renderer.domElement.style.touchAction = 'pan-y';
     canvasHost.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
@@ -952,7 +953,7 @@ export function CrunchxPouch3DStage({
     camera.position.set(0, 0.04, 6.2);
     camera.lookAt(0, -0.02, 0);
 
-    // Procedural Studio RoomEnvironment for crisp metallic light streaks across foil
+    // Procedural Studio RoomEnvironment for smooth metallic reflections without specular blowout
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
     pmremGenerator.compileEquirectangularShader();
     const roomEnv = new RoomEnvironment();
@@ -961,24 +962,27 @@ export function CrunchxPouch3DStage({
     roomEnv.dispose();
     pmremGenerator.dispose();
 
-    // Studio Lighting Setup
-    const hemiLight = new THREE.HemisphereLight('#DCEEFF', '#0A0D1C', 0.65);
+    // Balanced Studio Lighting Setup (soft ambient + hemisphere fill, controlled directional/point lights)
+    const ambientLight = new THREE.AmbientLight('#E2E8F0', 0.48);
+    scene.add(ambientLight);
+
+    const hemiLight = new THREE.HemisphereLight('#E0F2FE', '#111827', 0.95);
     scene.add(hemiLight);
 
-    const keyLight = new THREE.DirectionalLight('#FFFFFF', 2.2);
+    const keyLight = new THREE.DirectionalLight('#FFFFFF', 1.25);
     keyLight.position.set(2.8, 3.6, 4.4);
     scene.add(keyLight);
 
     const initialFlavor = FLAVORS[activeFlavorRef.current];
-    const rimLight = new THREE.DirectionalLight(initialFlavor.rimLightHex, 2.0);
+    const rimLight = new THREE.DirectionalLight(initialFlavor.rimLightHex, 1.05);
     rimLight.position.set(-3.4, 1.8, -2.8);
     scene.add(rimLight);
 
-    const cyanLight = new THREE.PointLight('#00f5ff', 7.5, 11, 1.7);
+    const cyanLight = new THREE.PointLight('#00f5ff', 3.0, 11, 1.8);
     cyanLight.position.set(-2.5, 1.0, 2.4);
     scene.add(cyanLight);
 
-    const pinkLight = new THREE.PointLight('#ff2e97', 7.5, 11, 1.7);
+    const pinkLight = new THREE.PointLight('#ff2e97', 3.0, 11, 1.8);
     pinkLight.position.set(2.5, -0.8, 2.2);
     scene.add(pinkLight);
 
@@ -1026,63 +1030,64 @@ export function CrunchxPouch3DStage({
       },
     );
 
-    // Glossy Metallic Foil Materials
+    // Satin Metallic Foil Materials (clamped roughness >= 0.35 & metalness <= 0.65 for zero glare blowout)
     const frontMaterial = new THREE.MeshPhysicalMaterial({
       map: frontMap,
       roughnessMap: frontRoughMap,
       color: new THREE.Color(initialFlavor.foilTint),
-      metalness: 0.72,
-      roughness: 0.36,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.1,
-      reflectivity: 0.96,
-      envMapIntensity: 1.5,
+      metalness: 0.56,
+      roughness: 0.58,
+      clearcoat: 0.22,
+      clearcoatRoughness: 0.46,
+      reflectivity: 0.5,
+      envMapIntensity: 0.72,
     });
 
     const backMaterial = new THREE.MeshPhysicalMaterial({
       map: backMap,
       color: new THREE.Color(initialFlavor.foilTint),
-      metalness: 0.74,
-      roughness: 0.28,
-      clearcoat: 0.95,
-      clearcoatRoughness: 0.14,
-      envMapIntensity: 1.4,
+      metalness: 0.54,
+      roughness: 0.44,
+      clearcoat: 0.2,
+      clearcoatRoughness: 0.48,
+      envMapIntensity: 0.68,
     });
 
     const gussetMaterial = new THREE.MeshPhysicalMaterial({
       map: gussetMap,
       color: new THREE.Color(initialFlavor.foilTint),
-      metalness: 0.82,
-      roughness: 0.24,
-      clearcoat: 0.92,
-      clearcoatRoughness: 0.14,
-      envMapIntensity: 1.45,
+      metalness: 0.58,
+      roughness: 0.42,
+      clearcoat: 0.2,
+      clearcoatRoughness: 0.48,
+      envMapIntensity: 0.68,
     });
 
     const seamEdgeMaterial = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color(initialFlavor.darkStop),
-      metalness: 0.88,
-      roughness: 0.22,
-      clearcoat: 0.85,
-      clearcoatRoughness: 0.14,
-      envMapIntensity: 1.45,
+      metalness: 0.6,
+      roughness: 0.42,
+      clearcoat: 0.2,
+      clearcoatRoughness: 0.48,
+      envMapIntensity: 0.7,
     });
 
     const crimpMaterial = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color('#475569'),
-      metalness: 0.95,
-      roughness: 0.15,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.09,
-      envMapIntensity: 1.9,
+      metalness: 0.62,
+      roughness: 0.38,
+      clearcoat: 0.24,
+      clearcoatRoughness: 0.44,
+      envMapIntensity: 0.78,
     });
 
     const accentTrimMaterial = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color('#1E293B'),
-      metalness: 0.9,
-      roughness: 0.2,
-      clearcoat: 0.8,
-      envMapIntensity: 1.5,
+      metalness: 0.6,
+      roughness: 0.4,
+      clearcoat: 0.22,
+      clearcoatRoughness: 0.45,
+      envMapIntensity: 0.72,
     });
 
     const foilBodyMaterials: THREE.Material[] = [
@@ -1511,16 +1516,14 @@ export function CrunchxPouch3DStage({
     const resizeObserver = new ResizeObserver(handleResize);
     resizeObserver.observe(container);
 
-    // Smooth 360° pointer/touch drag interactivity
+    // Smooth 360° horizontal-only pointer/touch drag interactivity (ignores vertical deltaY)
     let dragging = false;
     let activePointerId: number | null = null;
     let lastPointerX = 0;
-    let lastPointerY = 0;
 
+    const STATIC_POUCH_PITCH_X = 0.06;
     let targetRotY = pouchPivot.rotation.y;
     let currentRotY = pouchPivot.rotation.y;
-    let targetRotX = pouchPivot.rotation.x;
-    let currentRotX = pouchPivot.rotation.x;
     let dragVelocityY = 0;
 
     const onPointerDown = (e: PointerEvent) => {
@@ -1529,27 +1532,24 @@ export function CrunchxPouch3DStage({
       setIsDragging(true);
       activePointerId = e.pointerId;
       lastPointerX = e.clientX;
-      lastPointerY = e.clientY;
       dragVelocityY = 0;
-      try {
-        renderer.domElement.setPointerCapture(e.pointerId);
-      } catch {
-        // Ignore if unsupported
+      if (e.pointerType === 'mouse') {
+        try {
+          renderer.domElement.setPointerCapture(e.pointerId);
+        } catch {
+          // Ignore if unsupported
+        }
       }
     };
 
     const onPointerMove = (e: PointerEvent) => {
       if (!dragging || e.pointerId !== activePointerId) return;
       const dx = e.clientX - lastPointerX;
-      const dy = e.clientY - lastPointerY;
       lastPointerX = e.clientX;
-      lastPointerY = e.clientY;
 
       const deltaY = dx * 0.0115;
-      const deltaX = dy * 0.0065;
       targetRotY += deltaY;
       dragVelocityY = deltaY * 22;
-      targetRotX = THREE.MathUtils.clamp(targetRotX + deltaX, -0.38, 0.38);
     };
 
     const endDrag = (e: PointerEvent) => {
@@ -1557,10 +1557,12 @@ export function CrunchxPouch3DStage({
       dragging = false;
       setIsDragging(false);
       activePointerId = null;
-      try {
-        renderer.domElement.releasePointerCapture(e.pointerId);
-      } catch {
-        // Ignore
+      if (e.pointerType === 'mouse') {
+        try {
+          renderer.domElement.releasePointerCapture(e.pointerId);
+        } catch {
+          // Ignore
+        }
       }
     };
 
@@ -1643,21 +1645,18 @@ export function CrunchxPouch3DStage({
       gussetMaterial.color.lerp(targetFoilTint, colorStep);
       seamEdgeMaterial.color.lerp(targetSeamColor, colorStep);
 
-      // Smooth Y-axis auto-rotation + release inertia
+      // Smooth Y-axis turntable auto-rotation + horizontal release inertia (locked X & Z)
       if (!dragging) {
         dragVelocityY = THREE.MathUtils.damp(dragVelocityY, 0, 3.6, dt);
         const autoSpinSpeed = 0.44 * motionScale;
         targetRotY += (autoSpinSpeed + dragVelocityY) * dt;
-        const restPitch = 0.06 + Math.sin(elapsed * 0.9) * 0.03 * motionScale;
-        targetRotX = THREE.MathUtils.damp(targetRotX, restPitch, 2.8, dt);
       }
 
       currentRotY = THREE.MathUtils.damp(currentRotY, targetRotY, 10, dt);
-      currentRotX = THREE.MathUtils.damp(currentRotX, targetRotX, 10, dt);
 
       pouchPivot.rotation.y = currentRotY;
-      pouchPivot.rotation.x = currentRotX;
-      pouchPivot.rotation.z = Math.sin(elapsed * 1.1) * 0.03 * motionScale;
+      pouchPivot.rotation.x = STATIC_POUCH_PITCH_X;
+      pouchPivot.rotation.z = 0;
 
       // Floating vertical bobbing
       const bobY = Math.sin(elapsed * 1.55) * 0.075 * motionScale;
@@ -1785,7 +1784,7 @@ export function CrunchxPouch3DStage({
     return (
       <div className="flex h-full min-h-[360px] w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-[#0A1324] via-[#060912] to-[#140814] p-6 text-center">
         <Box className="h-12 w-12 text-[#00F0FF]" aria-hidden="true" />
-        <span className="font-mono text-xs tracking-wider text-slate-300">
+        <span className="text-xs tracking-wider text-slate-300">
           CRUNCHX · 3D WEBGL STAGE
         </span>
       </div>
@@ -1795,10 +1794,9 @@ export function CrunchxPouch3DStage({
   return (
     <div
       ref={containerRef}
-      className={`relative h-full min-h-[360px] w-full select-none overflow-hidden bg-[radial-gradient(circle_at_50%_46%,rgba(14,26,52,0.92)_0%,rgba(6,10,20,0.98)_58%,#04060C_100%)] lg:min-h-[420px] ${
+      className={`relative h-full min-h-[360px] w-full select-none overflow-hidden touch-pan-y bg-[radial-gradient(circle_at_50%_46%,rgba(14,26,52,0.92)_0%,rgba(6,10,20,0.98)_58%,#04060C_100%)] lg:min-h-[420px] ${
         isDragging ? 'cursor-grabbing' : 'cursor-grab'
       }`}
-      style={{ touchAction: 'pan-y' }}
       aria-label="Interactive 3D CRUNCHX foil snack pouch stage — drag horizontally to rotate 360 degrees"
     >
       {/* Isolated empty WebGL canvas mount */}
@@ -1812,7 +1810,7 @@ export function CrunchxPouch3DStage({
 
       {/* Interactive 360° drag cue (top-right, no backdrop-blur over WebGL) */}
       <div className="pointer-events-none absolute right-4 top-4 z-10">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#04060C]/92 px-2.5 py-1 font-mono text-[10px] font-medium tracking-wider text-slate-300">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#04060C]/92 px-2.5 py-1 text-[10px] font-medium tracking-wider text-slate-300">
           <MoveHorizontal className="h-3 w-3 text-[#00F0FF]" aria-hidden="true" />
           <span>DRAG 360°</span>
         </span>
@@ -1833,7 +1831,7 @@ export function CrunchxPouch3DStage({
               type="button"
               aria-pressed={isSelected}
               onClick={() => setActiveFlavorId(flavor.id)}
-              className={`inline-flex min-h-[30px] items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10px] font-semibold tracking-wide transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] ${
+              className={`inline-flex min-h-[30px] items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold tracking-wide transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] ${
                 isSelected
                   ? 'border-white/55 bg-[#090E1B]/95 text-white shadow-[0_0_14px_rgba(255,255,255,0.18)]'
                   : 'border-white/15 bg-[#04060C]/88 text-slate-300 hover:border-white/35 hover:text-white'

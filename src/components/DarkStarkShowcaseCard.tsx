@@ -451,11 +451,11 @@ export function DarkStarkShowcaseCard({
             {/* Project Meta, Title & Desktop Subtitle */}
             <div className="min-w-0 flex-1 max-w-2xl">
               <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                <span className="font-mono text-[11px] font-semibold tracking-[0.14em] text-slate-400 tabular-nums sm:text-xs">
+                <span className="text-[11px] font-semibold tracking-[0.14em] text-slate-400 tabular-nums sm:text-xs">
                   PROJECT {project.orderNumber}
                 </span>
 
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/35 bg-gradient-to-r from-emerald-500/15 via-[#00F0FF]/12 to-cyan-500/15 px-2 py-0.5 font-mono text-[9.5px] font-semibold tracking-[0.1em] text-emerald-200 shadow-[0_0_20px_rgba(16,185,129,0.2)] whitespace-nowrap sm:gap-2 sm:px-3 sm:py-1 sm:text-[10.5px] sm:tracking-[0.14em]">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/35 bg-gradient-to-r from-emerald-500/15 via-[#00F0FF]/12 to-cyan-500/15 px-2 py-0.5 text-[9.5px] font-semibold tracking-[0.1em] text-emerald-200 shadow-[0_0_20px_rgba(16,185,129,0.2)] whitespace-nowrap sm:gap-2 sm:px-3 sm:py-1 sm:text-[10.5px] sm:tracking-[0.14em]">
                   <span className="relative flex h-2 w-2 shrink-0">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-gradient-to-r from-emerald-400 to-[#00F0FF] shadow-[0_0_8px_#00F0FF]" />
@@ -558,7 +558,7 @@ export function DarkStarkShowcaseCard({
 
         {/* TECH STACK BADGES ROW */}
         <div className="mt-7 flex flex-col gap-3 border-t border-white/[0.08] pt-5 sm:flex-row sm:items-center sm:justify-between">
-          <span className="font-mono text-[11px] font-semibold tracking-[0.14em] text-slate-400 uppercase whitespace-nowrap">
+          <span className="text-[11px] font-semibold tracking-[0.14em] text-slate-400 uppercase whitespace-nowrap">
             Production Stack
           </span>
 
@@ -566,7 +566,7 @@ export function DarkStarkShowcaseCard({
             {TECH_STACK_BADGES.map((tech) => (
               <span
                 key={tech}
-                className="rounded-full border border-white/[0.11] bg-white/[0.04] px-3 py-1 font-mono text-[11px] font-medium text-slate-200 transition-colors duration-150 hover:border-[#00F0FF]/40 hover:text-[#00F0FF] whitespace-nowrap"
+                className="rounded-full border border-white/[0.11] bg-white/[0.04] px-3 py-1 text-[11px] font-medium text-slate-200 transition-colors duration-150 hover:border-[#00F0FF]/40 hover:text-[#00F0FF] whitespace-nowrap"
               >
                 {tech}
               </span>

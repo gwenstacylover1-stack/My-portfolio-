@@ -182,7 +182,7 @@ export function ObsidianPhoneFrame({
               <iframe
                 key={`${videoId}-${startSeconds}-${playNonce}`}
                 src={buildYouTubeEmbedUrl(videoId, startSeconds)}
-                title={`${projectName} Live Demo Video`}
+                title={`${projectName} Product Tour Video`}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 onLoad={() => {
@@ -209,8 +209,8 @@ export function ObsidianPhoneFrame({
                   <span className="h-11 w-11 animate-spin rounded-full border-2 border-[#00F0FF]/20 border-t-[#00F0FF] shadow-[0_0_20px_rgba(0,240,255,0.45)]" />
                   <span className="absolute h-2 w-2 animate-pulse rounded-full bg-[#00F0FF] shadow-[0_0_10px_#00F0FF]" />
                 </div>
-                <span className="font-mono text-[11px] font-medium tracking-[0.14em] text-[#00F0FF]/90">
-                  Loading Demo...
+                <span className="text-[11px] font-medium tracking-[0.14em] text-[#00F0FF]/90">
+                  Loading Tour...
                 </span>
               </div>
             </>
@@ -219,13 +219,13 @@ export function ObsidianPhoneFrame({
             <button
               type="button"
               onClick={onPlayClick}
-              aria-label={`Watch Live Demo for ${projectName}`}
+              aria-label={`Watch Product Tour for ${projectName}`}
               className="group/play relative flex h-full w-full flex-col items-center justify-end overflow-hidden text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#00F0FF]"
             >
               {coverSrc ? (
                 <img
                   src={coverSrc}
-                  alt={`${projectName} 9:16 mobile demo preview`}
+                  alt={`${projectName} 9:16 mobile product preview`}
                   referrerPolicy="no-referrer"
                   loading="lazy"
                   onError={handleImageError}
@@ -248,25 +248,25 @@ export function ObsidianPhoneFrame({
                 className="pointer-events-none absolute inset-0 bg-[linear-gradient(125deg,rgba(255,255,255,0.11)_0%,rgba(255,255,255,0.02)_26%,transparent_48%)] opacity-80"
               />
 
-              {/* Top-left HD Demo Pill */}
+              {/* Top-left Interactive Preview Pill */}
               <div className="absolute left-3 top-9 z-10">
                 <span
-                  className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-wider backdrop-blur-md ${theme.badge}`}
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold tracking-wider backdrop-blur-md ${theme.badge}`}
                 >
                   <span className={`h-1.5 w-1.5 rounded-full ${theme.dot}`} />
-                  <span>LIVE DEMO</span>
+                  <span>INTERACTIVE PREVIEW</span>
                 </span>
               </div>
 
-              {/* Bottom Watch Live Demo CTA */}
+              {/* Bottom Watch Product Tour CTA */}
               <div className="relative z-10 flex w-full flex-col items-center gap-2.5 px-3 pb-5 pt-4">
                 <div
                   className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold tracking-wide transition-all duration-200 whitespace-nowrap ${theme.playBtn}`}
                 >
                   <Play className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
-                  <span>Watch Live Demo</span>
+                  <span>Watch Product Tour</span>
                 </div>
-                <span className="font-mono text-[10px] tracking-wider text-slate-200/90">
+                <span className="text-[10px] tracking-wider text-slate-200/90">
                   5 Interactive Chapters
                 </span>
               </div>

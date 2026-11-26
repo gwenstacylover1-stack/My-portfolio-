@@ -196,7 +196,7 @@ export function HolographicReactorCanvas() {
       const baseScale = Math.min(width, height) * 0.41;
 
       const mouseTiltY = ptr.currentX * 0.34;
-      const mouseTiltX = ptr.currentY * 0.28;
+      const mouseTiltX = 0;
 
       // 1. Controlled volumetric ambient bloom behind core
       const ambient = ctx.createRadialGradient(
@@ -328,12 +328,12 @@ export function HolographicReactorCanvas() {
         { count: 10, duty: 0.62 },
       );
 
-      // 4. Rotating 3D geodesic core mesh
+      // 4. Horizontally rotating 3D geodesic core mesh (fixed crisp static pitch)
       const coreRadius = 0.37;
       const projectedNodes = corePoints.map((pt) => {
         let p = { x: pt.x * coreRadius, y: pt.y * coreRadius, z: pt.z * coreRadius };
         p = rotateY(p, elapsed * 0.42 + mouseTiltY * 1.4);
-        p = rotateX(p, elapsed * 0.24 + mouseTiltX * 1.4);
+        p = rotateX(p, 0.2);
         return project(p, cx, cy, baseScale);
       });
 
@@ -501,9 +501,8 @@ export function HolographicReactorCanvas() {
     if (e.pointerType !== 'mouse') return;
     const rect = e.currentTarget.getBoundingClientRect();
     const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
     pointerRef.current.targetX = nx;
-    pointerRef.current.targetY = ny;
+    pointerRef.current.targetY = 0;
   };
 
   const handlePointerLeave = () => {
@@ -518,12 +517,12 @@ export function HolographicReactorCanvas() {
       onPointerLeave={handlePointerLeave}
       aria-label="Interactive 3D holographic orbital reactor visual"
       role="img"
-      className="relative flex h-[320px] w-full items-center justify-center sm:h-[390px] lg:h-[460px]"
+      className="relative flex h-[320px] w-full items-center justify-center touch-pan-y sm:h-[390px] lg:h-[460px]"
     >
       <canvas ref={canvasRef} className="block h-full w-full" />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 font-mono text-[11px] tracking-[0.2em] text-slate-400/75 uppercase whitespace-nowrap"
+        className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 text-[11px] tracking-[0.2em] text-slate-400/75 uppercase whitespace-nowrap"
       >
         EDGE · REAL-TIME · MULTIMODAL
       </div>

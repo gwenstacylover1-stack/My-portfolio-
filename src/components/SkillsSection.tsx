@@ -34,10 +34,10 @@ export function SkillsSection() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="mb-8 sm:mb-10">
-            <p className="font-mono text-xs font-medium tracking-[0.18em] text-[#00F0FF] uppercase">
+            <p className="text-xs font-medium tracking-[0.18em] text-[#00F0FF] uppercase">
               Core Engineering Matrix
             </p>
-            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Technical Stack &amp; Capabilities
             </h2>
           </div>
@@ -59,7 +59,7 @@ export function SkillsSection() {
                     >
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </div>
-                    <h3 className="font-display text-lg font-bold tracking-tight text-white sm:text-xl">
+                    <h3 className="text-lg font-bold tracking-tight text-white sm:text-xl">
                       {category.title}
                     </h3>
                   </div>
@@ -68,7 +68,7 @@ export function SkillsSection() {
                     {category.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 font-mono text-xs text-slate-200 transition-colors duration-150 hover:border-[#00F0FF]/35 hover:text-white"
+                        className="rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-xs text-slate-200 transition-colors duration-150 hover:border-[#00F0FF]/35 hover:text-white"
                       >
                         {skill}
                       </span>

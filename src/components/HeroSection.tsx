@@ -26,7 +26,7 @@ function ReactorCanvasFallback() {
         <div className="absolute inset-12 rounded-full border border-[#00F0FF]/45 bg-[radial-gradient(circle,rgba(0,240,255,0.22)_0%,transparent_72%)]" />
         <div className="h-5 w-5 rounded-full bg-[#00F0FF]/80 shadow-[0_0_28px_rgba(0,240,255,0.75)]" />
       </div>
-      <div className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 font-mono text-[11px] tracking-[0.2em] text-slate-400/75 uppercase whitespace-nowrap">
+      <div className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 text-[11px] tracking-[0.2em] text-slate-400/75 uppercase whitespace-nowrap">
         EDGE · REAL-TIME · MULTIMODAL
       </div>
     </div>
@@ -55,18 +55,18 @@ export function HeroSection() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_10px_#34D399]" />
               </span>
-              <span className="font-mono text-[11px] font-medium tracking-[0.12em] text-emerald-300">
+              <span className="text-[11px] font-medium tracking-[0.12em] text-emerald-300">
                 AVAILABLE FOR FULL-STACK WEB &amp; AI PROJECTS
               </span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="mt-6 font-display text-4xl font-bold tracking-[-0.03em] text-white sm:text-5xl lg:text-[3.85rem] lg:leading-[1.04]">
+            <h1 className="mt-6 text-4xl font-bold tracking-[-0.03em] text-white sm:text-5xl lg:text-[3.85rem] lg:leading-[1.04]">
               S.Tarak
             </h1>
 
             {/* Electric Cyan-to-Blue Gradient Subtitle */}
-            <p className="mt-3 font-display text-xl font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-[#4CC2FF] to-[#3B82F6] sm:text-2xl lg:text-[1.75rem]">
+            <p className="mt-3 text-xl font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-[#4CC2FF] to-[#3B82F6] sm:text-2xl lg:text-[1.75rem]">
               Full-Stack Web &amp; AI Systems Developer
             </p>
 
@@ -85,7 +85,7 @@ export function HeroSection() {
                 rel="noopener noreferrer"
                 className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#00F0FF] to-[#3B82F6] px-6 py-3 text-sm font-semibold text-[#04060C] shadow-[0_0_28px_rgba(0,240,255,0.32)] transition-all duration-200 hover:brightness-110 hover:shadow-[0_0_38px_rgba(0,240,255,0.52)] whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#04060C]"
               >
-                <span>Explore Live 3D Demo</span>
+                <span>Explore Live 3D Build</span>
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </a>
 
@@ -159,7 +159,7 @@ export function HeroSection() {
                   </div>
                   <div className="min-w-0 flex-1">
                     {isLivePlatform && (
-                      <div className="mb-1.5 inline-flex items-center gap-1.5 rounded-full border border-emerald-400/35 bg-emerald-400/12 px-2.5 py-0.5 font-mono text-[9.5px] font-semibold tracking-wider text-emerald-300 uppercase">
+                      <div className="mb-1.5 inline-flex items-center gap-1.5 rounded-full border border-emerald-400/35 bg-emerald-400/12 px-2.5 py-0.5 text-[9.5px] font-semibold tracking-wider text-emerald-300 uppercase">
                         <span className="relative flex h-2 w-2 shrink-0">
                           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                           <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34D399]" />
@@ -168,7 +168,7 @@ export function HeroSection() {
                       </div>
                     )}
                     <div className="flex items-center justify-between gap-2">
-                      <h2 className="font-display text-base font-semibold text-white">
+                      <h2 className="text-base font-semibold text-white">
                         {item.title}
                       </h2>
                       {isLivePlatform && (

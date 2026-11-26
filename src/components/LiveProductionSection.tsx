@@ -59,10 +59,10 @@ export function LiveProductionSection({
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="mb-8 flex flex-col gap-2 sm:mb-10">
-            <p className="font-mono text-xs font-medium tracking-[0.18em] text-[#00F0FF] uppercase">
+            <p className="text-xs font-medium tracking-[0.18em] text-[#00F0FF] uppercase">
               Production Web Platform
             </p>
-            <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Live System Architecture
             </h2>
           </div>
@@ -71,13 +71,13 @@ export function LiveProductionSection({
             {/* Header Row: Architecture Status Badge + Infrastructure Label */}
             <div className="flex flex-col gap-4 border-b border-white/[0.08] pb-6 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex flex-wrap items-center gap-3">
-                <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 font-mono text-xs font-semibold tracking-wider text-emerald-300 shadow-[0_0_18px_rgba(52,211,153,0.18)] whitespace-nowrap">
+                <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-xs font-semibold tracking-wider text-emerald-300 shadow-[0_0_18px_rgba(52,211,153,0.18)] whitespace-nowrap">
                   <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34D399]" />
                   PRODUCTION BLUEPRINT
                 </span>
               </div>
 
-              <div className="inline-flex items-center gap-2 font-mono text-xs text-slate-400">
+              <div className="inline-flex items-center gap-2 text-xs text-slate-400">
                 <Cloud className="h-4 w-4 text-[#3B82F6]" aria-hidden="true" />
                 <span>Cloudflare Global Edge + Firebase</span>
               </div>
@@ -86,7 +86,7 @@ export function LiveProductionSection({
             {/* Architecture Title & Description */}
             <div className="mt-7 grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
               <div className="lg:col-span-7">
-                <h3 className="font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                <h3 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
                   Serverless Edge &amp; Wallet Architecture
                 </h3>
                 <p className="mt-3 text-base leading-relaxed text-slate-300">
@@ -116,7 +116,7 @@ export function LiveProductionSection({
                         className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full border border-[#00F0FF]/35 bg-[#00F0FF]/[0.08] px-5 py-2.5 text-xs font-semibold text-[#00F0FF] transition-all duration-200 hover:border-[#00F0FF]/70 hover:bg-[#00F0FF]/15 cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
                       >
                         <Play className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
-                        <span>Watch Demo</span>
+                        <span>Watch Tour</span>
                       </button>
                     )}
                   </>
@@ -127,10 +127,10 @@ export function LiveProductionSection({
             {/* Interactive Architecture Flow Diagram */}
             <div className="mt-9 rounded-2xl border border-white/[0.08] bg-[#050812]/85 p-5 sm:p-6">
               <div className="mb-5 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-                <span className="font-mono text-xs font-semibold tracking-[0.14em] text-slate-300 uppercase">
+                <span className="text-xs font-semibold tracking-[0.14em] text-slate-300 uppercase">
                   Interactive System Architecture Pipeline
                 </span>
-                <span className="font-mono text-[11px] text-slate-400">
+                <span className="text-[11px] text-slate-400">
                   Select any node to inspect edge &amp; security boundaries
                 </span>
               </div>
@@ -155,7 +155,7 @@ export function LiveProductionSection({
                       >
                         <div className="flex items-center justify-between gap-2">
                           <span
-                            className={`font-mono text-[11px] font-semibold tabular-nums ${
+                            className={`text-[11px] font-semibold tabular-nums ${
                               isActive ? 'text-[#00F0FF]' : 'text-slate-500'
                             }`}
                           >
@@ -172,10 +172,10 @@ export function LiveProductionSection({
                         </div>
 
                         <div className="mt-3">
-                          <div className="font-display text-sm font-semibold leading-snug text-white">
+                          <div className="text-sm font-semibold leading-snug text-white">
                             {node.title}
                           </div>
-                          <div className="mt-1 font-mono text-[11px] leading-snug text-[#00F0FF]/85">
+                          <div className="mt-1 text-[11px] leading-snug text-[#00F0FF]/85">
                             {node.layer}
                           </div>
                         </div>
@@ -207,10 +207,10 @@ export function LiveProductionSection({
               <div className="mt-5 grid grid-cols-1 gap-4 border-t border-white/[0.07] pt-5 md:grid-cols-12 md:items-start">
                 <div className="md:col-span-8">
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                    <span className="font-display text-sm font-semibold text-white">
+                    <span className="text-sm font-semibold text-white">
                       {activeNode.title} · {activeNode.layer}
                     </span>
-                    <span className="font-mono text-xs text-[#3B82F6]">
+                    <span className="text-xs text-[#3B82F6]">
                       {activeNode.protocol}
                     </span>
                   </div>
@@ -220,7 +220,7 @@ export function LiveProductionSection({
                 </div>
 
                 <div className="md:col-span-4 md:border-l md:border-white/[0.08] md:pl-5">
-                  <div className="font-mono text-[11px] font-semibold tracking-wider text-emerald-300 uppercase">
+                  <div className="text-[11px] font-semibold tracking-wider text-emerald-300 uppercase">
                     Security Boundary
                   </div>
                   <p className="mt-1.5 text-xs leading-relaxed text-slate-400">
@@ -235,7 +235,7 @@ export function LiveProductionSection({
               {LIVE_PLATFORM_TECH.map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-lg border border-white/[0.09] bg-white/[0.03] px-3 py-1.5 font-mono text-xs text-slate-200 whitespace-nowrap"
+                  className="rounded-lg border border-white/[0.09] bg-white/[0.03] px-3 py-1.5 text-xs text-slate-200 whitespace-nowrap"
                 >
                   {tech}
                 </span>

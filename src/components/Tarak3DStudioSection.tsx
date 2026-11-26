@@ -21,7 +21,7 @@ const CrunchxPouch3DStage = lazy(() => import('./CrunchxPouch3DStage'));
 const CRUNCHX_LIVE_URL = 'https://crunchxdemo.pages.dev/';
 
 const CUSTOM_WEBSITE_WHATSAPP_MSG =
-  'Hey Tarak! I saw your Dark Stark SMM site and CRUNCHX 3D demo (https://crunchxdemo.pages.dev/) and want to inquire about building a custom website.';
+  'Hey Tarak! I saw your Dark Stark SMM site and CRUNCHX 3D build (https://crunchxdemo.pages.dev/) and want to inquire about building a custom website.';
 
 interface CrunchxHighlight {
   id: string;
@@ -145,7 +145,7 @@ export function Tarak3DStudioSection() {
                 aria-hidden="true"
                 className="h-px flex-1 bg-gradient-to-r from-transparent via-[#00F0FF]/55 to-[#FF2A85]/45"
               />
-              <span className="inline-flex items-center gap-2 rounded-full border border-[#00F0FF]/30 bg-[#080D1B]/90 px-4 py-1.5 font-mono text-[11px] font-semibold tracking-[0.16em] text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-cyan-200 to-[#FF2A85] shadow-[0_0_24px_rgba(0,240,255,0.16)]">
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#00F0FF]/30 bg-[#080D1B]/90 px-4 py-1.5 text-[11px] font-semibold tracking-[0.16em] text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-cyan-200 to-[#FF2A85] shadow-[0_0_24px_rgba(0,240,255,0.16)]">
                 TARAK3D WEB &amp; 3D STUDIO • CUSTOM BRAND BUILDS
               </span>
               <div
@@ -154,7 +154,7 @@ export function Tarak3DStudioSection() {
               />
             </div>
 
-            <h2 className="mt-7 max-w-3xl font-display text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.65rem] lg:leading-[1.12]">
+            <h2 className="mt-7 max-w-3xl text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.65rem] lg:leading-[1.12]">
               We Also Build High-Converting{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-[#60A5FA] to-[#FF2A85]">
                 2D &amp; 3D Websites
@@ -177,7 +177,7 @@ export function Tarak3DStudioSection() {
                     fallback={
                       <div className="flex h-full min-h-[360px] w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-[#0A1324] via-[#060912] to-[#140814] p-6 lg:min-h-[420px]">
                         <Box className="h-10 w-10 text-[#00F0FF]" aria-hidden="true" />
-                        <span className="font-mono text-xs tracking-wider text-slate-300">
+                        <span className="text-xs tracking-wider text-slate-300">
                           INITIALIZING 3D WEBGL STAGE…
                         </span>
                       </div>
@@ -188,9 +188,9 @@ export function Tarak3DStudioSection() {
 
                   {/* Top Live Flagship Status Badge (solid translucent surface, no backdrop-blur over WebGL) */}
                   <div className="pointer-events-none absolute left-4 top-4 z-10 flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-[#00F0FF]/40 bg-[#04060C]/92 px-3 py-1 font-mono text-[10px] font-semibold tracking-wider text-[#00F0FF]">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-[#00F0FF]/40 bg-[#04060C]/92 px-3 py-1 text-[10px] font-semibold tracking-wider text-[#00F0FF]">
                       <span className="h-1.5 w-1.5 rounded-full bg-[#00F0FF] shadow-[0_0_8px_#00F0FF]" />
-                      <span>LIVE WEBGL DEMO</span>
+                      <span>LIVE 3D WEBGL</span>
                     </span>
                   </div>
 
@@ -200,12 +200,12 @@ export function Tarak3DStudioSection() {
                       href={CRUNCHX_LIVE_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex min-w-0 items-center gap-1.5 font-mono text-xs text-[#00F0FF] transition-colors hover:text-white whitespace-nowrap"
+                      className="inline-flex min-w-0 items-center gap-1.5 text-xs text-[#00F0FF] transition-colors hover:text-white whitespace-nowrap"
                     >
                       <span>crunchxdemo.pages.dev</span>
                       <ExternalLink className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                     </a>
-                    <span className="font-mono text-[10px] font-semibold tracking-wider text-[#FF2A85] uppercase whitespace-nowrap">
+                    <span className="text-[10px] font-semibold tracking-wider text-[#FF2A85] uppercase whitespace-nowrap">
                       3D D2C
                     </span>
                   </div>
@@ -216,18 +216,18 @@ export function Tarak3DStudioSection() {
               <div className="flex flex-col justify-between lg:col-span-7">
                 <div>
                   <div className="flex flex-wrap items-center gap-2.5">
-                    <span className="inline-flex items-center rounded-full border border-[#FF2A85]/35 bg-[#FF2A85]/12 px-3 py-1 font-mono text-[11px] font-semibold tracking-[0.12em] text-[#FF6DA8]">
+                    <span className="inline-flex items-center rounded-full border border-[#FF2A85]/35 bg-[#FF2A85]/12 px-3 py-1 text-[11px] font-semibold tracking-[0.12em] text-[#FF6DA8]">
                       LIVE 3D WEBGL FLAGSHIP • D2C E-COMMERCE
                     </span>
                   </div>
 
-                  <h3 className="mt-4 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                  <h3 className="mt-4 text-2xl font-bold tracking-tight text-white sm:text-3xl">
                     CRUNCHX — Interactive 3D Kettle-Cooked Snack Store
                   </h3>
 
                   {/* Clickable Interactive Highlight Pills (Tabs) */}
                   <div className="mt-6">
-                    <div className="mb-2.5 font-mono text-[11px] font-semibold tracking-[0.14em] text-slate-400 uppercase">
+                    <div className="mb-2.5 text-[11px] font-semibold tracking-[0.14em] text-slate-400 uppercase">
                       Explore Interactive Features
                     </div>
                     <div
@@ -287,11 +287,11 @@ export function Tarak3DStudioSection() {
                           }`}
                           aria-hidden="true"
                         />
-                        <span className="font-display text-sm font-bold text-white sm:text-base">
+                        <span className="text-sm font-bold text-white sm:text-base">
                           {activeHighlight.label}
                         </span>
                       </div>
-                      <span className="font-mono text-[10.5px] text-slate-400">
+                      <span className="text-[10.5px] text-slate-400">
                         {activeHighlight.specLabel}
                       </span>
                     </div>
@@ -309,7 +309,7 @@ export function Tarak3DStudioSection() {
                     rel="noopener noreferrer"
                     className="inline-flex min-h-[48px] flex-1 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#00F0FF] via-[#38BDF8] to-[#FF2A85] px-6 py-3 text-sm font-semibold text-[#04060C] shadow-[0_0_30px_rgba(0,240,255,0.34)] transition-all duration-200 hover:brightness-110 hover:shadow-[0_0_40px_rgba(255,42,133,0.42)] whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#080D1B]"
                   >
-                    <span>Explore Live 3D Demo</span>
+                    <span>Explore Live 3D Build</span>
                     <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                   </a>
 
@@ -350,7 +350,7 @@ export function Tarak3DStudioSection() {
                     >
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </div>
-                    <h3 className="mt-4 font-display text-lg font-bold tracking-tight text-white">
+                    <h3 className="mt-4 text-lg font-bold tracking-tight text-white">
                       {cap.title}
                     </h3>
                     <p className="mt-2 text-sm leading-relaxed text-slate-300">
@@ -370,10 +370,10 @@ export function Tarak3DStudioSection() {
                   <Layers className="h-5 w-5" aria-hidden="true" />
                 </div>
                 <div>
-                  <p className="font-display text-base font-bold text-white sm:text-lg">
+                  <p className="text-base font-bold text-white sm:text-lg">
                     Want a custom website or 3D storefront like CRUNCHX for your brand?
                   </p>
-                  <p className="mt-0.5 font-mono text-xs text-slate-400">
+                  <p className="mt-0.5 text-xs text-slate-400">
                     Direct founder consultation · Custom 2D, 3D WebGL &amp; full-stack builds
                   </p>
                 </div>

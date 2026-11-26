@@ -23,10 +23,10 @@ export function ArchitectureSection() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="mb-8 sm:mb-10">
-            <p className="font-mono text-xs font-medium tracking-[0.18em] text-[#00F0FF] uppercase">
+            <p className="text-xs font-medium tracking-[0.18em] text-[#00F0FF] uppercase">
               Engineering Standards &amp; Cloud Architecture
             </p>
-            <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
               How I Engineer Production Systems
             </h2>
           </div>
@@ -56,12 +56,12 @@ export function ArchitectureSection() {
                           aria-hidden="true"
                         />
                       </div>
-                      <span className="font-mono text-xs font-semibold text-slate-500 tabular-nums">
+                      <span className="text-xs font-semibold text-slate-500 tabular-nums">
                         {item.index}
                       </span>
                     </div>
 
-                    <h3 className="mt-5 font-display text-xl font-bold tracking-tight text-white">
+                    <h3 className="mt-5 text-xl font-bold tracking-tight text-white">
                       {item.title}
                     </h3>
 
@@ -70,7 +70,7 @@ export function ArchitectureSection() {
                     </p>
 
                     <div className="mt-auto pt-5">
-                      <div className="border-t border-white/[0.07] pt-3.5 font-mono text-xs text-slate-400">
+                      <div className="border-t border-white/[0.07] pt-3.5 text-xs text-slate-400">
                         {item.metricLabel}
                       </div>
                     </div>

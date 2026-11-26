@@ -130,11 +130,11 @@ export function CaseStudyDrawer({
             <div className="flex items-start justify-between gap-4 border-b border-white/[0.08] px-5 py-5 sm:px-7">
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="font-mono text-[11px] font-semibold tracking-[0.14em] text-slate-400 uppercase">
+                  <span className="text-[11px] font-semibold tracking-[0.14em] text-slate-400 uppercase">
                     Architecture &amp; Case Study
                   </span>
                   <span
-                    className={`inline-flex items-center rounded-full border px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-wider ${
+                    className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-semibold tracking-wider ${
                       project.status === 'LIVE DEPLOYED'
                         ? 'border-emerald-400/35 bg-emerald-400/12 text-emerald-300'
                         : DRAWER_THEME[project.accentTheme].badge
@@ -145,11 +145,11 @@ export function CaseStudyDrawer({
                 </div>
                 <h3
                   id="case-study-drawer-title"
-                  className="mt-2 font-display text-2xl font-bold tracking-tight text-white"
+                  className="mt-2 text-2xl font-bold tracking-tight text-white"
                 >
                   {project.name}
                 </h3>
-                <p className="mt-1 font-mono text-xs text-slate-400">
+                <p className="mt-1 text-xs text-slate-400">
                   {project.exactMediaLabel}
                 </p>
               </div>
@@ -169,7 +169,7 @@ export function CaseStudyDrawer({
               {/* 1. Project Overview & Core Goal */}
               <div>
                 <div
-                  className={`flex items-center gap-2 font-mono text-xs font-semibold tracking-[0.14em] uppercase ${
+                  className={`flex items-center gap-2 text-xs font-semibold tracking-[0.14em] uppercase ${
                     DRAWER_THEME[project.accentTheme].sectionAccent
                   }`}
                 >
@@ -186,14 +186,14 @@ export function CaseStudyDrawer({
 
               {/* 2. Technical Stack Badges */}
               <div className="mt-7 border-t border-white/[0.08] pt-6">
-                <div className="font-mono text-xs font-semibold tracking-[0.14em] text-slate-300 uppercase">
+                <div className="text-xs font-semibold tracking-[0.14em] text-slate-300 uppercase">
                   02. Technical Stack
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 font-mono text-xs text-slate-200"
+                      className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-slate-200"
                     >
                       {tag}
                     </span>
@@ -203,7 +203,7 @@ export function CaseStudyDrawer({
 
               {/* 3. Engineering & Security Highlights */}
               <div className="mt-7 border-t border-white/[0.08] pt-6">
-                <div className="flex items-center gap-2 font-mono text-xs font-semibold tracking-[0.14em] text-emerald-300 uppercase">
+                <div className="flex items-center gap-2 text-xs font-semibold tracking-[0.14em] text-emerald-300 uppercase">
                   <ShieldCheck className="h-4 w-4" aria-hidden="true" />
                   <span>03. Security &amp; Edge Isolation</span>
                 </div>
@@ -225,7 +225,7 @@ export function CaseStudyDrawer({
 
               {/* Architecture & System Pipeline */}
               <div className="mt-7 border-t border-white/[0.08] pt-6">
-                <div className="flex items-center gap-2 font-mono text-xs font-semibold tracking-[0.14em] text-slate-300 uppercase">
+                <div className="flex items-center gap-2 text-xs font-semibold tracking-[0.14em] text-slate-300 uppercase">
                   <Layers className="h-4 w-4 text-[#00F0FF]" aria-hidden="true" />
                   <span>04. Engineering Highlights &amp; Pipeline</span>
                 </div>
@@ -252,7 +252,7 @@ export function CaseStudyDrawer({
                       className="flex items-start gap-3 rounded-xl border border-white/[0.08] bg-white/[0.025] px-3.5 py-2.5 text-xs leading-relaxed text-slate-200"
                     >
                       <span
-                        className={`font-mono text-[11px] font-semibold tabular-nums ${
+                        className={`text-[11px] font-semibold tabular-nums ${
                           DRAWER_THEME[project.accentTheme].stepNum
                         }`}
                       >
@@ -293,7 +293,7 @@ export function CaseStudyDrawer({
                       className="inline-flex min-h-[44px] w-full items-center justify-center gap-1.5 rounded-full border border-white/15 bg-white/[0.05] px-3.5 py-2 text-xs font-semibold text-white transition-colors hover:border-[#00F0FF]/50 hover:text-[#00F0FF] cursor-pointer whitespace-nowrap sm:w-auto sm:px-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
                     >
                       <Play className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
-                      <span>Watch Demo</span>
+                      <span>Watch Tour</span>
                     </button>
                   )}
 

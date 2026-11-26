@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
 
   --color-obsidian: #04060C;
   --color-obsidian-elevated: #0A0F1E;
@@ -16,20 +16,26 @@
   html {
     background-color: #04060C;
     color: #F1F5F9;
-    font-family: var(--font-sans);
+    font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
     scroll-behavior: smooth;
     color-scheme: dark;
+    overflow-x: hidden;
   }
 
   body {
     background: linear-gradient(180deg, #04060C 0%, #070B16 52%, #0A0F1E 100%);
     background-color: #04060C;
-    overflow-x: clip;
+    font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
   }
 
-  h1, h2, h3, h4 {
-    font-family: var(--font-display);
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
     text-wrap: balance;
+  }
+
+  code, pre, kbd, samp {
+    font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   }
 }
 
@@ -39,19 +45,75 @@
   background-size: 28px 28px;
 }
 
-/* Liquid Glass Dark Luxury Surface (16px blur + specular top edge) */
+/* Liquid Glass Dark Luxury Surface (smooth round glow + specular top edge) */
 .liquid-glass {
   background: linear-gradient(
     180deg,
-    rgba(16, 22, 38, 0.78) 0%,
-    rgba(9, 13, 24, 0.72) 100%
+    rgba(16, 22, 38, 0.8) 0%,
+    rgba(9, 13, 24, 0.74) 100%
   );
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 16px 40px -18px rgba(0, 0, 0, 0.72);
+    0 20px 50px -22px rgba(0, 0, 0, 0.78),
+    0 0 34px -18px rgba(56, 189, 248, 0.14);
+  transition:
+    border-color 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.liquid-glass:hover {
+  border-color: rgba(125, 211, 252, 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 24px 58px -20px rgba(0, 0, 0, 0.84),
+    0 0 42px -14px rgba(0, 240, 255, 0.2),
+    0 0 54px -22px rgba(139, 92, 246, 0.22);
+}
+
+/* Decent Smooth Round Glow Hairline Frame (Cyan-to-Violet diffused sheen) */
+.smooth-glow-frame {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 24px 60px -22px rgba(0, 0, 0, 0.85),
+    0 0 44px -18px rgba(0, 240, 255, 0.18),
+    0 0 60px -26px rgba(139, 92, 246, 0.18);
+  transition:
+    border-color 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.smooth-glow-frame:hover {
+  border-color: rgba(96, 165, 250, 0.32);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 28px 66px -22px rgba(0, 0, 0, 0.88),
+    0 0 52px -16px rgba(0, 240, 255, 0.26),
+    0 0 68px -22px rgba(139, 92, 246, 0.28);
+}
+
+/* Slow-breathing subtle ambient section aura */
+@keyframes ambientAuraBreath {
+  0%,
+  100% {
+    opacity: 0.48;
+    transform: translate3d(-50%, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.76;
+    transform: translate3d(-50%, -8px, 0) scale(1.06);
+  }
+}
+
+.section-ambient-aura {
+  animation: ambientAuraBreath 11s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 /* Pipeline animated data beam (GPU compositor transform & opacity only) */
@@ -515,6 +577,59 @@
   display: none;
 }
 
+/* ==========================================================================
+   Templates & Live Demos Hub — Scoped Helpers (Zero Global Leaks)
+   ========================================================================== */
+
+.template-tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.16s ease-out, border-color 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.template-tilt-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(0, 240, 255, 0.2),
+    transparent 62%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.template-tilt-card:hover::before {
+  opacity: 1;
+}
+
+.demo-viewport-mobile {
+  max-width: 410px;
+  border-radius: 28px;
+  border: 6px solid #1e293b;
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.82),
+    0 0 0 1px rgba(0, 240, 255, 0.28);
+}
+
+@keyframes templateFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.template-fade-up {
+  animation: templateFadeUp 0.34s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -532,6 +647,8 @@
   .animate-emblem-glint,
   .emblem-prismatic-foil,
   .ember-particle,
+  .template-fade-up,
+  .section-ambient-aura,
   .animate-pulse,
   .animate-ping {
     animation: none !important;
