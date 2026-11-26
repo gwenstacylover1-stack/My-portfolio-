@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { useCurrency } from '../../context/CurrencyContext';
 import { CONTACT_INFO } from '../../data/portfolioData';
+import { buildSmartEmailLink } from '../../utils/email';
 
 export interface QuoteTarget {
   templateTitle: string;
@@ -67,12 +68,10 @@ export function TemplateQuoteModal({
     buildMessage(),
   )}`;
 
-  const emailSubject = encodeURIComponent(
+  const emailLink = buildSmartEmailLink(
     `Website Quote Request — ${target.templateTitle} (${target.tierLabel})`,
-  );
-  const emailHref = `mailto:${CONTACT_INFO.email}?subject=${emailSubject}&body=${encodeURIComponent(
     buildMessage(),
-  )}`;
+  );
 
   const handleCopySummary = async () => {
     try {
@@ -239,7 +238,7 @@ export function TemplateQuoteModal({
 
           <div className="grid grid-cols-2 gap-2.5">
             <a
-              href={emailHref}
+              {...emailLink}
               className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/[0.04] px-4 text-xs font-semibold text-slate-200 transition-colors hover:border-[#00F0FF]/45 hover:text-white"
             >
               <Mail className="h-3.5 w-3.5 text-[#00F0FF]" aria-hidden="true" />

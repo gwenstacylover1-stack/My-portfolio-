@@ -102,7 +102,7 @@ export const PROJECT_DEMO_VIDEOS = {
 } as const;
 
 export const CONTACT_INFO = {
-  email: 'Taaraksagabalitaarakesh@gmail.com',
+  email: 'batmanofgothamthegoat@gmail.com',
   whatsappNumber: '919059511206',
   whatsappDisplay: '+91 90595 11206',
   location: 'Hyderabad, Telangana, India · Available Worldwide Remote',

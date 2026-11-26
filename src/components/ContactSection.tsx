@@ -19,6 +19,7 @@ import {
 } from '../data/portfolioData';
 import { InstagramIcon, SOCIAL_LINKS, YouTubeIcon } from './SocialIcons';
 import { SpotlightCard } from './SpotlightCard';
+import { buildSmartEmailLink, getHireMeEmailLink } from '../utils/email';
 
 const SERVICE_ICONS = {
   globe: Globe,
@@ -72,21 +73,18 @@ export function ContactSection() {
   const trimmedName = name.trim();
   const trimmedBrief = brief.trim();
 
-  const emailSubject = encodeURIComponent(
-    `[${projectType}] Project Inquiry${trimmedName ? ` from ${trimmedName}` : ''}`,
-  );
-  const emailBody = encodeURIComponent(
-    [
-      'Hi Tarak,',
-      '',
-      `Name: ${trimmedName || 'Not specified'}`,
-      `Project Type: ${projectType}`,
-      '',
-      'Project Brief:',
-      trimmedBrief || 'I would like to discuss building a new product together.',
-    ].join('\n'),
-  );
-  const formMailtoHref = `mailto:${CONTACT_INFO.email}?subject=${emailSubject}&body=${emailBody}`;
+  const rawEmailSubject = `[${projectType}] Project Inquiry${trimmedName ? ` from ${trimmedName}` : ''}`;
+  const rawEmailBody = [
+    'Hi Tarak,',
+    '',
+    `Name: ${trimmedName || 'Not specified'}`,
+    `Project Type: ${projectType}`,
+    '',
+    'Project Brief:',
+    trimmedBrief || 'I would like to discuss building a new product together.',
+  ].join('\n');
+  const formEmailLink = buildSmartEmailLink(rawEmailSubject, rawEmailBody);
+  const directEmailLink = getHireMeEmailLink();
 
   const whatsappInquiryText = encodeURIComponent(
     [
@@ -199,7 +197,7 @@ export function ContactSection() {
 
                 <div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
                   <a
-                    href={`mailto:${CONTACT_INFO.email}`}
+                    {...directEmailLink}
                     className="inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-xl bg-[#00F0FF] px-4 py-2.5 text-xs font-semibold text-[#05070D] shadow-[0_0_20px_rgba(0,240,255,0.28)] transition-all duration-200 hover:bg-[#5CF6FF] whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
                   >
                     <Mail className="h-4 w-4" aria-hidden="true" />
@@ -425,7 +423,7 @@ export function ContactSection() {
 
                   <div className="flex flex-col gap-3 pt-1 sm:flex-row">
                     <a
-                      href={formMailtoHref}
+                      {...formEmailLink}
                       onClick={() => handleInquiryDispatch('Email')}
                       className="inline-flex min-h-[48px] flex-1 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#00F0FF] to-[#3B82F6] px-6 py-3 text-sm font-semibold text-[#05070D] shadow-[0_0_24px_rgba(0,240,255,0.28)] transition-all duration-200 hover:brightness-110 hover:shadow-[0_0_32px_rgba(0,240,255,0.48)] whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
                     >

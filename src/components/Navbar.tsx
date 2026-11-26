@@ -1,6 +1,7 @@
 import { type MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { InstagramIcon, SOCIAL_LINKS, YouTubeIcon } from './SocialIcons';
+import { getHireMeEmailLink } from '../utils/email';
 
 const NAV_LINKS = [
   { id: 'live-build', label: 'Live Build', href: '#live-build' },
@@ -248,8 +249,7 @@ export function Navbar() {
           {/* Zone 3: Single Primary Action + Mobile Drawer Trigger */}
           <div className="flex items-center gap-2 shrink-0">
             <a
-              href="#contact"
-              onClick={(e) => handleNavClick(e, 'contact', false)}
+              {...getHireMeEmailLink()}
               className="hidden sm:inline-flex min-h-[38px] items-center justify-center rounded-full bg-gradient-to-r from-[#00F0FF] via-[#38BDF8] to-[#818CF8] px-4 lg:px-5 py-2 text-xs font-semibold tracking-wide text-[#04060C] shadow-[0_0_22px_rgba(0,240,255,0.34)] transition-all duration-200 hover:brightness-110 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#04060C]"
             >
               Hire Me
@@ -364,8 +364,8 @@ export function Navbar() {
             </div>
 
             <a
-              href="#contact"
-              onClick={(e) => handleNavClick(e, 'contact', true)}
+              {...getHireMeEmailLink()}
+              onClick={() => setDrawerOpen(false)}
               className="flex min-h-[48px] w-full items-center justify-center rounded-full bg-gradient-to-r from-[#00F0FF] via-[#38BDF8] to-[#818CF8] px-5 py-3 text-sm font-semibold text-[#04060C] shadow-[0_0_24px_rgba(0,240,255,0.36)] transition-all hover:brightness-110"
             >
               Hire Me
