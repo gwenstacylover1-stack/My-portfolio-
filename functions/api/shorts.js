@@ -2,7 +2,7 @@
 // Live endpoint: https://tarak-portfolio.pages.dev/api/shorts?limit=6
 
 const HANDLE = "@TARAKYT-i9z";
-const CHANNEL_ID = ""; // Optional: paste your 24-char UC... Channel ID here for instant lookup
+const CHANNEL_ID = "UCC26iKI8hv9NExZBF6Ev2CA"; // Exact TARAK YT Channel ID for instant lookup
 const PLAYLIST_ID = ""; // Optional: paste a PL... playlist ID to show only a curated playlist
 
 const CORS_HEADERS = {

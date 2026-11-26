@@ -13,6 +13,16 @@ const NAV_LINKS = [
   { id: 'contact', label: 'Contact', href: '#contact' },
 ] as const;
 
+const DESKTOP_NAV_LINKS = [
+  { id: 'live-build', label: 'Live Build', href: '#live-build' },
+  { id: 'ai-labs', label: 'AI Labs', href: '#ai-labs' },
+  { id: 'tech-stack', label: 'Tech Stack', href: '#tech-stack' },
+  { id: 'templates', label: 'Websites', href: '#templates' },
+  { id: 'estimator', label: 'Estimator', href: '#estimator' },
+  { id: 'channels', label: 'Channels', href: '#channels' },
+  { id: 'contact', label: 'Contact', href: '#contact' },
+] as const;
+
 const FIRST_SECTION_ID = NAV_LINKS[0].id;
 const LAST_SECTION_ID = NAV_LINKS[NAV_LINKS.length - 1].id;
 const SCROLL_LOCK_DURATION_MS = 900;
@@ -184,10 +194,10 @@ export function Navbar() {
     <>
       <header className="pointer-events-none fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-5 sm:pt-4">
         <div
-          className={`pointer-events-auto mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 rounded-2xl border px-4 transition-all duration-200 sm:h-15 sm:px-5 ${
+          className={`pointer-events-auto mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 rounded-2xl border px-4 transition-all duration-200 sm:h-15 sm:px-5 lg:rounded-full lg:border-cyan-400/20 ${
             scrolled
-              ? 'border-white/[0.12] bg-[#070B16]/84 shadow-[0_16px_44px_rgba(0,0,0,0.65),0_0_32px_-16px_rgba(0,240,255,0.2),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl'
-              : 'border-white/[0.09] bg-[#070B16]/62 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-lg'
+              ? 'border-white/[0.12] bg-[#070B16]/84 shadow-[0_16px_44px_rgba(0,0,0,0.65),0_0_32px_-16px_rgba(0,240,255,0.2),inset_0_1px_0_rgba(255,255,255,0.08)] lg:shadow-[0_16px_44px_rgba(0,0,0,0.65),0_0_28px_rgba(34,211,238,0.10),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl'
+              : 'border-white/[0.09] bg-[#070B16]/62 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] lg:shadow-[0_0_28px_rgba(34,211,238,0.10),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-lg'
           }`}
         >
           {/* Zone 1: Minimalist glowing monogram S.TARAK */}
@@ -204,12 +214,12 @@ export function Navbar() {
             </span>
           </a>
 
-          {/* Zone 2: Clean single-line navigation links */}
+          {/* Zone 2: Desktop-only centered single-row navigation links (>= 1024px) */}
           <nav
             aria-label="Primary Navigation"
-            className="hidden lg:flex items-center gap-0.5 xl:gap-1"
+            className="hidden lg:flex items-center gap-1 xl:gap-2"
           >
-            {NAV_LINKS.map((link) => {
+            {DESKTOP_NAV_LINKS.map((link) => {
               const isActive = activeSection === link.id;
               return (
                 <a
@@ -217,13 +227,19 @@ export function Navbar() {
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.id, false)}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`relative rounded-full px-2.5 py-2 text-xs font-medium transition-all duration-200 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70 xl:px-3 xl:text-[13px] ${
+                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[13px] xl:text-sm font-medium transition-all duration-200 whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70 ${
                     isActive
-                      ? 'border border-[#00F0FF]/35 bg-[#00F0FF]/[0.11] text-[#00F0FF] shadow-[0_0_16px_rgba(0,240,255,0.18)]'
-                      : 'border border-transparent text-slate-300 hover:bg-white/[0.04] hover:text-white'
+                      ? 'border border-cyan-400/35 bg-cyan-400/10 text-white shadow-[0_0_14px_rgba(34,211,238,0.22)]'
+                      : 'border border-transparent text-slate-300/85 hover:bg-white/[0.05] hover:text-white hover:shadow-[0_0_12px_rgba(34,211,238,0.12)]'
                   }`}
                 >
-                  {link.label}
+                  {isActive && (
+                    <span
+                      aria-hidden="true"
+                      className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300 shadow-[0_0_8px_rgba(34,211,238,0.9)]"
+                    />
+                  )}
+                  <span>{link.label}</span>
                 </a>
               );
             })}

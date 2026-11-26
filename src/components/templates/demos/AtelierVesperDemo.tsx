@@ -8,6 +8,10 @@ import {
   X,
 } from 'lucide-react';
 import { SafePhoto } from '../SafePhoto';
+import villaSolarisImg from '../../../assets/images/demo_atelier_interior_1795708679883.jpg';
+import aureliaPenthouseImg from '../../../assets/images/atelier_penthouse_1795713192689.jpg';
+import casaVerbenaImg from '../../../assets/images/atelier_verbena_1795713194214.jpg';
+import monolithRidgeImg from '../../../assets/images/atelier_monolith_1795713196479.jpg';
 
 interface DemoProps {
   isMobileViewport: boolean;
@@ -29,7 +33,7 @@ interface ArchitectureProject {
   image: string;
 }
 
-const HERO_IMAGE = '/src/assets/images/demo_atelier_interior_1795708679883.jpg';
+const HERO_IMAGE = villaSolarisImg;
 
 const PROJECTS: ArchitectureProject[] = [
   {
@@ -64,7 +68,7 @@ const PROJECTS: ArchitectureProject[] = [
       'Custom Italian walnut millwork concealing wine vault & cinema acoustics',
       'Wrap-around coastal deck with saltwater plunge basin',
     ],
-    image: '/src/assets/images/atelier_penthouse_1795713192689.jpg',
+    image: aureliaPenthouseImg,
   },
   {
     id: 'casa-terracotta',
@@ -81,7 +85,7 @@ const PROJECTS: ArchitectureProject[] = [
       'Open-air dining pavilion beneath hand-woven cane pergola',
       'Private plunge gardens with hand-carved basalt soaking tubs',
     ],
-    image: '/src/assets/images/atelier_verbena_1795713194214.jpg',
+    image: casaVerbenaImg,
   },
   {
     id: 'monolith-ridge',
@@ -98,7 +102,7 @@ const PROJECTS: ArchitectureProject[] = [
       'Floating glass-bridge entry spanning a natural rainwater reflecting pond',
       'Zero-net energy solar roof tiles with underground rainwater harvesting',
     ],
-    image: '/src/assets/images/atelier_monolith_1795713196479.jpg',
+    image: monolithRidgeImg,
   },
 ];
 
@@ -282,10 +286,12 @@ export function AtelierVesperDemo({
               onClick={() => setSelectedProject(project)}
               className="group flex flex-col overflow-hidden rounded-2xl border border-[#1F1A15]/12 bg-white/90 text-left transition-all duration-200 hover:-translate-y-1 hover:border-[#8E6F45]/55 hover:shadow-[0_18px_36px_-14px_rgba(31,26,21,0.18)] cursor-pointer"
             >
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#2A221B]">
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#E8E0D4]">
                 <SafePhoto
                   src={project.image}
+                  fallbackSrc={HERO_IMAGE}
                   alt={`${project.title} — ${project.category} in ${project.location}`}
+                  loading="eager"
                   fallbackClassName="bg-[#2D251E] text-[#F6F2EB]"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -393,10 +399,12 @@ export function AtelierVesperDemo({
             onClick={(e) => e.stopPropagation()}
             className="max-h-[85vh] w-full max-w-xl overflow-y-auto rounded-2xl border border-[#1F1A15]/15 bg-[#F6F2EB] text-[#1F1A15] shadow-2xl"
           >
-            <div className="relative h-56 w-full overflow-hidden bg-[#2D251E]">
+            <div className="relative h-56 w-full overflow-hidden bg-[#E8E0D4]">
               <SafePhoto
                 src={selectedProject.image}
+                fallbackSrc={HERO_IMAGE}
                 alt={selectedProject.title}
+                loading="eager"
                 fallbackClassName="bg-[#2D251E] text-[#F6F2EB]"
                 className="h-full w-full object-cover"
               />

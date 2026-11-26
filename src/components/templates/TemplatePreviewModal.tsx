@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -26,10 +26,14 @@ export function TemplatePreviewModal({
   const [viewportMode, setViewportMode] = useState<'desktop' | 'mobile'>(
     'desktop',
   );
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!template) return;
     setViewportMode('desktop');
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+    }
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
@@ -43,6 +47,12 @@ export function TemplatePreviewModal({
       window.removeEventListener('keydown', onKeyDown);
     };
   }, [template, onClose]);
+
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+    }
+  }, [template, viewportMode]);
 
   if (!template) return null;
 
@@ -167,6 +177,7 @@ export function TemplatePreviewModal({
       {/* Interactive Website Viewport Canvas */}
       <div className="relative flex-1 overflow-hidden bg-[#040711] p-0 sm:p-3">
         <div
+          ref={scrollContainerRef}
           className={`mx-auto h-full w-full overflow-y-auto overscroll-contain transition-all duration-300 ${
             isMobilePreview
               ? 'demo-viewport-mobile'

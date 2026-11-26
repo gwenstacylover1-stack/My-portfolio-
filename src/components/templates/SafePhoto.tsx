@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Image as ImageIcon } from 'lucide-react';
 
 interface SafePhotoProps {
   src: string;
+  fallbackSrc?: string;
   alt: string;
   className?: string;
   fallbackLabel?: string;
@@ -12,15 +13,22 @@ interface SafePhotoProps {
 
 export function SafePhoto({
   src,
+  fallbackSrc,
   alt,
   className = 'h-full w-full object-cover',
   fallbackLabel,
   fallbackClassName = 'bg-slate-900 text-slate-300',
   loading = 'lazy',
 }: SafePhotoProps) {
+  const [currentSrc, setCurrentSrc] = useState(src);
   const [failed, setFailed] = useState(false);
 
-  if (failed || !src) {
+  useEffect(() => {
+    setCurrentSrc(src);
+    setFailed(false);
+  }, [src]);
+
+  if (failed || !currentSrc) {
     return (
       <div
         role="img"
@@ -37,12 +45,18 @@ export function SafePhoto({
 
   return (
     <img
-      src={src}
+      src={currentSrc}
       alt={alt}
       loading={loading}
       decoding="async"
       referrerPolicy="no-referrer"
-      onError={() => setFailed(true)}
+      onError={() => {
+        if (fallbackSrc && currentSrc !== fallbackSrc) {
+          setCurrentSrc(fallbackSrc);
+        } else {
+          setFailed(true);
+        }
+      }}
       className={className}
     />
   );

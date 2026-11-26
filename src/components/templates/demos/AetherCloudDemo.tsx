@@ -149,10 +149,10 @@ export function AetherCloudDemo({
       {/* Real Interactive Three.js 3D WebGL Hero */}
       <section className="relative overflow-hidden border-b border-white/10">
         <div
-          className={`mx-auto grid max-w-6xl items-center gap-6 px-4 py-8 ${
+          className={`mx-auto grid max-w-6xl items-center gap-6 px-4 ${
             isMobileViewport
-              ? 'grid-cols-1'
-              : 'sm:px-8 sm:py-12 lg:grid-cols-12 lg:gap-8'
+              ? 'grid-cols-1 pt-12 pb-8'
+              : 'pt-20 pb-10 sm:px-8 sm:pt-24 sm:pb-14 lg:grid-cols-12 lg:gap-8'
           }`}
         >
           {/* Left Copy & CTA */}
