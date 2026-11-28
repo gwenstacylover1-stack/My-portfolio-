@@ -8,7 +8,10 @@ export function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 sm:flex-row sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-1 text-center sm:items-start sm:text-left">
           <p className="text-xs font-medium text-slate-300">
-            &copy; 2026 S.TARAK AI Labs &middot; Full-Stack Web &amp; Autonomous AI Systems
+            &copy; 2026{' '}
+            <span className="font-bold tracking-tight text-white">TARAK</span>
+            <span className="font-bold tracking-tight text-[#00f0ff]">.DEV</span>{' '}
+            &middot; Full-Stack Web &amp; Autonomous AI Systems
           </p>
           <a
             href={`mailto:${CONTACT_INFO.email}`}

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { Sparkles } from 'lucide-react';
 
 interface DemoImageProps {
   src: string;
@@ -64,7 +63,6 @@ export function DemoImage({
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.14),transparent_55%),radial-gradient(circle_at_80%_80%,rgba(245,158,11,0.12),transparent_55%)]"
         />
         <div className="relative flex h-full w-full flex-col items-center justify-center gap-2 p-4 text-center">
-          <Sparkles className="h-5 w-5 opacity-75" aria-hidden="true" />
           <span className="line-clamp-2 max-w-[85%] text-[11px] font-semibold tracking-wide opacity-85">
             {alt}
           </span>

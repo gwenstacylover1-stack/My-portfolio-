@@ -4,7 +4,6 @@ import {
   Copy,
   Mail,
   MessageCircle,
-  Sparkles,
   X,
 } from 'lucide-react';
 import { CONTACT_INFO } from '../../data/portfolioData';
@@ -102,7 +101,6 @@ export function TemplateQuoteModal({
         <div className="flex items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold text-[#00F0FF]">
-              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
               <span>Instant WhatsApp Quote</span>
             </div>
             <h3 className="mt-1.5 text-xl font-bold text-white sm:text-2xl">

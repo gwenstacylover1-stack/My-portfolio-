@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import {
   Activity,
-  Bot,
+  Cpu,
   Moon,
   Search,
   Send,
@@ -242,7 +242,7 @@ export function PulseOpsAiDemo({
         >
           <div className="flex items-center gap-2.5">
             <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-[#00F0FF] to-[#8B5CF6] text-[#070B16]">
-              <Bot className="h-4 w-4" aria-hidden="true" />
+              <Cpu className="h-4 w-4" aria-hidden="true" />
             </span>
             <div>
               <span className="text-sm font-bold tracking-tight block">
@@ -351,7 +351,7 @@ export function PulseOpsAiDemo({
               label: 'Client Retention',
               value: currentData.retention,
               delta: 'Top 1%',
-              icon: Bot,
+              icon: Cpu,
             },
           ].map((kpi) => {
             const Icon = kpi.icon;

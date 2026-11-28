@@ -9,7 +9,6 @@ import {
   GraduationCap,
   Rocket,
   ShieldCheck,
-  Sparkles,
   Wrench,
   Zap,
 } from 'lucide-react';
@@ -107,7 +106,6 @@ export function EducationDemo({ isMobileViewport }: IndustryDemoProps) {
           >
             <div className={isMobileViewport ? '' : 'lg:col-span-7'}>
               <span className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-[10px] font-bold tracking-[0.14em] text-amber-800 uppercase">
-                <Sparkles className="h-3.5 w-3.5" />
                 94% Top-Rank &amp; Placement Success Rate
               </span>
               <h1 className="max-w-3xl text-[26px] font-extrabold tracking-tight text-slate-900 leading-[1.12] sm:text-4xl lg:text-5xl">

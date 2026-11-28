@@ -29,7 +29,7 @@ export interface FlagshipProject {
   orderNumber: string;
   name: string;
   exactMediaLabel: string;
-  status: 'LIVE DEPLOYED' | 'IN DEVELOPMENT';
+  status: 'LIVE DEPLOYED' | 'LIVE BETA';
   accentTheme: ProjectAccentTheme;
   spotlightAccent: 'cyan' | 'blue' | 'pink' | 'emerald';
   youtubeUrl?: string;
@@ -65,7 +65,7 @@ export interface ServiceOffering {
   title: string;
   description: string;
   deliverables: string[];
-  icon: 'globe' | 'sparkles' | 'server';
+  icon: 'globe' | 'cpu' | 'server';
 }
 
 export interface EstimatorProjectType {
@@ -193,56 +193,12 @@ export const LIVE_PLATFORM_TECH = [
 
 export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
   {
-    id: 'dark-stark-smm',
-    orderNumber: '01',
-    name: 'Dark Stark SMM',
-    exactMediaLabel:
-      'Dark Stark SMM — Live Production Wallet, Order-Routing & Support Web Platform',
-    status: 'LIVE DEPLOYED',
-    accentTheme: 'cyan',
-    spotlightAccent: 'cyan',
-    fallbackImage: '/src/assets/images/lab_dark_stark_smm_panel_1795187929480.jpg',
-    liveUrl: CONTACT_INFO.livePlatformUrl,
-    summary:
-      'Live production SMM & digital services web platform featuring 100% automated ZapUPI instant wallet crediting, real-time two-way support tickets synced with a dedicated Admin Terminal, a Cloudflare Workers SMM v2 edge API proxy, and mobile-first checkout UX.',
-    tags: [
-      'React',
-      'Cloudflare Pages & Workers',
-      'Firebase Auth & DB',
-      'ZapUPI API',
-      'Tailwind CSS',
-    ],
-    chapters: [],
-    architecturePipeline: [
-      'Mobile-First React & Tailwind CSS SPA deployed globally on Cloudflare Pages',
-      'Cloudflare Workers API Proxy handling automated SMM v2 order placement, live balance syncing & multi-currency conversion',
-      'Automated ZapUPI Gateway for 100% instant UPI wallet crediting with zero manual UTR verification',
-      'Firebase Auth & Real-Time Database powering Two-Way Customer Support Threads & Admin Terminal management',
-    ],
-    engineeringFocus:
-      'Automated ZapUPI instant wallet crediting, real-time two-way support & admin terminal, Cloudflare Workers SMM v2 proxying, and mobile-first UX.',
-    caseStudy: {
-      coreGoal:
-        'Ship a fast, zero-clutter production SMM platform with 100% instant automated ZapUPI wallet crediting, real-time two-way customer support & Admin Terminal controls, and secure Cloudflare Workers SMM v2 order routing.',
-      securityHighlights: [
-        'Cloudflare Workers Edge Proxy completely isolates upstream SMM v2 provider API keys and ZapUPI credentials from client JavaScript.',
-        'Automated ZapUPI Gateway verifies UPI payments server-side for 100% instant wallet crediting with zero manual UTR verification.',
-        'Firebase Auth & real-time database rules strictly separate customer sessions, wallet balances, and dedicated Admin Terminal operations.',
-      ],
-      engineeringHighlights: [
-        'Two-Way Support & Admin Terminal syncs interactive customer ticket threads in real time for instant filtering, replying, and status management.',
-        'Custom Cloudflare Workers API proxy handles automated SMM v2 order placement, live balance syncing, and multi-currency conversion.',
-        'Mobile-first responsive UX delivers adaptive mobile/desktop navigation, live order tracking, and fast zero-clutter checkout flows.',
-      ],
-    },
-  },
-  {
     id: 'tarakverse-ai',
-    orderNumber: '02',
+    orderNumber: '01',
     name: 'TARAKVERSE AI',
     exactMediaLabel:
       'TARAKVERSE AI — AI Creative Production Suite',
-    status: 'IN DEVELOPMENT',
+    status: 'LIVE BETA',
     accentTheme: 'pink',
     spotlightAccent: 'pink',
     youtubeUrl: PROJECT_DEMO_VIDEOS.tarakverseAi,
@@ -319,11 +275,11 @@ export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
   },
   {
     id: 'jarvis-ai',
-    orderNumber: '03',
+    orderNumber: '02',
     name: 'J.A.R.V.I.S. AI',
     exactMediaLabel:
       'J.A.R.V.I.S. AI — Voice & Vision AI Assistant & Smart Home Hub',
-    status: 'IN DEVELOPMENT',
+    status: 'LIVE BETA',
     accentTheme: 'holo',
     spotlightAccent: 'blue',
     youtubeUrl: PROJECT_DEMO_VIDEOS.jarvisAi,
@@ -399,12 +355,56 @@ export const FLAGSHIP_PROJECTS: FlagshipProject[] = [
     },
   },
   {
+    id: 'dark-stark-smm',
+    orderNumber: '03',
+    name: 'Dark Stark SMM',
+    exactMediaLabel:
+      'Dark Stark SMM — Live Production Wallet, Order-Routing & Support Web Platform',
+    status: 'LIVE DEPLOYED',
+    accentTheme: 'cyan',
+    spotlightAccent: 'cyan',
+    fallbackImage: '/src/assets/images/lab_dark_stark_smm_panel_1795187929480.jpg',
+    liveUrl: CONTACT_INFO.livePlatformUrl,
+    summary:
+      'Social media marketing reseller storefront with wallet, UPI top-ups, and order tracking.',
+    tags: [
+      'React',
+      'Cloudflare Pages & Workers',
+      'Firebase Auth & DB',
+      'ZapUPI API',
+      'Tailwind CSS',
+    ],
+    chapters: [],
+    architecturePipeline: [
+      'Mobile-First React & Tailwind CSS SPA deployed globally on Cloudflare Pages',
+      'Cloudflare Workers API Proxy handling automated SMM v2 order placement, live balance syncing & multi-currency conversion',
+      'Automated ZapUPI Gateway for 100% instant UPI wallet crediting with zero manual UTR verification',
+      'Firebase Auth & Real-Time Database powering Two-Way Customer Support Threads & Admin Terminal management',
+    ],
+    engineeringFocus:
+      'Automated ZapUPI instant wallet crediting, real-time two-way support & admin terminal, Cloudflare Workers SMM v2 proxying, and mobile-first UX.',
+    caseStudy: {
+      coreGoal:
+        'Ship a fast, zero-clutter production SMM platform with 100% instant automated ZapUPI wallet crediting, real-time two-way customer support & Admin Terminal controls, and secure Cloudflare Workers SMM v2 order routing.',
+      securityHighlights: [
+        'Cloudflare Workers Edge Proxy completely isolates upstream SMM v2 provider API keys and ZapUPI credentials from client JavaScript.',
+        'Automated ZapUPI Gateway verifies UPI payments server-side for 100% instant wallet crediting with zero manual UTR verification.',
+        'Firebase Auth & real-time database rules strictly separate customer sessions, wallet balances, and dedicated Admin Terminal operations.',
+      ],
+      engineeringHighlights: [
+        'Two-Way Support & Admin Terminal syncs interactive customer ticket threads in real time for instant filtering, replying, and status management.',
+        'Custom Cloudflare Workers API proxy handles automated SMM v2 order placement, live balance syncing, and multi-currency conversion.',
+        'Mobile-first responsive UX delivers adaptive mobile/desktop navigation, live order tracking, and fast zero-clutter checkout flows.',
+      ],
+    },
+  },
+  {
     id: 'jhon-ai',
     orderNumber: '04',
     name: 'JHON AI',
     exactMediaLabel:
       'JHON AI — Real-Time Duplex Voice, Vision & Tactical Device Companion',
-    status: 'IN DEVELOPMENT',
+    status: 'LIVE BETA',
     accentTheme: 'emerald',
     spotlightAccent: 'emerald',
     youtubeUrl: PROJECT_DEMO_VIDEOS.jhonAi,
@@ -586,7 +586,7 @@ export const SERVICE_OFFERINGS: ServiceOffering[] = [
     description:
       'Real-time multimodal AI assistants, support bots, and generative media web tools.',
     deliverables: ['Live Voice & Camera Vision', 'Neural Bilingual TTS', 'Generative AI Studios'],
-    icon: 'sparkles',
+    icon: 'cpu',
   },
   {
     id: 'serverless-wallets',

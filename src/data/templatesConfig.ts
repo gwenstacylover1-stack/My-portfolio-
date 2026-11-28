@@ -46,33 +46,6 @@ export interface TemplateItem {
   liveUrl?: string;
 }
 
-export const SHOWCASE_METRICS = [
-  {
-    id: 'demos',
-    value: '6',
-    label: 'Signature Websites',
-    accent: 'cyan' as const,
-  },
-  {
-    id: 'turnaround',
-    value: '3–12 Days',
-    label: 'Rapid Turnaround',
-    accent: 'pink' as const,
-  },
-  {
-    id: 'responsive',
-    value: '100%',
-    label: 'Mobile-First Responsive',
-    accent: 'white' as const,
-  },
-  {
-    id: 'seo',
-    value: '99+',
-    label: 'Speed & SEO Score',
-    accent: 'emerald' as const,
-  },
-];
-
 export const TEMPLATE_TIERS: TierDefinition[] = [
   {
     id: 'standard',
@@ -211,3 +184,25 @@ export const TEMPLATE_CATALOG: TemplateItem[] = [
     previewComponent: PulseOpsAiDemo,
   },
 ];
+
+export const SHOWCASE_METRICS = [
+  {
+    id: 'demos',
+    value: String(TEMPLATE_CATALOG.length),
+    label: 'Signature Websites',
+    accent: 'cyan' as const,
+  },
+  {
+    id: 'turnaround',
+    value: '3–12 days',
+    label: 'depending on scope',
+    accent: 'pink' as const,
+  },
+  {
+    id: 'responsive',
+    value: '100%',
+    label: 'Mobile-First Responsive',
+    accent: 'white' as const,
+  },
+];
+

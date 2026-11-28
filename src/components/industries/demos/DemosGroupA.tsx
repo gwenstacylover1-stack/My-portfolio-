@@ -619,7 +619,7 @@ export function HealthcareDemo({ isMobileViewport }: IndustryDemoProps) {
       <div className="bg-[#0D9488] px-4 py-2 text-center text-xs font-semibold text-white">
         <span className="inline-flex flex-wrap items-center justify-center gap-2">
           <PhoneCall className="h-3.5 w-3.5" />
-          <span>24/7 Emergency &amp; Trauma Helpline: 1800-102-7726</span>
+          <span>24/7 Emergency &amp; Trauma Helpline: +91 00000 00000</span>
           <span className="hidden sm:inline opacity-80">
             · Cardiac Ambulance Dispatch &lt; 12 Mins
           </span>
@@ -672,7 +672,7 @@ export function HealthcareDemo({ isMobileViewport }: IndustryDemoProps) {
             <div className={isMobileViewport ? '' : 'lg:col-span-7'}>
               <span className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-teal-100 px-3 py-1 text-[10px] font-semibold tracking-[0.14em] text-[#0F766E] uppercase">
                 <ShieldCheck className="h-3.5 w-3.5" />
-                NABH Accredited · Cashless TPA Supported
+                Demo Care Standard · Cashless TPA Supported
               </span>
               <h1 className="text-[26px] font-bold tracking-tight text-slate-900 leading-[1.12] sm:text-4xl lg:text-5xl">
                 Precision multispecialty care &amp; painless dentistry.

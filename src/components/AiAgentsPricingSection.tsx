@@ -12,14 +12,17 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { CONTACT_INFO } from '../data/portfolioData';
-import { SpotlightCard, type SpotlightAccent } from './SpotlightCard';
+import {
+  ObsidianServiceCard,
+  type ObsidianCardAccent,
+} from './flagship-previews/SurfaceCard';
 
 interface AiAgentTier {
   id: string;
   title: string;
   priceInr: string;
   description: string;
-  accent: SpotlightAccent;
+  accent: ObsidianCardAccent;
   icon: typeof MessageSquare;
 }
 
@@ -136,7 +139,7 @@ export function AiAgentsPricingSection() {
               id="ai-agent-types-heading"
               className="mt-2.5 text-3xl font-bold tracking-tight text-white leading-[1.12] sm:text-4xl lg:text-5xl"
             >
-              Types of AI Agents We Build (Non-Video)
+              AI Agents We Build
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-400 sm:text-[15px]">
               Production-ready, revenue-focused autonomous agents engineered for
@@ -148,10 +151,11 @@ export function AiAgentsPricingSection() {
           <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {AI_AGENT_TIERS.map((agent) => {
               const Icon = agent.icon;
+              const isFlagship = agent.id === 'multi-agent-command-center';
               const deployHref = `mailto:${CONTACT_INFO.email}?subject=${encodeURIComponent(`AI Agent Inquiry - ${agent.title}`)}`;
               const iconAccent =
                 agent.accent === 'cyan'
-                  ? 'border-[#00F0FF]/30 bg-[#00F0FF]/10 text-[#00F0FF]'
+                  ? 'border-[#38bdf8]/30 bg-[#38bdf8]/10 text-[#38bdf8]'
                   : agent.accent === 'blue'
                     ? 'border-indigo-400/30 bg-indigo-400/12 text-indigo-300'
                     : agent.accent === 'pink'
@@ -159,19 +163,26 @@ export function AiAgentsPricingSection() {
                       : 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300';
 
               return (
-                <SpotlightCard
+                <ObsidianServiceCard
                   key={agent.id}
                   accent={agent.accent}
-                  className="p-6 transition-transform duration-200 hover:-translate-y-1"
+                  featured={isFlagship}
+                  className="p-6"
                 >
                   <div className="flex h-full flex-col">
                     <div className="flex items-start justify-between gap-3">
                       <div
-                        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border ${iconAccent}`}
+                        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12)] ${iconAccent}`}
                       >
                         <Icon className="h-5 w-5" aria-hidden="true" />
                       </div>
-                      <span className="inline-flex items-center rounded-full border border-fuchsia-400/30 bg-fuchsia-500/[0.1] px-3 py-1 text-xs font-bold text-fuchsia-200 tabular-nums whitespace-nowrap">
+                      <span
+                        className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-bold tabular-nums whitespace-nowrap ${
+                          isFlagship
+                            ? 'border-[#38bdf8]/40 bg-[#38bdf8]/[0.12] text-sky-100'
+                            : 'border-fuchsia-400/30 bg-fuchsia-500/[0.1] text-fuchsia-200'
+                        }`}
+                      >
                         {agent.priceInr}
                       </span>
                     </div>
@@ -184,20 +195,20 @@ export function AiAgentsPricingSection() {
                       {agent.description}
                     </p>
 
-                    <div className="mt-auto pt-5">
+                    <div className="mt-auto pt-6">
                       <a
                         href={deployHref}
-                        className="inline-flex min-h-[42px] w-full items-center justify-center gap-1.5 rounded-2xl border border-white/12 bg-white/[0.04] px-4 text-xs font-semibold text-slate-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-all hover:border-[#00F0FF]/45 hover:bg-[#00F0FF]/[0.1] hover:text-white whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70"
+                        className="inline-flex min-h-[42px] w-full items-center justify-center gap-1.5 rounded-2xl border border-white/12 bg-white/[0.04] px-4 text-xs font-semibold text-slate-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-all hover:border-[#38bdf8]/45 hover:bg-[#38bdf8]/[0.1] hover:text-white whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#38bdf8]/70"
                       >
                         <span>Deploy This Agent</span>
                         <ArrowUpRight
-                          className="h-3.5 w-3.5 shrink-0 text-[#00F0FF]"
+                          className="h-3.5 w-3.5 shrink-0 text-[#38bdf8]"
                           aria-hidden="true"
                         />
                       </a>
                     </div>
                   </div>
-                </SpotlightCard>
+                </ObsidianServiceCard>
               );
             })}
           </div>

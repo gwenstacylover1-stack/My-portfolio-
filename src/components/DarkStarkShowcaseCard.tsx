@@ -469,18 +469,14 @@ export function DarkStarkShowcaseCard({
               </h3>
 
               <p className="mt-2.5 hidden text-sm leading-relaxed text-slate-300 md:block sm:text-[15px]">
-                Full-stack live production wallet, automated SMM v2 order-routing,
-                and real-time customer support web platform deployed on Cloudflare
-                Global Edge and Firebase.
+                Social media marketing reseller storefront with wallet, UPI top-ups, and order tracking.
               </p>
             </div>
           </div>
 
           {/* Mobile Subtitle (keeps header emblem + title compact above CTA buttons) */}
           <p className="text-sm leading-relaxed text-slate-300 md:hidden">
-            Full-stack live production wallet, automated SMM v2 order-routing,
-            and real-time customer support web platform deployed on Cloudflare
-            Global Edge and Firebase.
+            Social media marketing reseller storefront with wallet, UPI top-ups, and order tracking.
           </p>
 
           {/* Action Buttons */}

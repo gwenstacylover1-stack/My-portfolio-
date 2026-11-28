@@ -4,7 +4,6 @@ import {
   ArrowUpRight,
   Monitor,
   Smartphone,
-  Sparkles,
   X,
 } from 'lucide-react';
 import {
@@ -157,9 +156,9 @@ export function TemplatePreviewModal({
             onClick={() => onRequestQuote(template)}
             className="inline-flex min-h-[38px] items-center gap-1.5 rounded-full bg-gradient-to-r from-[#00F0FF] via-[#38BDF8] to-[#EC4899] px-3 text-xs font-bold text-[#04060C] shadow-[0_0_20px_rgba(0,240,255,0.3)] transition-all hover:brightness-110 cursor-pointer whitespace-nowrap sm:min-h-[40px] sm:px-4"
           >
-            <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
             <span className="sm:hidden">Get This</span>
             <span className="hidden sm:inline">Want This Design?</span>
+            <ArrowUpRight className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
           </button>
 
           <button

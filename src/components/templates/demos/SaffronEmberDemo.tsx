@@ -4,7 +4,6 @@ import {
   Clock,
   Flame,
   Leaf,
-  Sparkles,
   UtensilsCrossed,
   X,
 } from 'lucide-react';
@@ -393,7 +392,6 @@ export function SaffronEmberDemo({
                           <>
                             <span aria-hidden="true">·</span>
                             <span className="inline-flex items-center gap-1 text-[#E8BC68]">
-                              <Sparkles className="h-3 w-3" aria-hidden="true" />
                               Chef&apos;s Pick
                             </span>
                           </>

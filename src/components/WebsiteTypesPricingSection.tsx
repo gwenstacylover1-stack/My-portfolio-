@@ -8,14 +8,17 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { CONTACT_INFO } from '../data/portfolioData';
-import { SpotlightCard, type SpotlightAccent } from './SpotlightCard';
+import {
+  ObsidianServiceCard,
+  type ObsidianCardAccent,
+} from './flagship-previews/SurfaceCard';
 
 interface WebsiteBuildTier {
   id: string;
   title: string;
   priceInr: string;
   description: string;
-  accent: SpotlightAccent;
+  accent: ObsidianCardAccent;
   icon: typeof Globe;
 }
 
@@ -104,9 +107,10 @@ export function WebsiteTypesPricingSection() {
             {WEBSITE_BUILD_TIERS.map((tier) => {
               const Icon = tier.icon;
               const quoteHref = `mailto:${CONTACT_INFO.email}?subject=${encodeURIComponent(`Website Quote - ${tier.title}`)}`;
+              const isEnterprise = tier.id === 'custom-webapp-saas';
               const iconAccent =
                 tier.accent === 'cyan'
-                  ? 'border-[#00F0FF]/30 bg-[#00F0FF]/10 text-[#00F0FF]'
+                  ? 'border-[#38bdf8]/30 bg-[#38bdf8]/10 text-[#38bdf8]'
                   : tier.accent === 'blue'
                     ? 'border-sky-400/30 bg-sky-400/10 text-sky-300'
                     : tier.accent === 'pink'
@@ -114,19 +118,20 @@ export function WebsiteTypesPricingSection() {
                       : 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300';
 
               return (
-                <SpotlightCard
+                <ObsidianServiceCard
                   key={tier.id}
                   accent={tier.accent}
-                  className="p-6 transition-transform duration-200 hover:-translate-y-1"
+                  featured={isEnterprise}
+                  className="p-6"
                 >
                   <div className="flex h-full flex-col">
                     <div className="flex items-start justify-between gap-3">
                       <div
-                        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border ${iconAccent}`}
+                        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12)] ${iconAccent}`}
                       >
                         <Icon className="h-5 w-5" aria-hidden="true" />
                       </div>
-                      <span className="inline-flex items-center rounded-full border border-[#00F0FF]/30 bg-[#00F0FF]/[0.09] px-3 py-1 text-xs font-bold text-[#00F0FF] tabular-nums whitespace-nowrap">
+                      <span className="inline-flex items-center rounded-full border border-[#38bdf8]/30 bg-[#38bdf8]/[0.09] px-3 py-1 text-xs font-bold text-[#38bdf8] tabular-nums whitespace-nowrap">
                         {tier.priceInr}
                       </span>
                     </div>
@@ -139,20 +144,20 @@ export function WebsiteTypesPricingSection() {
                       {tier.description}
                     </p>
 
-                    <div className="mt-auto pt-5">
+                    <div className="mt-auto pt-6">
                       <a
                         href={quoteHref}
-                        className="inline-flex min-h-[40px] items-center gap-1.5 border-t border-white/[0.08] pt-3.5 text-xs font-semibold text-[#00F0FF] transition-colors hover:text-white w-full justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70 rounded-lg"
+                        className="inline-flex min-h-[42px] w-full items-center justify-center gap-1.5 rounded-2xl border border-[#38bdf8]/35 bg-[#38bdf8]/[0.11] px-4 text-xs font-semibold text-sky-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] transition-all hover:border-[#38bdf8]/65 hover:bg-[#38bdf8]/[0.2] hover:text-white whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#38bdf8]/75"
                       >
                         <span>Request Quote</span>
                         <ArrowUpRight
-                          className="h-4 w-4 shrink-0"
+                          className="h-3.5 w-3.5 shrink-0 text-[#38bdf8]"
                           aria-hidden="true"
                         />
                       </a>
                     </div>
                   </div>
-                </SpotlightCard>
+                </ObsidianServiceCard>
               );
             })}
           </div>

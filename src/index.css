@@ -630,6 +630,77 @@
   animation: templateFadeUp 0.34s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
+/* ==========================================================================
+   21st.dev Flagship Service Surface & Interactive Preview Controls
+   ========================================================================== */
+
+@keyframes previewBorderSheen {
+  0% {
+    transform: translateX(-120%) skewX(-18deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateX(260%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+.flagship-sheen-sweep {
+  animation: previewBorderSheen 4.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.flagship-range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.flagship-range-slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 9999px;
+}
+
+.flagship-range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -7px;
+  height: 20px;
+  width: 20px;
+  border-radius: 9999px;
+  background: #38bdf8;
+  border: 2px solid #e0f2fe;
+  box-shadow:
+    0 0 0 4px rgba(56, 189, 248, 0.18),
+    0 0 18px rgba(56, 189, 248, 0.65);
+  transition: transform 150ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 150ms ease;
+}
+
+.flagship-range-slider:hover::-webkit-slider-thumb,
+.flagship-range-slider:focus-visible::-webkit-slider-thumb {
+  transform: scale(1.1);
+  box-shadow:
+    0 0 0 6px rgba(56, 189, 248, 0.24),
+    0 0 24px rgba(56, 189, 248, 0.85);
+}
+
+.flagship-range-slider::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 9999px;
+  background: #38bdf8;
+  border: 2px solid #e0f2fe;
+  box-shadow:
+    0 0 0 4px rgba(56, 189, 248, 0.18),
+    0 0 18px rgba(56, 189, 248, 0.65);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -649,6 +720,7 @@
   .ember-particle,
   .template-fade-up,
   .section-ambient-aura,
+  .flagship-sheen-sweep,
   .animate-pulse,
   .animate-ping {
     animation: none !important;

@@ -3,13 +3,13 @@ import {
   ArrowUpRight,
   Check,
   Copy,
+  Cpu,
   Globe,
   Mail,
   MapPin,
   MessageCircle,
   Send,
   Server,
-  Sparkles,
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import {
@@ -23,7 +23,7 @@ import { buildSmartEmailLink, getHireMeEmailLink } from '../utils/email';
 
 const SERVICE_ICONS = {
   globe: Globe,
-  sparkles: Sparkles,
+  cpu: Cpu,
   server: Server,
 };
 

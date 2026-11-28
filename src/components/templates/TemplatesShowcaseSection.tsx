@@ -80,15 +80,15 @@ export function TemplatesShowcaseSection() {
             </span>
           </h2>
           <p className="mt-3.5 text-sm leading-relaxed text-slate-300 sm:text-[15px]">
-            Explore 6 interactive flagship websites directly inside this
+            Explore {TEMPLATE_CATALOG.length} interactive flagship websites directly inside this
             portfolio—real shopping carts with promo codes, live booking slots
             with an Admin panel, interactive Three.js 3D WebGL experiences, and
             executive AI dashboards.
           </p>
         </div>
 
-        {/* 4 Trust Metrics Bar */}
-        <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        {/* 3 Trust Metrics Bar */}
+        <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
           {SHOWCASE_METRICS.map((metric) => (
             <div
               key={metric.id}
@@ -100,9 +100,7 @@ export function TemplatesShowcaseSection() {
                     ? 'text-[#00F0FF]'
                     : metric.accent === 'pink'
                       ? 'text-[#EC4899]'
-                      : metric.accent === 'emerald'
-                        ? 'text-emerald-400'
-                        : 'text-white'
+                      : 'text-white'
                 }`}
               >
                 {metric.value}

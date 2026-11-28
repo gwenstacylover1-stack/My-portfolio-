@@ -61,13 +61,16 @@ export function HeroSection() {
             </div>
 
             {/* Main Headline */}
-            <h1 className="mt-6 text-4xl font-bold tracking-[-0.03em] text-white sm:text-5xl lg:text-[3.85rem] lg:leading-[1.04]">
-              S.TARAK AI Labs
+            <h1 className="mt-6 text-5xl font-extrabold tracking-[-0.04em] leading-[0.95] sm:text-7xl md:text-8xl">
+              <span className="text-white">TARAK</span>
+              <span className="text-[#00f0ff] [text-shadow:0_0_24px_rgba(0,240,255,0.32)]">
+                .DEV
+              </span>
             </h1>
 
             {/* Electric Cyan-to-Blue Gradient Subtitle */}
-            <p className="mt-3 text-xl font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-[#4CC2FF] to-[#3B82F6] sm:text-2xl lg:text-[1.75rem]">
-              Full-Stack Web &amp; AI Systems Developer
+            <p className="mt-4 text-xl font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-[#4CC2FF] to-[#3B82F6] sm:text-2xl lg:text-[1.75rem]">
+              Full-Stack Web, App &amp; AI Engineer
             </p>
 
             {/* Subheadline */}

@@ -4,7 +4,7 @@ import {
   CheckCircle2,
   Clock,
   LayoutDashboard,
-  Sparkles,
+  Leaf,
   UserCheck,
   XCircle,
 } from 'lucide-react';
@@ -217,7 +217,7 @@ export function LumiereClinicDemo({
         >
           <div className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#183A2F] text-[#E6F2EC]">
-              <Sparkles className="h-4 w-4" aria-hidden="true" />
+              <Leaf className="h-4 w-4" aria-hidden="true" />
             </span>
             <span className="text-base font-bold tracking-tight text-[#142921] whitespace-nowrap">
               Lumière Clinic &amp; Spa

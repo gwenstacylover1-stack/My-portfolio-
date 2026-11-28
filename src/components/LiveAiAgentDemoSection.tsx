@@ -99,7 +99,7 @@ export function LiveAiAgentDemoSection() {
                   aria-hidden="true"
                   className="h-2 w-2 rounded-full bg-[#00F0FF] shadow-[0_0_10px_#00F0FF]"
                 />
-                <span>LIVE AUTONOMOUS DEMO</span>
+                <span>WORKFLOW PREVIEW</span>
               </div>
 
               <h2
@@ -126,15 +126,20 @@ export function LiveAiAgentDemoSection() {
                       aria-hidden="true"
                       className={`mt-2 h-2 w-2 shrink-0 rounded-full ${agent.dot}`}
                     />
-                    <p className="text-xs leading-relaxed text-slate-300 sm:text-[13.5px]">
-                      <strong className={`font-bold ${agent.accent}`}>
-                        {agent.name}
-                      </strong>{' '}
-                      <span className="font-semibold text-white">
-                        — {agent.role}
-                      </span>{' '}
-                      <span className="text-slate-400">({agent.detail})</span>
-                    </p>
+                    <div className="flex min-w-0 flex-1 flex-wrap items-start justify-between gap-2">
+                      <p className="min-w-0 flex-1 text-xs leading-relaxed text-slate-300 sm:text-[13.5px]">
+                        <strong className={`font-bold ${agent.accent}`}>
+                          {agent.name}
+                        </strong>{' '}
+                        <span className="font-semibold text-white">
+                          — {agent.role}
+                        </span>{' '}
+                        <span className="text-slate-400">({agent.detail})</span>
+                      </p>
+                      <span className="shrink-0 rounded-full border border-[#00F0FF]/25 bg-[#00F0FF]/[0.07] px-2.5 py-0.5 text-[10px] font-semibold tracking-wide text-cyan-200 whitespace-nowrap">
+                        Concept Demo
+                      </span>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -159,7 +164,7 @@ export function LiveAiAgentDemoSection() {
                     className="h-3.5 w-3.5 shrink-0 fill-current text-[#00F0FF]"
                     aria-hidden="true"
                   />
-                  <span>Watch Demo on YouTube</span>
+                  <span>Watch Real Agent in Action</span>
                 </a>
               </div>
             </div>

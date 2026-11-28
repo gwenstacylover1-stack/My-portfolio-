@@ -144,6 +144,17 @@ export function IndustryDemoModal({
         </div>
       </header>
 
+      {/* Always-Visible Sample Site Disclosure Bar */}
+      <div className="flex shrink-0 items-center justify-center border-b border-white/[0.08] bg-[#0B1120] px-3 py-1 text-center">
+        <span className="inline-flex items-center gap-1.5 text-[10.5px] font-medium tracking-[0.12em] text-slate-300/90 uppercase">
+          <span
+            aria-hidden="true"
+            className="h-1.5 w-1.5 rounded-full bg-amber-400/90"
+          />
+          SAMPLE SITE · Fictional business
+        </span>
+      </div>
+
       {/* 100% Edge-to-Edge Scrollable Interactive Website Canvas (Zero Scrollbar Gutter) */}
       <div
         ref={scrollContainerRef}

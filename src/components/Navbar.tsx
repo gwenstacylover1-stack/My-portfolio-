@@ -201,21 +201,16 @@ export function Navbar() {
               : 'border-white/[0.09] bg-[#070B16]/62 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] md:shadow-[0_0_28px_rgba(34,211,238,0.10),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-lg'
           }`}
         >
-          {/* Zone 1: Minimalist glowing monogram S.TARAK AI Labs */}
+          {/* Zone 1: Minimalist two-tone wordmark TARAK.DEV */}
           <a
             href="#top"
             onClick={(e) => handleNavClick(e, 'top', false)}
-            aria-label="S.TARAK AI Labs"
-            className="group inline-flex min-h-[44px] items-center gap-0.5 whitespace-nowrap shrink-0 rounded-lg px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70"
+            aria-label="TARAK.DEV"
+            className="group inline-flex min-h-[44px] items-center whitespace-nowrap shrink-0 rounded-lg px-1 text-lg font-bold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF]/70"
           >
-            <span className="text-lg font-extrabold tracking-tight text-[#00F0FF] drop-shadow-[0_0_12px_rgba(0,240,255,0.65)] transition-all duration-200 group-hover:drop-shadow-[0_0_18px_rgba(0,240,255,0.9)]">
-              S.
-            </span>
-            <span className="text-xs font-bold tracking-[0.2em] text-slate-200 transition-colors duration-200 group-hover:text-white">
-              TARAK
-            </span>
-            <span className="ml-1.5 hidden text-[10px] font-semibold tracking-[0.14em] text-cyan-300/85 uppercase sm:inline md:hidden xl:inline">
-              AI Labs
+            <span className="text-white">TARAK</span>
+            <span className="text-[#00f0ff] [text-shadow:0_0_14px_rgba(0,240,255,0.4)] transition-all duration-200 group-hover:[text-shadow:0_0_20px_rgba(0,240,255,0.7)]">
+              .DEV
             </span>
           </a>
 
@@ -301,14 +296,12 @@ export function Navbar() {
             <a
               href="#top"
               onClick={(e) => handleNavClick(e, 'top', true)}
-              className="inline-flex min-h-[44px] items-center gap-0.5 whitespace-nowrap"
+              aria-label="TARAK.DEV"
+              className="inline-flex min-h-[44px] items-center whitespace-nowrap text-lg font-bold tracking-tight"
             >
-              <span className="text-lg font-extrabold text-[#00F0FF]">S.</span>
-              <span className="text-xs font-bold tracking-[0.2em] text-slate-200">
-                TARAK
-              </span>
-              <span className="ml-1.5 text-[10px] font-semibold tracking-[0.14em] text-cyan-300/90 uppercase">
-                AI Labs
+              <span className="text-white">TARAK</span>
+              <span className="text-[#00f0ff] [text-shadow:0_0_14px_rgba(0,240,255,0.4)]">
+                .DEV
               </span>
             </a>
             <button

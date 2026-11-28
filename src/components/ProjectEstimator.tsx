@@ -7,7 +7,6 @@ import {
   MessageCircle,
   ShieldCheck,
   Sliders,
-  Sparkles,
   Zap,
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
@@ -647,10 +646,6 @@ export function ProjectEstimator() {
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="inline-flex items-center gap-2">
-                  <Sparkles
-                    className="h-4 w-4 text-[#00F0FF]"
-                    aria-hidden="true"
-                  />
                   <span className="text-[11px] font-semibold tracking-[0.14em] text-slate-200 uppercase sm:text-xs">
                     Live Estimate Summary
                   </span>
