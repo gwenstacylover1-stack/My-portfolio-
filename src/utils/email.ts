@@ -1,11 +1,11 @@
 import { CONTACT_INFO } from '../data/portfolioData';
 
-export const HIRE_ME_EMAIL_SUBJECT = 'New Project Inquiry — S.TARAK Portfolio';
+export const HIRE_ME_EMAIL_SUBJECT = 'New Project Inquiry — S.TARAK AI Labs';
 
 export const HIRE_ME_EMAIL_BODY = [
   'Hi Tarak,',
   '',
-  'I just explored your S.TARAK portfolio and would like to discuss a project:',
+  'I just explored S.TARAK AI Labs and would like to discuss a project:',
   '',
   '- Project Type (Website / 3D / AI Assistant / SaaS):',
   '- Target Timeline:',

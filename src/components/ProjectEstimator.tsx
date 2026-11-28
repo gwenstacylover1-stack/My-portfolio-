@@ -11,195 +11,167 @@ import {
   Zap,
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useCurrency, type CurrencyCode } from '../context/CurrencyContext';
+import { formatCurrencyRange } from '../context/CurrencyContext';
 import { CONTACT_INFO } from '../data/portfolioData';
 import { SpotlightCard } from './SpotlightCard';
 
 type DeliverySpeedId = 'standard' | 'priority';
 
 type ProjectTierId =
-  | 'standard-website'
-  | 'dynamic-website'
-  | 'super-features-platform'
-  | 'custom-ai-assistant'
-  | 'fullstack-saas-ecosystem';
-
-type ProjectGroupId = 'signature-websites' | 'flagship-ai-platforms';
+  | 'landing-starter'
+  | 'booking-service'
+  | 'luxury-corporate'
+  | 'ecommerce-store'
+  | 'custom-webapp-saas';
 
 interface ProjectTier {
   id: ProjectTierId;
-  group: ProjectGroupId;
   label: string;
   badge?: string;
   badgeTone?: 'cyan' | 'violet' | 'pink';
   subtitle: string;
   inrMin: number;
   inrMax: number;
-  usdMin: number;
-  usdMax: number;
   plusSuffix?: boolean;
   standardDelivery: string;
   expressDelivery: string;
 }
 
 type AddonId =
-  | 'ai-whatsapp-agent'
-  | 'interactive-3d-hero'
-  | 'payment-gateway'
-  | 'admin-analytics-dashboard'
-  | 'voice-llm-api'
-  | 'extra-pages-seo-cms';
+  | 'whatsapp-web-support'
+  | 'rag-knowledge-qa'
+  | 'seo-competitor-intel'
+  | 'hr-recruitment-onboarding'
+  | 'sales-closer-qualification'
+  | 'ai-voice-receptionist'
+  | 'backoffice-billing-automation'
+  | 'autonomous-ecommerce'
+  | 'multi-agent-command-center';
 
-interface PowerUpAddon {
+interface AiAgentAddon {
   id: AddonId;
   label: string;
   inrMin: number;
   inrMax: number;
-  usdMin: number;
-  usdMax: number;
-  includedInTiers?: ProjectTierId[];
+  plusSuffix?: boolean;
 }
-
-const PROJECT_GROUPS: { id: ProjectGroupId; title: string; note: string }[] = [
-  {
-    id: 'signature-websites',
-    title: 'Signature Websites',
-    note: 'High-converting sites, stores & 3D platforms',
-  },
-  {
-    id: 'flagship-ai-platforms',
-    title: 'Flagship AI & Custom Platforms',
-    note: 'Autonomous AI agents & full-stack ecosystems',
-  },
-];
 
 const PROJECT_TIERS: ProjectTier[] = [
   {
-    id: 'standard-website',
-    group: 'signature-websites',
-    label: 'Standard Website (Studio / Business / Portfolio)',
+    id: 'landing-starter',
+    label: 'Landing Page / Starter Site',
     subtitle:
-      'Bespoke mobile-first design, interactive galleries, WhatsApp capture & Cloudflare edge speed',
-    inrMin: 7999,
-    inrMax: 14999,
-    usdMin: 199,
-    usdMax: 349,
+      'Fast, mobile-first single-page or 5-page site engineered for lead capture, instant WhatsApp CTA, and strong first impressions',
+    inrMin: 15000,
+    inrMax: 35000,
     standardDelivery: '3–5 Days',
     expressDelivery: '2–3 Days',
   },
   {
-    id: 'dynamic-website',
-    group: 'signature-websites',
-    label: 'Dynamic Website (E-Commerce / Booking + Admin)',
+    id: 'booking-service',
+    label: 'Booking & Service Website',
     badge: 'Most Popular',
     badgeTone: 'cyan',
     subtitle:
-      'Full shopping cart or live slot booking, promo engine, customer workflows & synced Admin panel',
-    inrMin: 16999,
-    inrMax: 34999,
-    usdMin: 449,
-    usdMax: 899,
+      'Built-in appointment scheduling, interactive service menus, project galleries, and automated WhatsApp/email booking confirmations',
+    inrMin: 40000,
+    inrMax: 150000,
     standardDelivery: '7–12 Days',
     expressDelivery: '4–7 Days',
   },
   {
-    id: 'super-features-platform',
-    group: 'signature-websites',
-    label: 'Super Features Platform (Interactive 3D / SaaS UI / Analytics)',
+    id: 'luxury-corporate',
+    label: 'Custom Luxury / Corporate Website',
     subtitle:
-      'Interactive Three.js 3D hero, live ROI calculators, telemetry dashboards & zero-key edge APIs',
-    inrMin: 32999,
-    inrMax: 69999,
-    usdMin: 899,
-    usdMax: 1799,
-    standardDelivery: '2–3 Weeks',
-    expressDelivery: '8–12 Days',
+      'Bespoke high-end UI/UX, multi-page brand architecture, fluid animations, technical SEO setup, and ultra-fast cloud deployment',
+    inrMin: 50000,
+    inrMax: 200000,
+    standardDelivery: '1–2 Weeks',
+    expressDelivery: '5–8 Days',
   },
   {
-    id: 'custom-ai-assistant',
-    group: 'flagship-ai-platforms',
-    label: 'Custom AI Assistant / Voice Agent (Jarvis / John-class Automation)',
-    badge: 'HIGH-TICKET AI',
+    id: 'ecommerce-store',
+    label: 'E-Commerce & Online Store',
+    badge: 'D2C & Retail',
     badgeTone: 'violet',
     subtitle:
-      'Autonomous tool-calling AI assistant, WhatsApp / voice workflows, CRM hooks & safety guardrails',
-    inrMin: 45000,
-    inrMax: 125000,
-    usdMin: 1200,
-    usdMax: 3200,
-    standardDelivery: '2–4 Weeks',
-    expressDelivery: '10–18 Days',
+      'Complete online storefront with product catalogs, cart & checkout, UPI/card payment gateway integration, order tracking, and admin inventory control',
+    inrMin: 60000,
+    inrMax: 400000,
+    plusSuffix: true,
+    standardDelivery: '2–3 Weeks',
+    expressDelivery: '10–14 Days',
   },
   {
-    id: 'fullstack-saas-ecosystem',
-    group: 'flagship-ai-platforms',
-    label: 'Full-Stack SaaS / AI Ecosystem (Dark Stark SMM / Tarak Verse AI-class)',
+    id: 'custom-webapp-saas',
+    label: 'Custom Web App / SaaS Portal',
     badge: 'ENTERPRISE CUSTOM',
     badgeTone: 'pink',
     subtitle:
-      'End-to-end multi-user SaaS architecture, wallet/payment ledger, RBAC admin ops & AI pipelines',
-    inrMin: 75000,
-    inrMax: 250000,
-    usdMin: 2000,
-    usdMax: 6500,
+      'Full-stack web applications with secure user login, interactive dashboards, databases, custom API integrations, and proprietary business workflows',
+    inrMin: 250000,
+    inrMax: 600000,
     plusSuffix: true,
     standardDelivery: '4–8 Weeks',
     expressDelivery: '3–5 Weeks',
   },
 ];
 
-const POWERUP_ADDONS: PowerUpAddon[] = [
+const AI_AGENT_ADDONS: AiAgentAddon[] = [
   {
-    id: 'ai-whatsapp-agent',
-    label: 'AI Lead & WhatsApp Support Agent',
-    inrMin: 8000,
-    inrMax: 18000,
-    usdMin: 250,
-    usdMax: 550,
-    includedInTiers: ['custom-ai-assistant', 'fullstack-saas-ecosystem'],
+    id: 'whatsapp-web-support',
+    label: '24/7 WhatsApp & Web Support Agent',
+    inrMin: 25000,
+    inrMax: 85000,
   },
   {
-    id: 'interactive-3d-hero',
-    label: 'Interactive 3D Hero / Product Experience',
-    inrMin: 7000,
-    inrMax: 15000,
-    usdMin: 200,
-    usdMax: 450,
-    includedInTiers: ['super-features-platform'],
+    id: 'rag-knowledge-qa',
+    label: 'RAG Knowledge & Document Q&A Agent',
+    inrMin: 45000,
+    inrMax: 150000,
   },
   {
-    id: 'payment-gateway',
-    label: 'UPI / Razorpay / Stripe Payment Gateway + Ledger',
-    inrMin: 6000,
-    inrMax: 15000,
-    usdMin: 180,
-    usdMax: 450,
-    includedInTiers: ['fullstack-saas-ecosystem'],
+    id: 'seo-competitor-intel',
+    label: 'SEO & Competitor Intel Agent',
+    inrMin: 60000,
+    inrMax: 180000,
   },
   {
-    id: 'admin-analytics-dashboard',
-    label: 'Custom Admin, Auth & Analytics Dashboard',
-    inrMin: 8000,
-    inrMax: 20000,
-    usdMin: 250,
-    usdMax: 600,
-    includedInTiers: ['fullstack-saas-ecosystem'],
+    id: 'hr-recruitment-onboarding',
+    label: 'HR, Recruitment & Onboarding Agent',
+    inrMin: 75000,
+    inrMax: 200000,
   },
   {
-    id: 'voice-llm-api',
-    label: 'Voice AI / Multi-Model LLM API Integration',
-    inrMin: 15000,
-    inrMax: 35000,
-    usdMin: 450,
-    usdMax: 1000,
+    id: 'sales-closer-qualification',
+    label: 'Sales Closer & Lead Qualification Agent',
+    inrMin: 85000,
+    inrMax: 180000,
   },
   {
-    id: 'extra-pages-seo-cms',
-    label: 'Extra Pages / CMS / SEO Launch Pack',
-    inrMin: 4000,
-    inrMax: 9000,
-    usdMin: 120,
-    usdMax: 280,
+    id: 'ai-voice-receptionist',
+    label: 'AI Voice Receptionist Agent',
+    inrMin: 90000,
+    inrMax: 250000,
+  },
+  {
+    id: 'backoffice-billing-automation',
+    label: 'Back-Office & Billing Automation Agent',
+    inrMin: 100000,
+    inrMax: 350000,
+  },
+  {
+    id: 'autonomous-ecommerce',
+    label: 'Autonomous E-Commerce & Transactional Agent',
+    inrMin: 150000,
+    inrMax: 400000,
+  },
+  {
+    id: 'multi-agent-command-center',
+    label: 'Custom Multi-Agent Command Center',
+    inrMin: 500000,
+    inrMax: 1500000,
+    plusSuffix: true,
   },
 ];
 
@@ -226,16 +198,13 @@ const DELIVERY_SPEEDS: {
   },
 ];
 
-function roundForCurrency(amount: number, currency: CurrencyCode): number {
-  const step = currency === 'INR' ? 500 : 10;
-  return Math.round(amount / step) * step;
+function roundInr(amount: number): number {
+  return Math.round(amount / 1000) * 1000;
 }
 
 export function ProjectEstimator() {
-  const { currency, formatRange } = useCurrency();
-
   const [selectedTierId, setSelectedTierId] =
-    useState<ProjectTierId>('dynamic-website');
+    useState<ProjectTierId>('booking-service');
   const [selectedAddonIds, setSelectedAddonIds] = useState<AddonId[]>([]);
   const [deliverySpeedId, setDeliverySpeedId] =
     useState<DeliverySpeedId>('standard');
@@ -255,118 +224,86 @@ export function ProjectEstimator() {
   const selectedSpeed =
     DELIVERY_SPEEDS.find((s) => s.id === deliverySpeedId) ?? DELIVERY_SPEEDS[0];
 
-  const isAddonIncluded = (addon: PowerUpAddon, tierId: ProjectTierId) =>
-    Boolean(addon.includedInTiers?.includes(tierId));
-
-  const handleSelectTier = (tierId: ProjectTierId) => {
-    setSelectedTierId(tierId);
+  const toggleAddon = (addonId: AddonId) => {
     setSelectedAddonIds((prev) =>
-      prev.filter((addonId) => {
-        const addon = POWERUP_ADDONS.find((a) => a.id === addonId);
-        return addon ? !isAddonIncluded(addon, tierId) : false;
-      }),
+      prev.includes(addonId)
+        ? prev.filter((id) => id !== addonId)
+        : [...prev, addonId],
     );
   };
 
-  const toggleAddon = (addon: PowerUpAddon) => {
-    if (isAddonIncluded(addon, selectedTier.id)) return;
-    setSelectedAddonIds((prev) =>
-      prev.includes(addon.id)
-        ? prev.filter((id) => id !== addon.id)
-        : [...prev, addon.id],
-    );
-  };
-
-  const includedAddons = useMemo(
+  const activeAddons = useMemo(
     () =>
-      POWERUP_ADDONS.filter((addon) => isAddonIncluded(addon, selectedTier.id)),
-    [selectedTier.id],
+      AI_AGENT_ADDONS.filter((addon) => selectedAddonIds.includes(addon.id)),
+    [selectedAddonIds],
   );
 
-  const activePaidAddons = useMemo(
-    () =>
-      POWERUP_ADDONS.filter(
-        (addon) =>
-          selectedAddonIds.includes(addon.id) &&
-          !isAddonIncluded(addon, selectedTier.id),
-      ),
-    [selectedAddonIds, selectedTier.id],
-  );
-
-  const { totalMin, totalMax, depositMin, depositMax, targetDeliveryText } =
-    useMemo(() => {
-      const baseMin =
-        currency === 'INR' ? selectedTier.inrMin : selectedTier.usdMin;
-      const baseMax =
-        currency === 'INR' ? selectedTier.inrMax : selectedTier.usdMax;
-
-      const addonsMin = activePaidAddons.reduce(
-        (sum, a) => sum + (currency === 'INR' ? a.inrMin : a.usdMin),
-        0,
-      );
-      const addonsMax = activePaidAddons.reduce(
-        (sum, a) => sum + (currency === 'INR' ? a.inrMax : a.usdMax),
-        0,
-      );
-
-      const rawMin = (baseMin + addonsMin) * selectedSpeed.multiplier;
-      const rawMax = (baseMax + addonsMax) * selectedSpeed.multiplier;
-
-      const computedMin =
-        selectedSpeed.id === 'priority'
-          ? roundForCurrency(rawMin, currency)
-          : Math.round(rawMin);
-      const computedMax =
-        selectedSpeed.id === 'priority'
-          ? roundForCurrency(rawMax, currency)
-          : Math.round(rawMax);
-
-      const computedDepositMin = roundForCurrency(computedMin * 0.5, currency);
-      const computedDepositMax = roundForCurrency(computedMax * 0.5, currency);
-
-      return {
-        totalMin: computedMin,
-        totalMax: computedMax,
-        depositMin: computedDepositMin,
-        depositMax: computedDepositMax,
-        targetDeliveryText:
-          selectedSpeed.id === 'priority'
-            ? `${selectedTier.expressDelivery} (Express)`
-            : selectedTier.standardDelivery,
-      };
-    }, [currency, selectedTier, activePaidAddons, selectedSpeed]);
-
-  const isEnterpriseTier = selectedTier.id === 'fullstack-saas-ecosystem';
-  const formattedTotalRange = formatRange(
+  const {
     totalMin,
     totalMax,
-    Boolean(selectedTier.plusSuffix),
-  );
-  const formattedDepositRange = formatRange(
     depositMin,
     depositMax,
-    Boolean(selectedTier.plusSuffix),
+    hasPlusSuffix,
+    targetDeliveryText,
+  } = useMemo(() => {
+    const addonsMin = activeAddons.reduce((sum, a) => sum + a.inrMin, 0);
+    const addonsMax = activeAddons.reduce((sum, a) => sum + a.inrMax, 0);
+
+    const rawMin = (selectedTier.inrMin + addonsMin) * selectedSpeed.multiplier;
+    const rawMax = (selectedTier.inrMax + addonsMax) * selectedSpeed.multiplier;
+
+    const computedMin =
+      selectedSpeed.id === 'priority' ? roundInr(rawMin) : Math.round(rawMin);
+    const computedMax =
+      selectedSpeed.id === 'priority' ? roundInr(rawMax) : Math.round(rawMax);
+
+    const computedDepositMin = roundInr(computedMin * 0.5);
+    const computedDepositMax = roundInr(computedMax * 0.5);
+
+    const plus =
+      Boolean(selectedTier.plusSuffix) ||
+      activeAddons.some((addon) => Boolean(addon.plusSuffix));
+
+    return {
+      totalMin: computedMin,
+      totalMax: computedMax,
+      depositMin: computedDepositMin,
+      depositMax: computedDepositMax,
+      hasPlusSuffix: plus,
+      targetDeliveryText:
+        selectedSpeed.id === 'priority'
+          ? `${selectedTier.expressDelivery} (Express)`
+          : selectedTier.standardDelivery,
+    };
+  }, [selectedTier, activeAddons, selectedSpeed]);
+
+  const isEnterpriseTier = selectedTier.id === 'custom-webapp-saas';
+  const formattedTotalRange = formatCurrencyRange(
+    totalMin,
+    totalMax,
+    'INR',
+    hasPlusSuffix,
+  );
+  const formattedDepositRange = formatCurrencyRange(
+    depositMin,
+    depositMax,
+    'INR',
+    hasPlusSuffix,
   );
 
   const selectedFeaturesSummary = useMemo(() => {
-    const parts: string[] = [];
-    if (includedAddons.length > 0) {
-      parts.push(...includedAddons.map((a) => `${a.label} (Included)`));
-    }
-    if (activePaidAddons.length > 0) {
-      parts.push(...activePaidAddons.map((a) => a.label));
-    }
-    return parts.length > 0 ? parts.join(', ') : 'Core Tier Scope Only';
-  }, [includedAddons, activePaidAddons]);
+    if (activeAddons.length === 0) return 'Core Website Scope Only';
+    return activeAddons.map((a) => a.label).join(', ');
+  }, [activeAddons]);
 
   const briefText = useMemo(() => {
     return [
-      'Hi Tarak, here is my project brief from your portfolio:',
+      'Hi Tarak, here is my project brief from S.TARAK AI Labs:',
       `• Project Type: ${selectedTier.label}`,
-      `• Add-On Power-Ups: ${selectedFeaturesSummary}`,
+      `• Optional AI Agent Add-Ons: ${selectedFeaturesSummary}`,
       `• Delivery Speed: ${selectedSpeed.label} (${targetDeliveryText})`,
-      `• Estimated Investment (${currency}): ${formattedTotalRange}`,
-      `• 50% Deposit to Start (${currency}): ${formattedDepositRange}`,
+      `• Estimated Investment (INR): ${formattedTotalRange}`,
+      `• 50% Deposit to Start (INR): ${formattedDepositRange}`,
       '• Ready for a quick 15-min call to lock exact scope and kick off.',
     ].join('\n');
   }, [
@@ -374,7 +311,6 @@ export function ProjectEstimator() {
     selectedFeaturesSummary,
     selectedSpeed.label,
     targetDeliveryText,
-    currency,
     formattedTotalRange,
     formattedDepositRange,
   ]);
@@ -384,7 +320,7 @@ export function ProjectEstimator() {
   )}`;
 
   const enterpriseWhatsappHref = `https://wa.me/${CONTACT_INFO.whatsappNumber}?text=${encodeURIComponent(
-    `Hi Tarak, I'm looking to scope a custom AI or enterprise SaaS architecture (${currency}) and would love to discuss requirements.`,
+    `Hi Tarak, I'm looking to scope a custom AI or enterprise SaaS architecture (INR) and would love to discuss requirements.`,
   )}`;
 
   const handleCopyBrief = async () => {
@@ -432,7 +368,7 @@ export function ProjectEstimator() {
           viewport={{ once: true, amount: 0.08 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Clean Header — Zero Manual Currency Toggle */}
+          {/* Clean Header */}
           <div className="mb-6 max-w-2xl">
             <p className="text-[11px] font-semibold tracking-[0.14em] text-[#00F0FF] uppercase sm:text-xs">
               Transparent Build Configurator
@@ -441,8 +377,9 @@ export function ProjectEstimator() {
               Instant Project Estimator
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-[15px]">
-              Configure signature websites, autonomous AI agents, or full-stack
-              SaaS platforms and get a real-time ballpark estimate in seconds.
+              Configure your website package and optional autonomous AI agents
+              to calculate a unified, transparent INR ballpark estimate in
+              seconds.
             </p>
           </div>
 
@@ -450,7 +387,7 @@ export function ProjectEstimator() {
           <div className="mb-6 grid grid-cols-3 gap-2 rounded-2xl border border-white/10 bg-[#070B16]/85 p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] sm:flex sm:items-center sm:gap-3 sm:rounded-full sm:px-5 sm:py-2.5">
             <div className="flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-[#00F0FF]/[0.1] px-2 py-1.5 text-center text-[11px] font-semibold text-[#00F0FF] sm:justify-start sm:bg-transparent sm:p-0 sm:text-xs">
               <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#00F0FF] shadow-[0_0_8px_#00F0FF]" />
-              <span className="truncate sm:hidden">1. Tier</span>
+              <span className="truncate sm:hidden">1. Website</span>
               <span className="hidden sm:inline">1. Select Project Type</span>
             </div>
 
@@ -462,8 +399,8 @@ export function ProjectEstimator() {
             </span>
 
             <div className="flex min-w-0 items-center justify-center rounded-xl bg-white/[0.03] px-2 py-1.5 text-center text-[11px] font-semibold text-slate-200 sm:justify-start sm:bg-transparent sm:p-0 sm:text-xs">
-              <span className="truncate sm:hidden">2. Add-Ons</span>
-              <span className="hidden sm:inline">2. Power-Ups</span>
+              <span className="truncate sm:hidden">2. AI Agents</span>
+              <span className="hidden sm:inline">2. AI Agent Add-Ons</span>
             </div>
 
             <span
@@ -480,12 +417,12 @@ export function ProjectEstimator() {
           </div>
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-start">
-            {/* Left 7 Columns: Grouped Project Types, Uniform Toggle Power-Ups & Delivery Speed */}
+            {/* Left 7 Columns: Unified Website Tiers, Optional AI Agent Add-Ons & Delivery Speed */}
             <SpotlightCard
               accent="cyan"
               className="min-w-0 rounded-3xl p-5 sm:p-7 lg:col-span-7"
             >
-              {/* STEP 1: Select Project Type (Grouped) */}
+              {/* STEP 1: Select Project Type */}
               <div>
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.14em] text-[#00F0FF] uppercase sm:text-xs">
@@ -493,127 +430,107 @@ export function ProjectEstimator() {
                     <span>Step 1 · Select Project Type</span>
                   </div>
                   <span className="text-xs font-medium text-slate-400">
-                    5 Core Tiers
+                    5 Unified Website Tiers
                   </span>
                 </div>
 
-                <div className="mt-4 space-y-5">
-                  {PROJECT_GROUPS.map((group) => {
-                    const groupTiers = PROJECT_TIERS.filter(
-                      (t) => t.group === group.id,
+                <div className="mt-4 grid grid-cols-1 gap-3">
+                  {PROJECT_TIERS.map((tier) => {
+                    const isSelected = tier.id === selectedTier.id;
+                    const tierRange = formatCurrencyRange(
+                      tier.inrMin,
+                      tier.inrMax,
+                      'INR',
+                      Boolean(tier.plusSuffix),
                     );
+
                     return (
-                      <div key={group.id}>
-                        <div className="mb-2.5 flex items-center justify-between gap-2">
-                          <h3 className="text-[11px] font-semibold tracking-[0.14em] text-slate-300 uppercase sm:text-xs">
-                            {group.title}
-                          </h3>
-                          <span className="hidden text-xs text-slate-500 sm:inline">
-                            {group.note}
+                      <button
+                        key={tier.id}
+                        type="button"
+                        onClick={() => setSelectedTierId(tier.id)}
+                        aria-pressed={isSelected}
+                        className={`flex min-h-[48px] w-full min-w-0 flex-col items-start justify-between rounded-2xl border p-4 text-left transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] ${
+                          isSelected
+                            ? 'border-[#38BDF8]/60 bg-gradient-to-br from-[#00F0FF]/[0.11] via-[#3B82F6]/[0.07] to-[#8B5CF6]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_32px_-12px_rgba(0,240,255,0.34)]'
+                            : 'border-white/10 bg-white/[0.025] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] hover:border-[#818CF8]/35 hover:bg-white/[0.05]'
+                        }`}
+                      >
+                        <div className="flex w-full items-start justify-between gap-3">
+                          <div className="min-w-0 flex-1">
+                            {tier.badge && (
+                              <span
+                                className={`mb-1.5 inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-semibold tracking-[0.12em] uppercase ${
+                                  tier.badgeTone === 'pink'
+                                    ? 'border-[#EC4899]/45 bg-[#EC4899]/14 text-[#F472B6]'
+                                    : tier.badgeTone === 'violet'
+                                      ? 'border-violet-400/45 bg-violet-500/15 text-violet-300'
+                                      : 'border-[#00F0FF]/45 bg-[#00F0FF]/12 text-[#00F0FF]'
+                                }`}
+                              >
+                                {tier.badge}
+                              </span>
+                            )}
+                            <div className="text-base font-semibold leading-snug text-white sm:text-lg">
+                              {tier.label}
+                            </div>
+                            <p className="mt-1.5 text-sm leading-relaxed text-slate-400 sm:text-[15px]">
+                              {tier.subtitle}
+                            </p>
+                          </div>
+
+                          <span
+                            className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors ${
+                              isSelected
+                                ? 'border-[#00F0FF] bg-[#00F0FF] text-[#04060C] shadow-[0_0_12px_rgba(0,240,255,0.6)]'
+                                : 'border-white/20 bg-transparent'
+                            }`}
+                          >
+                            {isSelected && (
+                              <Check
+                                className="h-3 w-3 stroke-[3]"
+                                aria-hidden="true"
+                              />
+                            )}
                           </span>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-3">
-                          {groupTiers.map((tier) => {
-                            const isSelected = tier.id === selectedTier.id;
-                            const tierRange = formatRange(
-                              currency === 'INR' ? tier.inrMin : tier.usdMin,
-                              currency === 'INR' ? tier.inrMax : tier.usdMax,
-                              Boolean(tier.plusSuffix),
-                            );
-
-                            return (
-                              <button
-                                key={tier.id}
-                                type="button"
-                                onClick={() => handleSelectTier(tier.id)}
-                                aria-pressed={isSelected}
-                                className={`flex min-h-[48px] w-full min-w-0 flex-col items-start justify-between rounded-2xl border p-4 text-left transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] ${
-                                  isSelected
-                                    ? 'border-[#38BDF8]/60 bg-gradient-to-br from-[#00F0FF]/[0.11] via-[#3B82F6]/[0.07] to-[#8B5CF6]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_32px_-12px_rgba(0,240,255,0.34)]'
-                                    : 'border-white/10 bg-white/[0.025] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] hover:border-[#818CF8]/35 hover:bg-white/[0.05]'
-                                }`}
-                              >
-                                <div className="flex w-full items-start justify-between gap-3">
-                                  <div className="min-w-0 flex-1">
-                                    {tier.badge && (
-                                      <span
-                                        className={`mb-1.5 inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-semibold tracking-[0.12em] uppercase ${
-                                          tier.badgeTone === 'pink'
-                                            ? 'border-[#EC4899]/45 bg-[#EC4899]/14 text-[#F472B6]'
-                                            : tier.badgeTone === 'violet'
-                                              ? 'border-violet-400/45 bg-violet-500/15 text-violet-300'
-                                              : 'border-[#00F0FF]/45 bg-[#00F0FF]/12 text-[#00F0FF]'
-                                        }`}
-                                      >
-                                        {tier.badge}
-                                      </span>
-                                    )}
-                                    <div className="text-base font-semibold leading-snug text-white sm:text-lg">
-                                      {tier.label}
-                                    </div>
-                                    <p className="mt-1.5 text-sm leading-relaxed text-slate-400 sm:text-[15px]">
-                                      {tier.subtitle}
-                                    </p>
-                                  </div>
-
-                                  <span
-                                    className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors ${
-                                      isSelected
-                                        ? 'border-[#00F0FF] bg-[#00F0FF] text-[#04060C] shadow-[0_0_12px_rgba(0,240,255,0.6)]'
-                                        : 'border-white/20 bg-transparent'
-                                    }`}
-                                  >
-                                    {isSelected && (
-                                      <Check
-                                        className="h-3 w-3 stroke-[3]"
-                                        aria-hidden="true"
-                                      />
-                                    )}
-                                  </span>
-                                </div>
-
-                                <div className="mt-3.5 flex w-full flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-white/[0.07] pt-3 tabular-nums">
-                                  <span className="text-base font-bold text-white sm:text-lg">
-                                    {tierRange}
-                                  </span>
-                                  <span className="text-xs font-medium text-slate-400 sm:text-sm">
-                                    {deliverySpeedId === 'priority'
-                                      ? `${tier.expressDelivery} (Express)`
-                                      : tier.standardDelivery}
-                                  </span>
-                                </div>
-                              </button>
-                            );
-                          })}
+                        <div className="mt-3.5 flex w-full flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-white/[0.07] pt-3 tabular-nums">
+                          <span className="text-base font-bold text-white sm:text-lg">
+                            {tierRange}
+                          </span>
+                          <span className="text-xs font-medium text-slate-400 sm:text-sm">
+                            {deliverySpeedId === 'priority'
+                              ? `${tier.expressDelivery} (Express)`
+                              : tier.standardDelivery}
+                          </span>
                         </div>
-                      </div>
+                      </button>
                     );
                   })}
                 </div>
               </div>
 
-              {/* STEP 2: Add-On Power-Ups (100% Uniform Smooth Toggle-Switch Component) */}
+              {/* STEP 2: Optional AI Agent Add-Ons (Matched to Non-Video AI Agents Pricing Grid) */}
               <div className="mt-8 border-t border-white/[0.08] pt-6">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.14em] text-[#818CF8] uppercase sm:text-xs">
                     <Sliders className="h-4 w-4 shrink-0" aria-hidden="true" />
-                    <span>Step 2 · Add-On Power-Ups</span>
+                    <span>Step 2 · Optional AI Agent Add-Ons</span>
                   </div>
                   <span className="text-xs font-medium text-slate-400 tabular-nums">
-                    {activePaidAddons.length} optional · {includedAddons.length}{' '}
-                    included
+                    {activeAddons.length} selected
                   </span>
                 </div>
 
                 <div className="mt-3.5 space-y-2.5">
-                  {POWERUP_ADDONS.map((addon) => {
-                    const included = isAddonIncluded(addon, selectedTier.id);
-                    const enabled =
-                      included || selectedAddonIds.includes(addon.id);
-                    const priceRange = formatRange(
-                      currency === 'INR' ? addon.inrMin : addon.usdMin,
-                      currency === 'INR' ? addon.inrMax : addon.usdMax,
+                  {AI_AGENT_ADDONS.map((addon) => {
+                    const enabled = selectedAddonIds.includes(addon.id);
+                    const priceRange = formatCurrencyRange(
+                      addon.inrMin,
+                      addon.inrMax,
+                      'INR',
+                      Boolean(addon.plusSuffix),
                     );
 
                     return (
@@ -622,63 +539,38 @@ export function ProjectEstimator() {
                         type="button"
                         role="switch"
                         aria-checked={enabled}
-                        aria-disabled={included}
-                        disabled={included}
-                        onClick={() => toggleAddon(addon)}
-                        className={`flex min-h-[60px] w-full items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] ${
-                          included
-                            ? 'cursor-not-allowed border-emerald-400/30 bg-emerald-400/[0.06]'
-                            : enabled
-                              ? 'cursor-pointer border-[#38BDF8]/50 bg-gradient-to-r from-[#00F0FF]/[0.09] to-[#8B5CF6]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_0_24px_-12px_rgba(0,240,255,0.3)]'
-                              : 'cursor-pointer border-white/10 bg-white/[0.025] hover:border-white/25 hover:bg-white/[0.05]'
+                        onClick={() => toggleAddon(addon.id)}
+                        className={`flex min-h-[60px] w-full cursor-pointer items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] ${
+                          enabled
+                            ? 'border-[#38BDF8]/50 bg-gradient-to-r from-[#00F0FF]/[0.09] to-[#8B5CF6]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_0_24px_-12px_rgba(0,240,255,0.3)]'
+                            : 'border-white/10 bg-white/[0.025] hover:border-white/25 hover:bg-white/[0.05]'
                         }`}
                       >
                         <div className="min-w-0 flex-1">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <span className="text-sm font-semibold leading-snug text-white sm:text-[15px]">
-                              {addon.label}
-                            </span>
-                            {included && (
-                              <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-emerald-400/45 bg-emerald-400/15 px-2 py-0.5 text-[10px] font-bold tracking-[0.12em] text-emerald-300 uppercase">
-                                <Check
-                                  className="h-3 w-3 stroke-[2.75]"
-                                  aria-hidden="true"
-                                />
-                                <span>INCLUDED</span>
-                              </span>
-                            )}
+                          <div className="text-sm font-semibold leading-snug text-white sm:text-[15px]">
+                            {addon.label}
                           </div>
                           <div className="mt-1 text-xs font-semibold tabular-nums sm:text-sm">
-                            {included ? (
-                              <span className="text-emerald-300/90">
-                                Built into your selected tier at no extra cost
-                              </span>
-                            ) : (
-                              <span className="text-[#7DD3FC]">
-                                +{priceRange}
-                              </span>
-                            )}
+                            <span className="text-[#7DD3FC]">
+                              +{priceRange}
+                            </span>
                           </div>
                         </div>
 
-                        {/* Uniform Smooth Toggle Switch for EVERY Add-On */}
+                        {/* Uniform Smooth Toggle Switch */}
                         <span
                           aria-hidden="true"
                           className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full border transition-all duration-200 ${
-                            included
-                              ? 'border-emerald-400/50 bg-emerald-400/30'
-                              : enabled
-                                ? 'border-[#00F0FF]/65 bg-gradient-to-r from-[#00F0FF] to-[#818CF8] shadow-[0_0_14px_rgba(0,240,255,0.45)]'
-                                : 'border-white/15 bg-[#050814]'
+                            enabled
+                              ? 'border-[#00F0FF]/65 bg-gradient-to-r from-[#00F0FF] to-[#818CF8] shadow-[0_0_14px_rgba(0,240,255,0.45)]'
+                              : 'border-white/15 bg-[#050814]'
                           }`}
                         >
                           <span
                             className={`inline-block h-4 w-4 rounded-full shadow-sm transition-transform duration-200 ${
-                              included
-                                ? 'translate-x-[22px] bg-emerald-300'
-                                : enabled
-                                  ? 'translate-x-[22px] bg-[#04060C]'
-                                  : 'translate-x-[3px] bg-slate-400'
+                              enabled
+                                ? 'translate-x-[22px] bg-[#04060C]'
+                                : 'translate-x-[3px] bg-slate-400'
                             }`}
                           />
                         </span>
@@ -774,7 +666,7 @@ export function ProjectEstimator() {
               {/* Dynamic Ballpark Investment Box */}
               <div className="mt-5 rounded-2xl border border-[#38BDF8]/28 bg-[#040712]/90 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_34px_-16px_rgba(0,240,255,0.22)]">
                 <div className="text-[11px] font-semibold tracking-[0.14em] text-[#00F0FF] uppercase sm:text-xs">
-                  Estimated Investment ({currency})
+                  Estimated Investment (INR)
                 </div>
                 <div className="mt-2 text-2xl font-extrabold tracking-tight text-white tabular-nums sm:text-3xl sm:leading-tight">
                   {formattedTotalRange}
@@ -822,7 +714,7 @@ export function ProjectEstimator() {
 
                 <div className="flex items-start justify-between gap-3">
                   <span className="shrink-0 text-slate-400">
-                    Selected Features
+                    AI Agent Add-Ons
                   </span>
                   <span className="text-right font-medium text-slate-200">
                     {selectedFeaturesSummary}

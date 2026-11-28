@@ -4,6 +4,7 @@
  */
 
 import { useState } from 'react';
+import { AiAgentsPricingSection } from './components/AiAgentsPricingSection';
 import { AiLabsSection } from './components/AiLabsSection';
 import { ArchitectureSection } from './components/ArchitectureSection';
 import { CaseStudyDrawer } from './components/CaseStudyDrawer';
@@ -11,12 +12,15 @@ import { ContactSection } from './components/ContactSection';
 import { CreativeChannelsSection } from './components/CreativeChannelsSection';
 import { Footer } from './components/Footer';
 import { HeroSection } from './components/HeroSection';
+import { IndustriesServedSection } from './components/IndustriesServedSection';
+import { LiveAiAgentDemoSection } from './components/LiveAiAgentDemoSection';
 import { LiveProductionSection } from './components/LiveProductionSection';
 import { Navbar } from './components/Navbar';
 import { ProjectEstimator } from './components/ProjectEstimator';
 import { ProjectModal } from './components/ProjectModal';
 import { SkillsSection } from './components/SkillsSection';
 import { Tarak3DStudioSection } from './components/Tarak3DStudioSection';
+import { WebsiteTypesPricingSection } from './components/WebsiteTypesPricingSection';
 import { TemplatesShowcaseSection } from './components/templates/TemplatesShowcaseSection';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { FlagshipProject } from './data/portfolioData';
@@ -67,6 +71,7 @@ export default function App() {
           <Navbar />
           <main className="flex-1">
             <HeroSection />
+            <LiveAiAgentDemoSection />
             <Tarak3DStudioSection />
             <AiLabsSection
               onOpenProjectDemo={handleOpenProjectDemo}
@@ -79,6 +84,9 @@ export default function App() {
             <SkillsSection />
             <ArchitectureSection />
             <TemplatesShowcaseSection />
+            <WebsiteTypesPricingSection />
+            <AiAgentsPricingSection />
+            <IndustriesServedSection />
             <ProjectEstimator />
             <CreativeChannelsSection />
             <ContactSection />

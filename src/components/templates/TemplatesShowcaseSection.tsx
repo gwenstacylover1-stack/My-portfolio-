@@ -3,12 +3,8 @@ import {
   ArrowUpRight,
   Check,
   Eye,
-  Layers,
   MessageCircle,
-  Minus,
-  Sparkles,
 } from 'lucide-react';
-import { useCurrency } from '../../context/CurrencyContext';
 import {
   SHOWCASE_METRICS,
   TEMPLATE_CATALOG,
@@ -28,7 +24,6 @@ import {
 type FilterValue = 'all' | TemplateTierId;
 
 export function TemplatesShowcaseSection() {
-  const { currency, formatMoney } = useCurrency();
   const [activeTier, setActiveTier] = useState<FilterValue>('all');
   const [previewTemplate, setPreviewTemplate] = useState<TemplateItem | null>(
     null,
@@ -48,20 +43,12 @@ export function TemplatesShowcaseSection() {
     return TEMPLATE_CATALOG.filter((item) => item.tier === activeTier);
   }, [activeTier]);
 
-  const getTemplatePriceLabel = (template: TemplateItem) =>
-    formatMoney(currency === 'INR' ? template.priceInr : template.priceUsd);
-
-  const getTierPriceLabel = (tier: (typeof TEMPLATE_TIERS)[number]) =>
-    formatMoney(
-      currency === 'INR' ? tier.startingPriceInr : tier.startingPriceUsd,
-    );
-
   const handleOpenTemplateQuote = (template: TemplateItem) => {
     const tierMeta = TEMPLATE_TIERS.find((t) => t.id === template.tier);
     setQuoteTarget({
       templateTitle: template.title,
-      tierLabel: tierMeta ? `${tierMeta.label} Tier` : template.tier,
-      priceLabel: getTemplatePriceLabel(template),
+      tierLabel: tierMeta ? tierMeta.label : template.tier,
+      priceLabel: template.priceLabel,
     });
   };
 
@@ -164,7 +151,11 @@ export function TemplatesShowcaseSection() {
             {TEMPLATE_TIERS.map((tier) => {
               const active = activeTier === tier.id;
               const mobileShortLabel =
-                tier.id === 'super' ? 'Super' : tier.shortLabel;
+                tier.id === 'dynamic'
+                  ? 'Store'
+                  : tier.id === 'super'
+                    ? 'SaaS'
+                    : tier.shortLabel;
               return (
                 <button
                   key={tier.id}
@@ -208,7 +199,7 @@ export function TemplatesShowcaseSection() {
                 : template.tier === 'dynamic'
                   ? 'cyan'
                   : 'blue';
-            const displayPrice = getTemplatePriceLabel(template);
+            const displayPrice = template.priceLabel;
 
             return (
               <SpotlightCard
@@ -356,154 +347,6 @@ export function TemplatesShowcaseSection() {
           })}
         </div>
 
-        {/* 3-TIER COMPARISON MATRIX: Standard vs Dynamic vs Super Features */}
-        <div
-          id="compare-tiers"
-          className="mt-16 scroll-mt-24 border-t border-white/[0.08] pt-14 sm:mt-20 sm:pt-16"
-        >
-          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-2xl">
-              <p className="text-[11px] font-semibold tracking-[0.14em] text-[#A855F7] uppercase sm:text-xs">
-                Clear Engineering Breakdown
-              </p>
-              <h3 className="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">
-                Standard vs Dynamic vs Super Features
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-400 sm:text-[15px]">
-                Compare exact capabilities side-by-side to choose the build tier
-                that fits your goals today.
-              </p>
-            </div>
-
-            <button
-              type="button"
-              onClick={() =>
-                setQuoteTarget({
-                  templateTitle: 'Custom Website Inquiry',
-                  tierLabel: 'Custom Scope',
-                })
-              }
-              className="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-full border border-white/12 bg-white/[0.04] px-5 text-xs font-semibold text-slate-200 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-all hover:border-[#00F0FF]/45 hover:text-white cursor-pointer whitespace-nowrap md:self-auto"
-            >
-              <Layers className="h-4 w-4 text-[#00F0FF]" aria-hidden="true" />
-              <span>Need a Custom Hybrid Build?</span>
-            </button>
-          </div>
-
-          <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
-            {TEMPLATE_TIERS.map((tier) => {
-              const isPopular = Boolean(tier.popular);
-              const tierStartingPrice = getTierPriceLabel(tier);
-
-              return (
-                <div
-                  key={tier.id}
-                  className={`relative flex flex-col rounded-3xl p-6 transition-all duration-300 sm:p-7 ${
-                    isPopular
-                      ? 'border border-[#38BDF8]/45 bg-[#0A1124]/92 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_26px_64px_-22px_rgba(0,0,0,0.88),0_0_52px_-16px_rgba(0,240,255,0.3),0_0_70px_-24px_rgba(139,92,246,0.28)]'
-                      : 'liquid-glass'
-                  }`}
-                >
-                  {isPopular && (
-                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-[#00F0FF] via-[#38BDF8] to-[#818CF8] px-4 py-1 text-[11px] font-bold tracking-[0.12em] text-[#04060C] uppercase shadow-[0_6px_24px_rgba(0,240,255,0.35)]">
-                      Most Popular Choice
-                    </div>
-                  )}
-
-                  <div className="flex items-center justify-between gap-2 text-xs">
-                    <span
-                      className={`text-[11px] font-semibold tracking-[0.14em] uppercase ${
-                        tier.accent === 'cyan'
-                          ? 'text-[#00F0FF]'
-                          : tier.accent === 'pink'
-                            ? 'text-[#EC4899]'
-                            : 'text-amber-300'
-                      }`}
-                    >
-                      {tier.tierNumber} · {tier.label}
-                    </span>
-                    <span className="font-medium text-slate-400 tabular-nums">
-                      {tier.turnaround}
-                    </span>
-                  </div>
-
-                  <h4 className="mt-3 text-xl font-bold tracking-tight text-white sm:text-2xl">
-                    {tier.headline}
-                  </h4>
-                  <p className="mt-1.5 text-sm leading-relaxed text-slate-400">
-                    {tier.description}
-                  </p>
-
-                  <div className="mt-5 border-b border-white/10 pb-5">
-                    <span
-                      className={`text-2xl font-extrabold tabular-nums sm:text-3xl ${
-                        tier.accent === 'cyan'
-                          ? 'text-[#00F0FF]'
-                          : tier.accent === 'pink'
-                            ? 'text-[#EC4899]'
-                            : 'text-white'
-                      }`}
-                    >
-                      {tierStartingPrice}
-                    </span>
-                    <span className="ml-2 text-xs font-medium text-slate-400">
-                      starting package
-                    </span>
-                  </div>
-
-                  <ul className="mt-5 flex-1 space-y-3 text-sm">
-                    {tier.capabilities.map((cap) => (
-                      <li
-                        key={cap.label}
-                        className={`flex items-start gap-2.5 ${
-                          cap.included ? 'text-slate-200' : 'text-slate-500'
-                        }`}
-                      >
-                        {cap.included ? (
-                          <Check
-                            className={`mt-0.5 h-4 w-4 shrink-0 ${
-                              tier.accent === 'cyan'
-                                ? 'text-[#00F0FF]'
-                                : tier.accent === 'pink'
-                                  ? 'text-[#EC4899]'
-                                  : 'text-emerald-400'
-                            }`}
-                            aria-hidden="true"
-                          />
-                        ) : (
-                          <Minus
-                            className="mt-0.5 h-4 w-4 shrink-0 text-slate-600"
-                            aria-hidden="true"
-                          />
-                        )}
-                        <span>{cap.label}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setQuoteTarget({
-                        templateTitle: `${tier.label} Tier Website`,
-                        tierLabel: `${tier.label} Tier`,
-                        priceLabel: tierStartingPrice,
-                      })
-                    }
-                    className={`mt-7 inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-2xl px-5 text-sm font-bold transition-all cursor-pointer ${
-                      isPopular
-                        ? 'bg-gradient-to-r from-[#00F0FF] via-[#38BDF8] to-[#8B5CF6] text-[#04060C] shadow-[0_0_28px_rgba(0,240,255,0.3)] hover:brightness-110'
-                        : 'border border-white/14 bg-white/[0.05] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] hover:border-[#00F0FF]/45 hover:bg-white/[0.1]'
-                    }`}
-                  >
-                    <Sparkles className="h-4 w-4" aria-hidden="true" />
-                    <span>Select {tier.label} Tier</span>
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        </div>
       </div>
 
       {/* Full-Screen Interactive Website Preview Modal */}

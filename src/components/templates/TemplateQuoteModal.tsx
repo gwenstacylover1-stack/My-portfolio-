@@ -7,7 +7,6 @@ import {
   Sparkles,
   X,
 } from 'lucide-react';
-import { useCurrency } from '../../context/CurrencyContext';
 import { CONTACT_INFO } from '../../data/portfolioData';
 import { buildSmartEmailLink } from '../../utils/email';
 
@@ -32,7 +31,6 @@ export function TemplateQuoteModal({
   target,
   onClose,
 }: TemplateQuoteModalProps) {
-  const { currency } = useCurrency();
   const [clientName, setClientName] = useState('');
   const [businessName, setBusinessName] = useState('');
   const [timeline, setTimeline] = useState<string>(TIMELINES[1]);
@@ -55,7 +53,7 @@ export function TemplateQuoteModal({
       `Hi Tarak! I'd like to request a quote from your Signature Websites showcase:`,
       ``,
       `• Selected Design: ${target.templateTitle}`,
-      `• Package Tier: ${target.tierLabel}${target.priceLabel ? ` (Starting ${target.priceLabel} ${currency})` : ` (${currency})`}`,
+      `• Package Tier: ${target.tierLabel}${target.priceLabel ? ` (${target.priceLabel} INR)` : ' (INR)'}`,
       clientName.trim() ? `• My Name: ${clientName.trim()}` : null,
       businessName.trim() ? `• Business / Brand: ${businessName.trim()}` : null,
       `• Preferred Timeline: ${timeline}`,
@@ -139,7 +137,7 @@ export function TemplateQuoteModal({
               </p>
               {target.priceLabel && (
                 <p className="text-sm font-bold text-white tabular-nums">
-                  From {target.priceLabel} ({currency})
+                  {target.priceLabel} (INR)
                 </p>
               )}
             </div>

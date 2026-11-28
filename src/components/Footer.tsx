@@ -1,13 +1,23 @@
-import { ArrowUp, ArrowUpRight } from 'lucide-react';
+import { ArrowUp, ArrowUpRight, Mail } from 'lucide-react';
+import { CONTACT_INFO } from '../data/portfolioData';
 import { SOCIAL_LINKS } from './SocialIcons';
 
 export function Footer() {
   return (
     <footer className="border-t border-white/[0.08] bg-[#04060B]/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 sm:flex-row sm:px-6 lg:px-8">
-        <p className="text-center text-xs text-slate-400 sm:text-left">
-          &copy; 2026 S.TARAK &middot; Full-Stack Web &amp; AI Systems
-        </p>
+        <div className="flex flex-col items-center gap-1 text-center sm:items-start sm:text-left">
+          <p className="text-xs font-medium text-slate-300">
+            &copy; 2026 S.TARAK AI Labs &middot; Full-Stack Web &amp; Autonomous AI Systems
+          </p>
+          <a
+            href={`mailto:${CONTACT_INFO.email}`}
+            className="inline-flex items-center gap-1.5 text-xs text-cyan-300/90 transition-colors hover:text-[#00F0FF]"
+          >
+            <Mail className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+            <span>{CONTACT_INFO.email}</span>
+          </a>
+        </div>
 
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium">
           <a
